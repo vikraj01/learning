@@ -18,3 +18,15 @@ The `.excalidraw` files are the drawings. Open them in VS Code to see them.
 8. [What each line of a Dockerfile means](01-docker/08-dockerfile-instructions.md)
 
 Quick reference: [all Docker commands](01-docker/commands.md), with ready-made files in [`01-docker/files/`](01-docker/files/).
+
+## 2. Project: the message box
+
+Build a small web app in JavaScript, put it in Docker, and learn where its data lives.
+
+1. [A small web app: the message box](02-message-app/01-the-app.md)
+2. [Put the app in a container](02-message-app/02-the-dockerfile.md)
+3. [Containers forget](02-message-app/03-containers-forget.md)
+4. [Keep the messages in your folder: bind mount](02-message-app/04-bind-mount.md)
+5. [Let Docker keep the messages: volume](02-message-app/05-volume.md)
+
+Finished files, if you get stuck: [`02-message-app/message-box/`](02-message-app/message-box/).
