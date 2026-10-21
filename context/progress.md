@@ -9,6 +9,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 - Done: `docs/02-message-app/` with 5 pages (the app → Dockerfile → containers forget → bind mount → volume), `message-box/` (app.js + Dockerfile) and 2 diagrams (`app-flow`, `where-messages-live`). Linked from `docs/README.md`. Every command verified here (local run, build, stop/start vs rm, bind mount, volume).
 - Added `06-all-commands-explained.md` (both files + every command and flag, in page order, plus look-around and cleanup) and `commands-journey.excalidraw` (files → build → image → run → container → stop / rm).
 - Added a Python version (Vikash asked for one as well): `07-same-app-in-python.md` + `message-box-python/` (Flask app.py, 5-line Dockerfile). Same port 3000 and `/app/data`, so pages 3–6 commands work unchanged with image `message-box-python`. Verified locally and in Docker (logs, rm forgets, bind mount, volume).
+- Added `08-dockerfile-keywords.md`: all 18 Dockerfile instructions (table with how often used, the 5 she knows, the common ones explained, rare ones listed, mixed-up pairs, exec vs shell form, comments/syntax/.dockerignore) + `message-box/Dockerfile.full` using most of them. Built and run here: user `node`, NODE_ENV, healthy, ARG override, CMD replaced.
 - Next: Vikash's feedback; Tanvi works through it today.
 
 ## 2026-10-21: first real commit, pushed; Tanvi invited
