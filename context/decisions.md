@@ -2,7 +2,7 @@
 
 Choices Vikash has made. Newest first. One line each, with the date.
 
-- 2026-10-21: Message-box project (`docs/02-message-app/`): a JavaScript app (Node + Express, not Python; Vikash asked for JS). `GET /web` returns an HTML form, `POST /send` appends to `data/messages.txt`. Then a 5-line Dockerfile, explained one sentence per line with the line count (no deep detail yet), then ephemeral containers → bind mount → volume, all with this app. Port 3000.
+- 2026-10-21: Message-box project (`docs/02-message-app/`): a JavaScript app (Node + Express, not Python; Vikash asked for JS). `GET /web` returns an HTML form, `POST /send` appends to `data/messages.txt`. Then a 5-line Dockerfile, explained one sentence per line with the line count (no deep detail yet), then ephemeral containers → bind mount → volume, all with this app. Port 3000. JavaScript is the main version; a Python (Flask) twin sits alongside as page 7, same port and data path.
 - 2026-10-21: Always commit and push after each piece of work (rule in `CLAUDE.md`). Tanvi (GitHub `Tanvikanwar23`) invited as a collaborator on `vikraj01/learning`.
 - 2026-10-20: Storage is two pages: bind mounts (her own folder, live edits), then volumes (containers aren't persistent, named volumes persist and can be shared). Call them "bind mount" and "volume", never "volume mount".
 - 2026-10-20: Images get their own page (Vikash: "important concept"), right after run: what's inside (Linux files, program, start command), layers, read-only, name:tag, pull/images/rmi.

@@ -29,5 +29,6 @@ Build a small web app in JavaScript, put it in Docker, and learn where its data 
 4. [Keep the messages in your folder: bind mount](02-message-app/04-bind-mount.md)
 5. [Let Docker keep the messages: volume](02-message-app/05-volume.md)
 6. [Every command, explained](02-message-app/06-all-commands-explained.md)
+7. [The same app, in Python](02-message-app/07-same-app-in-python.md)
 
-Finished files, if you get stuck: [`02-message-app/message-box/`](02-message-app/message-box/).
+Finished files, if you get stuck: [`02-message-app/message-box/`](02-message-app/message-box/) (JavaScript) and [`02-message-app/message-box-python/`](02-message-app/message-box-python/) (Python).

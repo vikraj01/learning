@@ -23,7 +23,7 @@ The Dockerfile again, one line at a time:
 | `COPY app.js .` | Copy `app.js` from your laptop into `/app`. |
 | `CMD ["node", "app.js"]` | When a container starts, run the app. |
 
-Finished copies of both files are in [`message-box/`](message-box/).
+Finished copies of both files are in [`message-box/`](message-box/). A Python version is in [`message-box-python/`](message-box-python/) (page 7); every Docker command below works with it too, with `message-box-python` as the image name.
 
 ## 1. Run the app on your laptop (page 1)
 
