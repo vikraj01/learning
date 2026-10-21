@@ -1,0 +1,15 @@
+.DS_Store
+*.log
+__pycache__/
+.venv/
+node_modules/
+
+# secrets - never commit
+.env
+.env.*
+
+# Claude Code project config (hooks, skills) is shared and committed,
+# even though ~/.gitignore_global ignores .claude/ everywhere else.
+!.claude/
+# personal overrides stay local
+.claude/settings.local.json
