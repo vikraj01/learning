@@ -15,6 +15,7 @@ Read `context/README.md` first. It indexes everything Claude needs to know and i
 - `context/`: notes for Claude. Who Tanvi is, how to teach her, decisions made, and a progress log. Claude owns these and keeps them current.
 - `docs/`: study material for Tanvi, one folder per topic (`01-docker/`), pages numbered in reading order, diagrams next to the pages. `docs/README.md` is her index. New pages only when Vikash asks.
 - `.claude/`: skills, hooks and settings for this repo.
+- `mkdocs.yml`, `pyproject.toml`, `Makefile`: the docs site. `make serve` opens `docs/` at http://localhost:8000 (MkDocs Material, installed with uv). **Add every new page to `nav` in `mkdocs.yml`.**
 
 ## How to work here
 

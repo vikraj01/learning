@@ -1,0 +1,53 @@
+site_name: Tanvi's study notes
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  features:
+    - navigation.sections
+    - navigation.footer
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+nav:
+  - Home: README.md
+  - 1. Docker:
+      - 01-docker/01-what-is-docker.md
+      - 01-docker/02-run-a-container.md
+      - 01-docker/03-what-is-an-image.md
+      - 01-docker/04-port-mapping.md
+      - 01-docker/05-bind-mounts.md
+      - 01-docker/06-volumes.md
+      - 01-docker/07-dockerfile-and-build.md
+      - 01-docker/08-dockerfile-instructions.md
+      - 01-docker/commands.md
+  - "2. Project: the message box":
+      - 02-message-app/01-the-app.md
+      - 02-message-app/02-the-dockerfile.md
+      - 02-message-app/03-containers-forget.md
+      - 02-message-app/04-bind-mount.md
+      - 02-message-app/05-volume.md
+      - 02-message-app/06-all-commands-explained.md
+      - 02-message-app/07-same-app-in-python.md
+      - 02-message-app/08-dockerfile-keywords.md
