@@ -7,6 +7,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 ## 2026-10-21: message-box project
 
 - Done: `docs/02-message-app/` with 5 pages (the app → Dockerfile → containers forget → bind mount → volume), `message-box/` (app.js + Dockerfile) and 2 diagrams (`app-flow`, `where-messages-live`). Linked from `docs/README.md`. Every command verified here (local run, build, stop/start vs rm, bind mount, volume).
+- Added `06-all-commands-explained.md` (both files + every command and flag, in page order, plus look-around and cleanup) and `commands-journey.excalidraw` (files → build → image → run → container → stop / rm).
 - Next: Vikash's feedback; Tanvi works through it today.
 
 ## 2026-10-21: first real commit, pushed; Tanvi invited

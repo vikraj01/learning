@@ -74,4 +74,4 @@ docker volume rm messages
 
 ## Next
 
-That's the whole message box: an app, a Dockerfile, and two ways to keep its data. Tell Vikash what felt easy and what felt confusing.
+That's the whole message box: an app, a Dockerfile, and two ways to keep its data. To revise, every command is explained on one page: [every command, explained](06-all-commands-explained.md). Then tell Vikash what felt easy and what felt confusing.
