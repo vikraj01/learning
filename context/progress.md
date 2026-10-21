@@ -6,7 +6,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 ## 2026-10-21: first real commit, pushed; Tanvi invited
 
-- Done: everything committed and pushed to `vikraj01/learning` (public). New rule: always commit + push. Collaborator invite sent to `TanviKanwar`.
+- Done: everything committed and pushed to `vikraj01/learning` (public). New rule: always commit + push. Collaborator invite sent to `Tanvikanwar23` (an earlier invite to the wrong account `TanviKanwar` was cancelled).
 - Next: Tanvi accepts the invite; Vikash's feedback on the Docker pages.
 
 ## 2026-10-20: Vikash hand-edited image-and-containers.excalidraw
