@@ -4,6 +4,11 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-22: go inside a container
+
+- Done: `docs/02-message-app/09-go-inside-a-container.md` (Vikash asked: how to get into a container, what `-it` means). Covers `docker exec -it msg bash`, reading the prompt, look around, `exit` leaves the container running, `-i` vs `-t` table (no flags / only -t / only -i / both), `sh` when there's no bash, changes inside don't last. Diagram `go-inside.excalidraw`. Added to nav + `docs/README.md`. Every command verified here, including each flag combination.
+- Next: Vikash's feedback.
+
 ## 2026-10-21: MkDocs site
 
 - Done: `mkdocs.yml` (Material, light/dark, copy buttons, nav for both sections), `pyproject.toml` + `uv.lock`, `Makefile`, root `README.md` how-to. `make build` and `make serve` verified.

@@ -15,4 +15,4 @@ Notes for Claude. Read this first, then whichever file the task needs. Keep each
 - Setup done (CLAUDE.md, context/, .claude/).
 - Topic order from `plan/plan.md`: Python → apps/servers/React/web → Docker → Kubernetes. Starting with **Docker**.
 - Docker pages 01–08 + 6 diagrams written in `docs/01-docker/`; waiting on Vikash's review.
-- Message-box project (JS app + Docker + storage), 5 pages in `docs/02-message-app/`: today's lesson.
+- Message-box project (JS app + Docker + storage), 9 pages in `docs/02-message-app/` (latest: 09 go inside a container).

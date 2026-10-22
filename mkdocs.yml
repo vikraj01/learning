@@ -51,3 +51,4 @@ nav:
       - 02-message-app/06-all-commands-explained.md
       - 02-message-app/07-same-app-in-python.md
       - 02-message-app/08-dockerfile-keywords.md
+      - 02-message-app/09-go-inside-a-container.md
