@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-22: producer and consumer project
+
+- Done: `docs/03-two-apps/` (Vikash asked: a producer app like message-box, a consumer that reads and shows, shared once with a volume and once with a bind mount). `producer/` = message-box with a new heading (port 3000, `/web`, writes `data/messages.txt`); `consumer/` = Express `GET /read` on port 4000 that lists the lines. Same 5-line Dockerfile. Pages: 01 the two apps (+ shows they can't see each other without sharing), 02 volume `shared`, 03 bind mount `./shared` (+ she adds a line by hand in VS Code). Diagrams `share-volume`, `share-bind-mount`. Every command verified here, including a second consumer on 4001.
+- Note: on this machine (rootless Docker) the bind-mounted file is owned by Vikash. On rootful Linux Docker it would be root-owned and her hand edit would fail.
+- Next: Vikash's feedback.
+
 ## 2026-10-22: go inside a container
 
 - Done: `docs/02-message-app/09-go-inside-a-container.md` (Vikash asked: how to get into a container, what `-it` means). Covers `docker exec -it msg bash`, reading the prompt, look around, `exit` leaves the container running, `-i` vs `-t` table (no flags / only -t / only -i / both), `sh` when there's no bash, changes inside don't last. Diagram `go-inside.excalidraw`. Added to nav + `docs/README.md`. Every command verified here, including each flag combination.

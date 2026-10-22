@@ -2,6 +2,7 @@
 
 Choices Vikash has made. Newest first. One line each, with the date.
 
+- 2026-10-22: Section 3 `docs/03-two-apps/`: producer (message-box copy, port 3000) + consumer (`/read`, port 4000), JavaScript. Sharing order as Vikash said it: volume first, then bind mount. Container names match image names (`producer`, `consumer`).
 - 2026-10-21: `docs/` is also a MkDocs Material site, set up with uv (`pyproject.toml`, `uv.lock`) and a `Makefile` (`make serve` / `build` / `clean`). Explicit `nav` in `mkdocs.yml`; MkDocs pinned `<2`. `site/` is gitignored.
 - 2026-10-21: Message-box project (`docs/02-message-app/`): a JavaScript app (Node + Express, not Python; Vikash asked for JS). `GET /web` returns an HTML form, `POST /send` appends to `data/messages.txt`. Then a 5-line Dockerfile, explained one sentence per line with the line count (no deep detail yet), then ephemeral containers → bind mount → volume, all with this app. Port 3000. JavaScript is the main version; a Python (Flask) twin sits alongside as page 7, same port and data path.
 - 2026-10-21: Always commit and push after each piece of work (rule in `CLAUDE.md`). Tanvi (GitHub `Tanvikanwar23`) invited as a collaborator on `vikraj01/learning`.

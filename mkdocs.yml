@@ -52,3 +52,7 @@ nav:
       - 02-message-app/07-same-app-in-python.md
       - 02-message-app/08-dockerfile-keywords.md
       - 02-message-app/09-go-inside-a-container.md
+  - "3. Project: producer and consumer":
+      - 03-two-apps/01-producer-and-consumer.md
+      - 03-two-apps/02-share-with-a-volume.md
+      - 03-two-apps/03-share-with-a-bind-mount.md

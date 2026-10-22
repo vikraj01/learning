@@ -34,3 +34,13 @@ Build a small web app in JavaScript, put it in Docker, and learn where its data 
 9. [Go inside a container](02-message-app/09-go-inside-a-container.md)
 
 Finished files, if you get stuck: [`02-message-app/message-box/`](02-message-app/message-box/) (JavaScript) and [`02-message-app/message-box-python/`](02-message-app/message-box-python/) (Python).
+
+## 3. Project: producer and consumer
+
+Two apps: one writes messages, the other shows them. Then make them share the messages, once with a volume and once with a bind mount.
+
+1. [Two apps: a producer and a consumer](03-two-apps/01-producer-and-consumer.md)
+2. [Share the messages with a volume](03-two-apps/02-share-with-a-volume.md)
+3. [Share the messages with a bind mount](03-two-apps/03-share-with-a-bind-mount.md)
+
+Finished files, if you get stuck: [`03-two-apps/producer/`](03-two-apps/producer/) and [`03-two-apps/consumer/`](03-two-apps/consumer/).
