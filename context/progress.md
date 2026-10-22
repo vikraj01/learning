@@ -9,6 +9,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 - Done: `docs/04-networking/`, 4 pages: 01 default network (busybox, IPs, ping by number ✓ / name ✗), 02 your own network (create, DNS 127.0.0.11, nslookup, alias, outsider, connect, inspect, command table), 03 visit counter (`visit-counter/` Node + Redis, ENOTFOUND on default network, `counter-net`, db private, step-by-step flow, redis-cli from a third container, replace web and the count stays), 04 which address (rule + table, `-e DB_URL`, mistakes: localhost → ECONNREFUSED, laptop port 6380 → ECONNREFUSED, wrong network → Name does not resolve; error table). 4 diagrams in the new style. `demo.sh` (Enter-per-step, or `--no-wait`) ran clean end to end. Every page command verified here.
 - Diagrams: `draw.py` rewritten + `--png` preview; style guide, skill and CLAUDE.md updated to "explain properly". Specs in `.claude/skills/excalidraw/specs/04-networking/`.
 - Next: Vikash's feedback on the new diagram style; whether to redraw sections 1–3 diagrams the same way.
+- Also: `docs/README.md` section 4 and a `demo.sh` pointer at the end of page 04 (same commit).
 
 ## 2026-10-22: producer and consumer project
 
