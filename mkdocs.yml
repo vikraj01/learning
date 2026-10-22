@@ -56,3 +56,8 @@ nav:
       - 03-two-apps/01-producer-and-consumer.md
       - 03-two-apps/02-share-with-a-volume.md
       - 03-two-apps/03-share-with-a-bind-mount.md
+  - 4. Networking:
+      - 04-networking/01-the-default-network.md
+      - 04-networking/02-your-own-network.md
+      - 04-networking/03-the-visit-counter.md
+      - 04-networking/04-which-address.md

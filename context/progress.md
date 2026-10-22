@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-22: networking section + explaining diagrams
+
+- Done: `docs/04-networking/`, 4 pages: 01 default network (busybox, IPs, ping by number ✓ / name ✗), 02 your own network (create, DNS 127.0.0.11, nslookup, alias, outsider, connect, inspect, command table), 03 visit counter (`visit-counter/` Node + Redis, ENOTFOUND on default network, `counter-net`, db private, step-by-step flow, redis-cli from a third container, replace web and the count stays), 04 which address (rule + table, `-e DB_URL`, mistakes: localhost → ECONNREFUSED, laptop port 6380 → ECONNREFUSED, wrong network → Name does not resolve; error table). 4 diagrams in the new style. `demo.sh` (Enter-per-step, or `--no-wait`) ran clean end to end. Every page command verified here.
+- Diagrams: `draw.py` rewritten + `--png` preview; style guide, skill and CLAUDE.md updated to "explain properly". Specs in `.claude/skills/excalidraw/specs/04-networking/`.
+- Next: Vikash's feedback on the new diagram style; whether to redraw sections 1–3 diagrams the same way.
+
 ## 2026-10-22: producer and consumer project
 
 - Done: `docs/03-two-apps/` (Vikash asked: a producer app like message-box, a consumer that reads and shows, shared once with a volume and once with a bind mount). `producer/` = message-box with a new heading (port 3000, `/web`, writes `data/messages.txt`); `consumer/` = Express `GET /read` on port 4000 that lists the lines. Same 5-line Dockerfile. Pages: 01 the two apps (+ shows they can't see each other without sharing), 02 volume `shared`, 03 bind mount `./shared` (+ she adds a line by hand in VS Code). Diagrams `share-volume`, `share-bind-mount`. Every command verified here, including a second consumer on 4001.

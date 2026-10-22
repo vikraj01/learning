@@ -1,0 +1,162 @@
+{
+  "title": "Which address do I use?",
+  "subtitle": "It depends on where you're standing. Every container has its own 'localhost': itself.",
+  "nodes": [
+    {
+      "id": "you",
+      "label": "You",
+      "detail": "browser / terminal\nlocalhost = your laptop",
+      "pos": [
+        0,
+        80
+      ],
+      "w": 230,
+      "h": 100
+    },
+    {
+      "id": "web",
+      "label": "web",
+      "detail": "listens on 3000\nlocalhost = web itself",
+      "color": "green",
+      "pos": [
+        560,
+        80
+      ],
+      "w": 230,
+      "h": 100
+    },
+    {
+      "id": "db",
+      "label": "db",
+      "detail": "listens on 6379\nno -p",
+      "color": "green",
+      "pos": [
+        1080,
+        80
+      ],
+      "w": 210,
+      "h": 100
+    },
+    {
+      "id": "stranger",
+      "label": "stranger",
+      "detail": "another container",
+      "color": "green",
+      "pos": [
+        850,
+        480
+      ],
+      "w": 210,
+      "h": 90
+    }
+  ],
+  "edges": [
+    {
+      "from": "you",
+      "to": "web",
+      "label": "localhost:8080  ✓\n(the -p door)",
+      "color": "green",
+      "via": [
+        [
+          395,
+          100
+        ]
+      ]
+    },
+    {
+      "from": "you",
+      "to": "db",
+      "label": "localhost:6379  ✗\ndb has no door",
+      "color": "red",
+      "dashed": true,
+      "via": [
+        [
+          395,
+          -60
+        ],
+        [
+          1185,
+          -60
+        ]
+      ]
+    },
+    {
+      "from": "web",
+      "to": "db",
+      "label": "db:6379  ✓\nname + its own port",
+      "color": "green",
+      "via": [
+        [
+          935,
+          100
+        ]
+      ]
+    },
+    {
+      "from": "web",
+      "to": "web",
+      "label": "localhost:6379  ✗\nthat's web itself",
+      "color": "red",
+      "dashed": true,
+      "via": [
+        [
+          620,
+          300
+        ],
+        [
+          730,
+          300
+        ]
+      ]
+    },
+    {
+      "from": "stranger",
+      "to": "db",
+      "label": "db:6379  ✗\nnot on counter-net",
+      "color": "red",
+      "dashed": true
+    }
+  ],
+  "areas": [
+    {
+      "label": "Network: counter-net",
+      "nodes": [
+        "web",
+        "db"
+      ],
+      "color": "blue",
+      "pad": 40
+    },
+    {
+      "label": "Network: bridge",
+      "detail": "the default",
+      "nodes": [
+        "stranger"
+      ],
+      "color": "blue",
+      "pad": 30
+    },
+    {
+      "label": "Your laptop",
+      "nodes": [
+        "you",
+        "web",
+        "db",
+        "stranger"
+      ],
+      "color": "gray",
+      "pad": 110
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        0,
+        400
+      ],
+      "w": 470,
+      "text": "From your laptop: localhost + the door number (the left side of -p).\n\nFrom one container to another: the container's name + the port it listens on inside (the right side of -p). Both must be on the same network."
+    }
+  ]
+}

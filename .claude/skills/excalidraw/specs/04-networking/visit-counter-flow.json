@@ -1,0 +1,178 @@
+{
+  "title": "The visit counter: one page visit, step by step",
+  "subtitle": "web and db share the network counter-net. Only web has a door (-p) to your laptop. db is private.",
+  "nodes": [
+    {
+      "id": "browser",
+      "label": "Browser",
+      "detail": "you open\nlocalhost:8080",
+      "pos": [
+        0,
+        60
+      ],
+      "w": 190,
+      "h": 100
+    },
+    {
+      "id": "door",
+      "label": "door 8080",
+      "detail": "-p 8080:3000",
+      "color": "yellow",
+      "pos": [
+        370,
+        70
+      ],
+      "w": 150,
+      "h": 80
+    },
+    {
+      "id": "web",
+      "label": "web",
+      "detail": "image: visit-counter\nNode app, listens on 3000\nIP 172.18.0.3",
+      "color": "green",
+      "pos": [
+        700,
+        50
+      ],
+      "w": 250,
+      "h": 120
+    },
+    {
+      "id": "dns",
+      "label": "Docker DNS",
+      "detail": "db → 172.18.0.2",
+      "color": "violet",
+      "pos": [
+        980,
+        -170
+      ],
+      "w": 200,
+      "h": 90
+    },
+    {
+      "id": "db",
+      "label": "db",
+      "detail": "image: redis:8-alpine\nRedis, listens on 6379\nIP 172.18.0.2\nno -p: private",
+      "color": "green",
+      "pos": [
+        1230,
+        40
+      ],
+      "w": 250,
+      "h": 140
+    }
+  ],
+  "edges": [
+    {
+      "from": "browser",
+      "to": "door",
+      "label": "open page",
+      "step": 1
+    },
+    {
+      "from": "door",
+      "to": "web",
+      "label": "to port 3000",
+      "step": 2
+    },
+    {
+      "from": "web",
+      "to": "dns",
+      "label": "where is db?\n→ 172.18.0.2",
+      "step": 3,
+      "color": "violet",
+      "both": true,
+      "via": [
+        [
+          825,
+          -125
+        ]
+      ]
+    },
+    {
+      "from": "web",
+      "to": "db",
+      "label": "INCR visits\nto db:6379",
+      "step": 4,
+      "color": "green",
+      "via": [
+        [
+          1090,
+          85
+        ]
+      ]
+    },
+    {
+      "from": "db",
+      "to": "web",
+      "label": "4",
+      "step": 5,
+      "color": "green",
+      "via": [
+        [
+          1090,
+          145
+        ]
+      ]
+    },
+    {
+      "from": "web",
+      "to": "browser",
+      "label": "page: Visits so far: 4",
+      "step": 6,
+      "via": [
+        [
+          825,
+          245
+        ],
+        [
+          95,
+          245
+        ]
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "label": "Network: counter-net",
+      "nodes": [
+        "web",
+        "dns",
+        "db"
+      ],
+      "color": "blue",
+      "pad": 40
+    },
+    {
+      "label": "Your laptop",
+      "nodes": [
+        "browser",
+        "door",
+        "web",
+        "dns",
+        "db"
+      ],
+      "color": "gray",
+      "pad": 50
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        1580,
+        -150
+      ],
+      "w": 340,
+      "text": "web finds db by its name, 'db'. That's the 'db' in redis://db:6379 inside app.js.\n\nThe database never needs a door to your laptop. Only web talks to it, and web is on the same network."
+    },
+    {
+      "style": "code",
+      "pos": [
+        -50,
+        340
+      ],
+      "text": "docker network create counter-net\ndocker run -d --name db  --network counter-net redis:8-alpine\ndocker run -d --name web --network counter-net -p 8080:3000 visit-counter"
+    }
+  ]
+}

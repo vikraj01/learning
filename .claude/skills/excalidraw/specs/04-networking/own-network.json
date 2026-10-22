@@ -1,0 +1,162 @@
+{
+  "title": "Your own network: call containers by name",
+  "subtitle": "When you create a network, Docker runs a small phone book (DNS) inside it. Names now work.",
+  "nodes": [
+    {
+      "id": "dns",
+      "label": "Docker DNS",
+      "detail": "the phone book of 'lab'\nbox1 → 172.23.0.2\nbox2 → 172.23.0.3\nhelper → 172.23.0.4",
+      "color": "violet",
+      "pos": [
+        330,
+        -250
+      ],
+      "w": 260,
+      "h": 150
+    },
+    {
+      "id": "box2",
+      "label": "box2",
+      "detail": "IP 172.23.0.3",
+      "color": "green",
+      "pos": [
+        0,
+        20
+      ],
+      "w": 190,
+      "h": 90
+    },
+    {
+      "id": "box1",
+      "label": "box1",
+      "detail": "IP 172.23.0.2",
+      "color": "green",
+      "pos": [
+        730,
+        20
+      ],
+      "w": 190,
+      "h": 90
+    },
+    {
+      "id": "box3",
+      "label": "box3",
+      "detail": "alias: helper\nIP 172.23.0.4",
+      "color": "green",
+      "pos": [
+        730,
+        220
+      ],
+      "w": 190,
+      "h": 100
+    },
+    {
+      "id": "out",
+      "label": "outsider",
+      "detail": "IP 172.17.0.2",
+      "color": "green",
+      "pos": [
+        1180,
+        20
+      ],
+      "w": 190,
+      "h": 90
+    }
+  ],
+  "edges": [
+    {
+      "from": "box2",
+      "to": "dns",
+      "label": "where is box1?",
+      "step": 1,
+      "color": "violet",
+      "via": [
+        [
+          95,
+          -175
+        ]
+      ]
+    },
+    {
+      "from": "dns",
+      "to": "box2",
+      "label": "172.23.0.2",
+      "step": 2,
+      "color": "violet"
+    },
+    {
+      "from": "box2",
+      "to": "box1",
+      "label": "ping box1  ✓",
+      "step": 3,
+      "color": "green"
+    },
+    {
+      "from": "box1",
+      "to": "box3",
+      "label": "ping helper  ✓",
+      "color": "green"
+    },
+    {
+      "from": "out",
+      "to": "box1",
+      "label": "ping box1\n✗ not on 'lab'",
+      "color": "red",
+      "dashed": true
+    }
+  ],
+  "areas": [
+    {
+      "label": "Network: lab",
+      "detail": "made with: docker network create lab",
+      "nodes": [
+        "dns",
+        "box1",
+        "box2",
+        "box3"
+      ],
+      "color": "blue",
+      "pad": 40
+    },
+    {
+      "label": "Network: bridge",
+      "detail": "the default",
+      "nodes": [
+        "out"
+      ],
+      "color": "blue",
+      "pad": 30
+    },
+    {
+      "label": "Your laptop",
+      "nodes": [
+        "dns",
+        "box1",
+        "box2",
+        "box3",
+        "out"
+      ],
+      "color": "gray",
+      "pad": 50
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        920,
+        470
+      ],
+      "w": 440,
+      "text": "Same network = they can find each other by name (or by alias).\n\nDifferent network = they can't see each other at all. That's on purpose: it keeps things apart."
+    },
+    {
+      "style": "code",
+      "pos": [
+        -50,
+        470
+      ],
+      "text": "docker network create lab\ndocker run -d --name box1 --network lab busybox:1.37 sleep 3600\ndocker run -d --name box2 --network lab busybox:1.37 sleep 3600\ndocker run -d --name box3 --network lab --network-alias helper busybox:1.37 sleep 3600\ndocker exec box2 ping -c 2 box1      # works: Docker DNS answers 172.23.0.2"
+    }
+  ]
+}

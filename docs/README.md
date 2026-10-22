@@ -44,3 +44,14 @@ Two apps: one writes messages, the other shows them. Then make them share the me
 3. [Share the messages with a bind mount](03-two-apps/03-share-with-a-bind-mount.md)
 
 Finished files, if you get stuck: [`03-two-apps/producer/`](03-two-apps/producer/) and [`03-two-apps/consumer/`](03-two-apps/consumer/).
+
+## 4. Networking
+
+How containers find and talk to each other: IP addresses, your own networks, names, and which address to use from where. The example is a visit counter: a web app and a Redis database.
+
+1. [How containers find each other](04-networking/01-the-default-network.md)
+2. [Your own network: call containers by name](04-networking/02-your-own-network.md)
+3. [The visit counter: an app and a database](04-networking/03-the-visit-counter.md)
+4. [Which address do I use?](04-networking/04-which-address.md)
+
+Finished app: [`04-networking/visit-counter/`](04-networking/visit-counter/). To watch everything run step by step: `cd docs/04-networking && ./demo.sh` (press Enter for each step).

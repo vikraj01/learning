@@ -1,50 +1,32 @@
 ---
 name: excalidraw
-description: Draw a simple, calm Excalidraw diagram (.excalidraw) for Tanvi's study pages, from a tiny spec, using this repo's draw.py script. Use whenever a diagram, drawing, sketch or picture is wanted. Never hand-write Excalidraw JSON.
+description: Draw a detailed, explaining Excalidraw diagram (.excalidraw) for Tanvi's study pages from a JSON spec, using this repo's draw.py script, and check it with a PNG preview. Use whenever a diagram, drawing, sketch or picture is wanted. Never hand-write Excalidraw JSON.
 ---
 
-# Calm Excalidraw diagrams
+# Explaining Excalidraw diagrams
 
-Read `context/excalidraw-style.md` first; it holds Vikash's preferences and wins over anything here.
+Read `context/excalidraw-style.md` first; it holds Vikash's preferences and wins over anything here. Vikash disliked the old minimal diagrams ("very light"): a diagram should teach on its own.
 
 ## Steps
 
-1. **Decide the one thing** the diagram shows, in one sentence. If it's two things, make two diagrams.
-2. **Write a tiny spec** in the scratchpad (not the repo): 3–7 nodes, 1–3 words each, arrows labelled with a verb.
-   ```json
-   {
-     "nodes": [
-       {"id": "code", "label": "Your code"},
-       {"id": "image", "label": "Image", "color": "blue"},
-       {"id": "box", "label": "Container", "color": "green"}
-     ],
-     "edges": [
-       {"from": "code", "to": "image", "label": "build"},
-       {"from": "image", "to": "box", "label": "run"}
-     ],
-     "notes": [{"text": "one recipe, many boxes", "at": [1, 1]}]
-   }
-   ```
-   - Layout: nodes go left → right by default. `"direction": "down"` stacks them. Use `"at": [col, row]` only when a node must sit somewhere specific (a second row, a fork).
-   - Colours: `white` (default), `blue`, `green`, `yellow`, `red`, `violet`, `gray`. Colour only what matters; same kind of thing, same colour.
-   - Shapes: `box` (default), `ellipse`, `diamond`. Boxes are almost always right.
-   - Edges: `label` (optional), `"dashed": true` for "sometimes" or "optional".
-   - `"size": "small"` on a node makes a smaller box. Use it for ports ("doors").
-   - **Areas show where things live**: a big, pale box drawn behind the nodes it lists, with its label top-left. Nest them: an area listing all of another area's nodes wraps around it.
-     ```json
-     "areas": [
-       {"label": "Container", "nodes": ["port80", "nginx"], "color": "green"},
-       {"label": "Your laptop", "nodes": ["browser", "port8080", "port80", "nginx"], "color": "gray"}
-     ]
-     ```
-   - Notes take fractional rows (`"at": [1, 0.85]`) to sit close under an area.
-3. **Draw it:**
+1. **Decide the point** in one sentence. That becomes the title.
+2. **Write the spec** in the scratchpad. The full format is in the docstring at the top of `draw.py`. The parts that make a diagram explain:
+   - `title` + `subtitle`: the point, and one line of context.
+   - Nodes with `label` (the name) and `detail` (IP, port, image, what it does; `\n` between lines). Place them with `pos: [x, y]` in pixels for anything beyond a simple row.
+   - `areas` for where things live (container / network / "Your laptop"), with a `detail` line. Areas nest automatically.
+   - `edges` with `label`, `step` (numbered badge), `color` (`green` works ✓, `red` + `dashed` fails ✗), `via` bend points to route around boxes, `both` for a question-and-answer arrow.
+   - `notes`: `style: "callout"` (yellow, the "aha" in 2–3 sentences, set `w`) and `style: "code"` (the commands).
+   Worked examples: `.claude/skills/excalidraw/specs/04-networking/`.
+3. **Draw and check:**
    ```bash
    python3 -I .claude/skills/excalidraw/draw.py <spec.json> <out.excalidraw>
+   python3 -I .claude/skills/excalidraw/draw.py --png <out.excalidraw> <preview.png>
    ```
-   The PostToolUse hook and `draw.py --check <file>` validate files: JSON, bindings, at most 10 shapes, box labels at most 4 words.
-4. **Save next to the page that uses it**, named after what it shows (`build-and-run.excalidraw`).
-5. **Tell Vikash the path.** Vikash opens it in VS Code (Excalidraw extension) to nudge positions, colours or wording.
+   **Look at the preview** (Read the PNG). Fix overlaps, labels squeezed between close boxes, arrows crossing labels or leaving their area, notes sitting on area borders. Redraw until it's clean. The preview uses a stand-in font, so leave a little spare room in boxes.
+4. **Save next to the page** that uses it, named after what it shows (`own-network.excalidraw`). Save the spec in `.claude/skills/excalidraw/specs/<section>/`.
+5. **Tell Vikash the path.** Vikash opens it in VS Code (Excalidraw extension) to adjust it.
+
+The PostToolUse hook runs `draw.py --check` on every `.excalidraw` written: valid JSON, bindings, at most 60 shapes.
 
 ## Editing an existing diagram
 
@@ -53,4 +35,5 @@ Read `context/excalidraw-style.md` first; it holds Vikash's preferences and wins
 
 ## Don't
 
-- No more than 10 shapes, no paragraphs in boxes, no decorative icons, no crossing arrows, no rainbow colours.
+- No crossing arrows, no overlapping text, no decorative icons, no colours without a meaning.
+- Don't cram two ideas into one diagram; make two.
