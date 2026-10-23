@@ -81,3 +81,15 @@ Not just Docker: how any two computers find and talk to each other. Addresses, p
 
 To watch it all run step by step: `cd docs/06-how-networking-works && ./demo.sh`.
 
+## 7. Project: frontend, backend and database (Compose)
+
+A real app in three parts: a todo list page (frontend), the program that does the work (backend), and Postgres keeping the todos (database). First you run it by hand, then with one `compose.yaml` file and one command.
+
+1. [Frontend, backend, database](07-compose/01-three-parts.md)
+2. [Running it by hand](07-compose/02-without-compose.md)
+3. [One file: compose.yaml](07-compose/03-compose-yaml.md)
+4. [Living with a Compose app](07-compose/04-living-with-compose.md)
+5. [How the parts find each other](07-compose/05-how-the-parts-find-each-other.md)
+
+Finished project: [`07-compose/todo-app/`](07-compose/todo-app/). To watch it all run step by step: `cd docs/07-compose && ./demo.sh`.
+

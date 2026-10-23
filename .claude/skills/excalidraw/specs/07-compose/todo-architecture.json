@@ -1,0 +1,173 @@
+{
+  "title": "The todo app: three parts, one request",
+  "subtitle": "You add 'Water the plants'. The request walks from the browser to the database, and the answer walks back.",
+  "nodes": [
+    {
+      "id": "browser",
+      "label": "Browser",
+      "detail": "localhost:8080",
+      "pos": [
+        0,
+        70
+      ],
+      "w": 180,
+      "h": 90
+    },
+    {
+      "id": "door",
+      "label": "door 8080",
+      "detail": "-p 8080:80",
+      "color": "yellow",
+      "pos": [
+        410,
+        75
+      ],
+      "w": 150,
+      "h": 80
+    },
+    {
+      "id": "frontend",
+      "label": "frontend",
+      "detail": "nginx · the dining room\nhands out the page,\npasses /api/ on\nlistens on 80",
+      "color": "green",
+      "pos": [
+        760,
+        30
+      ],
+      "w": 260,
+      "h": 160
+    },
+    {
+      "id": "backend",
+      "label": "backend",
+      "detail": "Node + Express · the kitchen\ndoes the work\nlistens on 3000",
+      "color": "green",
+      "pos": [
+        1280,
+        30
+      ],
+      "w": 270,
+      "h": 160
+    },
+    {
+      "id": "db",
+      "label": "db",
+      "detail": "Postgres · the pantry\nkeeps the todos\nlistens on 5432",
+      "color": "green",
+      "pos": [
+        1820,
+        30
+      ],
+      "w": 250,
+      "h": 160
+    },
+    {
+      "id": "vol",
+      "label": "Volume: todo_data",
+      "detail": "the rows live here",
+      "color": "blue",
+      "pos": [
+        1830,
+        330
+      ],
+      "w": 230,
+      "h": 80
+    }
+  ],
+  "edges": [
+    {
+      "from": "browser",
+      "to": "door",
+      "label": "POST /api/todos",
+      "step": 1
+    },
+    {
+      "from": "door",
+      "to": "frontend",
+      "label": "to port 80",
+      "step": 2
+    },
+    {
+      "from": "frontend",
+      "to": "backend",
+      "label": "/api/ → backend:3000",
+      "step": 3,
+      "color": "green"
+    },
+    {
+      "from": "backend",
+      "to": "db",
+      "label": "INSERT INTO todos\nat db:5432",
+      "step": 4,
+      "color": "green"
+    },
+    {
+      "from": "db",
+      "to": "vol",
+      "label": "saved",
+      "dashed": true,
+      "color": "blue"
+    },
+    {
+      "from": "db",
+      "to": "browser",
+      "label": "answer goes back the same way: the new todo, as JSON. The page redraws the list.",
+      "step": 5,
+      "via": [
+        [
+          1945,
+          -80
+        ],
+        [
+          90,
+          -80
+        ]
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "label": "Network: todo_default",
+      "detail": "made by Compose · names work here",
+      "nodes": [
+        "frontend",
+        "backend",
+        "db"
+      ],
+      "color": "blue",
+      "pad": 40
+    },
+    {
+      "label": "Your laptop",
+      "nodes": [
+        "browser",
+        "door",
+        "frontend",
+        "backend",
+        "db",
+        "vol"
+      ],
+      "color": "gray",
+      "pad": 110
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        0,
+        360
+      ],
+      "w": 560,
+      "text": "Only the frontend has a door to your laptop (8080). backend and db are private: you can't reach them from your browser, only from inside the network, by their names."
+    },
+    {
+      "style": "code",
+      "pos": [
+        700,
+        360
+      ],
+      "text": "docker compose up -d --build     # start all three\n# then open http://localhost:8080 in your browser"
+    }
+  ]
+}

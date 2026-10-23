@@ -4,13 +4,15 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
-## 2026-10-24: sections 05, 06, 07 in progress
+## 2026-10-24: sections 05, 06, 07
 
 - Doing: `05-layers` (example app `cow-says/`), `06-how-networking-works` (fundamentals), `07-compose` (todo app: nginx frontend + Node API + Postgres), written in parallel; then review, nav, index, commit.
 - Untouched: Vikash's own uncommitted edit to `docs/02-message-app/message-box/app.js` (`data/` → `table/`, `/messages` route). Not committed by Claude.
-- 05 (5 pages: layers, build cache + order, sharing/size + .dockerignore, container layer + docker diff, multi-stage with a tiny Go cow; 4 diagrams; apps `cow-says/`, `tiny-cow/`) and 06 (6 pages, 6 diagrams, `demo.sh`; one analogy: laptop = building, IP = address, ports = flats, 127.0.0.1 = intercom, 0.0.0.0 = front door, DNS = contacts app, router = watchman) written, reviewed, in nav + index, committed. 07 still being written.
+- 05 (5 pages: layers, build cache + order, sharing/size + .dockerignore, container layer + docker diff, multi-stage with a tiny Go cow; 4 diagrams; apps `cow-says/`, `tiny-cow/`) and 06 (6 pages, 6 diagrams, `demo.sh`; one analogy: laptop = building, IP = address, ports = flats, 127.0.0.1 = intercom, 0.0.0.0 = front door, DNS = contacts app, router = watchman) written, reviewed, in nav + index, committed. 07 done too (see below).
 - 06 caveats: phone steps and Mac-only commands not verified here. 05: outputs from rootless Docker with containerd store (DISK USAGE / CONTENT SIZE columns).
-- Next: finish and review the three sections.
+- 07: 5 pages (three parts with a restaurant comparison → by hand with network/volume/3 runs → compose.yaml line by line → logs, psql, fix a real bug (empty todos) and rebuild, down vs down -v → how parts find each other: service names as DNS, env vars, only 8080 published, 502 when backend stops). `todo-app/` = nginx (static page + `/api/` proxy with `resolver 127.0.0.11` so a rebuilt backend's new IP is found) + Express/pg + postgres:17-alpine (healthcheck, `service_healthy`, volume, init.sql with 2 sample todos). 3 diagrams, `demo.sh`. Verified here; interactive psql prompt and clicking the UI not driven by hand.
+- Also: `draw.py --png` now sizes previews correctly with bent arrows.
+- Next: Vikash's feedback on 05–07. Open question still: redraw sections 1–3 diagrams in the detailed style?
 
 ## 2026-10-22: networking section + explaining diagrams
 

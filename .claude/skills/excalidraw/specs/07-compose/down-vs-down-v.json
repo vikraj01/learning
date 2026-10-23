@@ -1,0 +1,25 @@
+{
+  "title": "'down' keeps your data. 'down -v' throws it away.",
+  "subtitle": "Both remove the containers and the network. Only -v also deletes the volume, where the todos live.",
+  "nodes": [
+    {"id": "c1", "label": "3 containers", "detail": "removed ✗", "color": "gray", "pos": [0, 0], "w": 220, "h": 80},
+    {"id": "n1", "label": "network todo_default", "detail": "removed ✗", "color": "gray", "pos": [0, 120], "w": 220, "h": 80},
+    {"id": "v1", "label": "volume todo_data", "detail": "KEPT ✓\nyour todos are still in it", "color": "blue", "pos": [0, 240], "w": 220, "h": 100},
+    {"id": "r1", "label": "docker compose up", "detail": "your todos are back ✓", "color": "green", "pos": [0, 470], "w": 220, "h": 90},
+    {"id": "c2", "label": "3 containers", "detail": "removed ✗", "color": "gray", "pos": [520, 0], "w": 220, "h": 80},
+    {"id": "n2", "label": "network todo_default", "detail": "removed ✗", "color": "gray", "pos": [520, 120], "w": 220, "h": 80},
+    {"id": "v2", "label": "volume todo_data", "detail": "DELETED ✗\nthe todos are gone", "color": "red", "pos": [520, 240], "w": 220, "h": 100},
+    {"id": "r2", "label": "docker compose up", "detail": "new empty volume: init.sql\nruns again, 2 sample todos", "color": "yellow", "pos": [520, 470], "w": 260, "h": 90}
+  ],
+  "edges": [
+    {"from": "v1", "to": "r1", "label": "same volume, reused", "color": "green"},
+    {"from": "v2", "to": "r2", "label": "fresh start", "color": "red", "dashed": true}
+  ],
+  "areas": [
+    {"label": "docker compose down", "detail": "everyday: stop for now", "nodes": ["c1", "n1", "v1"], "color": "blue", "pad": 30},
+    {"label": "docker compose down -v", "detail": "on purpose: wipe the data", "nodes": ["c2", "n2", "v2"], "color": "red", "pad": 30}
+  ],
+  "notes": [
+    {"style": "callout", "pos": [880, 20], "w": 380, "text": "Containers are easy to replace: Compose makes new ones on the next 'up'.\n\nThe volume is the one thing you can lose. Use -v only when you really want a fresh, empty database."}
+  ]
+}

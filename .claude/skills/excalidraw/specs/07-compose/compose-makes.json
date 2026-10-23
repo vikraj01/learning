@@ -1,0 +1,26 @@
+{
+  "title": "One file, one command: what 'docker compose up' makes",
+  "subtitle": "Compose reads compose.yaml and does the docker network / volume / build / run work for you, in the right order.",
+  "nodes": [
+    {"id": "file", "label": "compose.yaml", "detail": "name: todo\nservices: frontend,\nbackend, db\nvolumes: data", "color": "violet", "pos": [0, 230], "w": 220, "h": 140},
+    {"id": "frontend", "label": "todo-frontend-1", "detail": "built from ./frontend\nport 8080 → 80", "color": "green", "pos": [620, 0], "w": 250, "h": 100},
+    {"id": "backend", "label": "todo-backend-1", "detail": "built from ./backend\nDB_HOST=db, DB_USER=todo...", "color": "green", "pos": [620, 230], "w": 250, "h": 100},
+    {"id": "db", "label": "todo-db-1", "detail": "image postgres:17-alpine\nhealthcheck: pg_isready", "color": "green", "pos": [620, 460], "w": 250, "h": 100},
+    {"id": "vol", "label": "Volume: todo_data", "detail": "→ /var/lib/postgresql/data", "color": "blue", "pos": [620, 730], "w": 250, "h": 80}
+  ],
+  "edges": [
+    {"from": "file", "to": "vol", "label": "makes the volume\n(and the network)", "step": 1, "color": "violet", "via": [[110, 770]]},
+    {"from": "file", "to": "db", "label": "starts db first", "step": 2, "color": "violet", "via": [[330, 510]]},
+    {"from": "db", "to": "backend", "label": "db healthy ✓\n→ start backend", "step": 3, "color": "green"},
+    {"from": "backend", "to": "frontend", "label": "backend started\n→ start frontend", "step": 4, "color": "green"},
+    {"from": "db", "to": "vol", "label": "uses", "dashed": true, "color": "blue"}
+  ],
+  "areas": [
+    {"label": "Network: todo_default", "detail": "made by Compose, for these three", "nodes": ["frontend", "backend", "db"], "color": "blue", "pad": 40},
+    {"label": "Your laptop", "nodes": ["file", "frontend", "backend", "db", "vol"], "color": "gray", "pad": 60}
+  ],
+  "notes": [
+    {"style": "callout", "pos": [1060, 60], "w": 380, "text": "Names: Compose calls each container <project>-<service>-1, and the network and volume <project>_<name>.\n\nOn the network, each container also answers to its plain service name: frontend, backend, db.\n\nThe order comes from depends_on in compose.yaml."},
+    {"style": "code", "pos": [1060, 480], "text": "docker compose up -d --build\ndocker compose ps"}
+  ]
+}

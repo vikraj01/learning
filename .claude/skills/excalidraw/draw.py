@@ -401,8 +401,14 @@ def preview(path, out_png):
     """Render a rough PNG (no hand-drawn wobble) so the layout can be checked by eye."""
     with open(path) as f:
         live = [e for e in json.load(f)["elements"] if not e.get("isDeleted")]
-    xs = [e["x"] for e in live] + [e["x"] + e["width"] for e in live]
-    ys = [e["y"] for e in live] + [e["y"] + e["height"] for e in live]
+    xs, ys = [], []
+    for e in live:
+        if e["type"] == "arrow":  # x, y is the first point, not the corner, so use the points
+            xs += [e["x"] + px for px, _ in e["points"]]
+            ys += [e["y"] + py for _, py in e["points"]]
+        else:
+            xs += [e["x"], e["x"] + e["width"]]
+            ys += [e["y"], e["y"] + e["height"]]
     ox, oy = min(xs) - 30, min(ys) - 30
     W, H = max(xs) - ox + 30, max(ys) - oy + 30
     by_id = {e["id"]: e for e in live}
