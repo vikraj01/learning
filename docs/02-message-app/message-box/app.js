@@ -27,6 +27,16 @@ app.post("/send", (req, res) => {
   res.send('Saved! <a href="/web">Write another</a>');
 });
 
-app.listen(3000, () => {
-  console.log("Message box is running on http://localhost:3000/web");
+app.listen(8080, () => {
+  console.log("Message box is running on http://localhost:8080/web");
+});
+
+app.get("/messages", (req, res) => {
+  if (!fs.existsSync("data/messages.txt")) {
+    res.json([]);
+    return;
+  }
+  const text = fs.readFileSync("data/messages.txt", "utf8");
+  const messages = text.split("\n").filter((line) => line !== "");
+  res.json(messages);
 });
