@@ -22,10 +22,21 @@ app.get("/web", (req, res) => {
 });
 
 app.post("/send", (req, res) => {
-  fs.mkdirSync("data", { recursive: true });
-  fs.appendFileSync("data/messages.txt", req.body.message + "\n");
+  fs.mkdirSync("table", { recursive: true });
+  fs.appendFileSync("table/messages.txt", req.body.message + "\n");
   res.send('Saved! <a href="/web">Write another</a>');
 });
+
+app.get("/messages", (req, res) => {
+  if (!fs.existsSync("table/messages.txt")) {
+    res.json([]);
+    return;
+  }
+  const text = fs.readFileSync("table/messages.txt", "utf8");
+  const messages = text.split("\n").filter((line) => line !== "");
+  res.json(messages);
+});
+
 
 app.listen(3000, () => {
   console.log("Message box is running on http://localhost:3000/web");
