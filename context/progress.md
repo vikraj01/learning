@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-24: Tanvi's first branch merged
+
+- Done: merged Tanvi's branch `01tanvi-work` (her commit "bind-mount": message-box on port 8080, a `/messages` route, her test `data/messages.txt`, `package.json` + lock) into main, together with Vikash's own edit (`table/` folder + `/messages`). Conflict in `message-box/app.js` resolved by keeping both: `table/` + port 8080, one `/messages` route. App tested in Docker. Branch left on GitHub; backup tag `backup/main-before-tanvi-merge` (local only).
+- State: `message-box/app.js` no longer matches pages 1–6 of section 2 (they use port 3000 and `/app/data`).
+- Next: Vikash decides whether the reference app goes back to the page version (Tanvi's experiments could live on her branch), or the pages change.
+
 ## 2026-10-24: sections 05, 06, 07
 
 - Doing: `05-layers` (example app `cow-says/`), `06-how-networking-works` (fundamentals), `07-compose` (todo app: nginx frontend + Node API + Postgres), written in parallel; then review, nav, index, commit.

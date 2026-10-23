@@ -37,7 +37,6 @@ app.get("/messages", (req, res) => {
   res.json(messages);
 });
 
-
-app.listen(3000, () => {
-  console.log("Message box is running on http://localhost:3000/web");
+app.listen(8080, () => {
+  console.log("Message box is running on http://localhost:8080/web");
 });
