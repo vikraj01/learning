@@ -8,6 +8,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 - Doing: `05-layers` (example app `cow-says/`), `06-how-networking-works` (fundamentals), `07-compose` (todo app: nginx frontend + Node API + Postgres), written in parallel; then review, nav, index, commit.
 - Untouched: Vikash's own uncommitted edit to `docs/02-message-app/message-box/app.js` (`data/` → `table/`, `/messages` route). Not committed by Claude.
+- 06 written and reviewed (6 pages, 6 diagrams, `demo.sh`); 05 and 07 still being written.
 - Next: finish and review the three sections.
 
 ## 2026-10-22: networking section + explaining diagrams
