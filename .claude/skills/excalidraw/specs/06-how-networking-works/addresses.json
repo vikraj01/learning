@@ -1,0 +1,111 @@
+{
+  "title": "Every computer has an address",
+  "subtitle": "An IP address is like a building's address. 127.0.0.1 (localhost) always means 'this building, myself'.",
+  "nodes": [
+    {
+      "id": "laptop",
+      "label": "Your laptop",
+      "detail": "IP 192.168.1.23\nand also 127.0.0.1 (itself)",
+      "color": "blue",
+      "pos": [
+        0,
+        120
+      ],
+      "w": 270,
+      "h": 120
+    },
+    {
+      "id": "phone",
+      "label": "Your phone",
+      "detail": "IP 192.168.1.40",
+      "color": "blue",
+      "pos": [
+        0,
+        420
+      ],
+      "w": 270,
+      "h": 90
+    },
+    {
+      "id": "google",
+      "label": "Google's DNS server",
+      "detail": "IP 8.8.8.8\nfar away, in another city",
+      "color": "green",
+      "pos": [
+        860,
+        120
+      ],
+      "w": 280,
+      "h": 120
+    }
+  ],
+  "edges": [
+    {
+      "from": "laptop",
+      "to": "laptop",
+      "label": "ping 127.0.0.1  ✓\n0.04 ms: a note to yourself",
+      "color": "green",
+      "via": [
+        [
+          60,
+          30
+        ],
+        [
+          210,
+          30
+        ]
+      ]
+    },
+    {
+      "from": "laptop",
+      "to": "google",
+      "label": "ping 8.8.8.8  ✓\n~40 ms: a letter across the city",
+      "color": "green"
+    },
+    {
+      "from": "phone",
+      "to": "laptop",
+      "label": "ping 192.168.1.23  ✓\nsame Wi-Fi, next building",
+      "color": "green"
+    }
+  ],
+  "areas": [
+    {
+      "label": "Your home Wi-Fi",
+      "detail": "addresses 192.168.1.x",
+      "nodes": [
+        "laptop",
+        "phone"
+      ],
+      "color": "gray",
+      "pad": 130
+    },
+    {
+      "label": "The internet",
+      "nodes": [
+        "google"
+      ],
+      "color": "violet",
+      "pad": 40
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        440,
+        380
+      ],
+      "w": 420,
+      "text": "IP address = the address of a building. Every device on a network gets one, so others can find it.\n\n127.0.0.1 = 'this building'. Every computer has it, and it always means itself. Its name is localhost."
+    },
+    {
+      "style": "code",
+      "pos": [
+        -130,
+        660
+      ],
+      "text": "hostname -I                # Linux: your IP address\nipconfig getifaddr en0     # Mac: your IP address\nping -c 2 127.0.0.1        # knock on your own door\nping -c 2 8.8.8.8          # knock on a door far away"
+    }
+  ]
+}

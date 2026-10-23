@@ -1,0 +1,167 @@
+{
+  "title": "Change one line of app.js: what gets rebuilt?",
+  "subtitle": "Once a step has to run again, every step after it runs again too. Order decides how much work that is.",
+  "nodes": [
+    {
+      "id": "g2",
+      "label": "[2/5] WORKDIR /app",
+      "detail": "CACHED ✓",
+      "color": "green",
+      "pos": [
+        0,
+        0
+      ],
+      "w": 360,
+      "h": 76
+    },
+    {
+      "id": "g3",
+      "label": "[3/5] COPY package.json .",
+      "detail": "CACHED ✓ (package.json didn't change)",
+      "color": "green",
+      "pos": [
+        0,
+        130
+      ],
+      "w": 360,
+      "h": 76
+    },
+    {
+      "id": "g4",
+      "label": "[4/5] RUN npm install",
+      "detail": "CACHED ✓ · 0.0s",
+      "color": "green",
+      "pos": [
+        0,
+        260
+      ],
+      "w": 360,
+      "h": 76
+    },
+    {
+      "id": "g5",
+      "label": "[5/5] COPY app.js .",
+      "detail": "runs again ✗ (app.js changed) · 0.0s",
+      "color": "red",
+      "pos": [
+        0,
+        390
+      ],
+      "w": 360,
+      "h": 76
+    },
+    {
+      "id": "b2",
+      "label": "[2/4] WORKDIR /app",
+      "detail": "CACHED ✓",
+      "color": "green",
+      "pos": [
+        560,
+        0
+      ],
+      "w": 360,
+      "h": 76
+    },
+    {
+      "id": "b3",
+      "label": "[3/4] COPY . .",
+      "detail": "runs again ✗ (app.js is in '.')",
+      "color": "red",
+      "pos": [
+        560,
+        130
+      ],
+      "w": 360,
+      "h": 76
+    },
+    {
+      "id": "b4",
+      "label": "[4/4] RUN npm install",
+      "detail": "runs again ✗ · 2.0s (minutes in big apps)",
+      "color": "red",
+      "pos": [
+        560,
+        260
+      ],
+      "w": 360,
+      "h": 76
+    }
+  ],
+  "edges": [
+    {
+      "from": "g2",
+      "to": "g3",
+      "step": 1,
+      "color": "green"
+    },
+    {
+      "from": "g3",
+      "to": "g4",
+      "step": 2,
+      "color": "green"
+    },
+    {
+      "from": "g4",
+      "to": "g5",
+      "step": 3,
+      "color": "red"
+    },
+    {
+      "from": "b2",
+      "to": "b3",
+      "step": 1,
+      "color": "green"
+    },
+    {
+      "from": "b3",
+      "to": "b4",
+      "step": 2,
+      "color": "red",
+      "label": "everything after\na change reruns"
+    }
+  ],
+  "areas": [
+    {
+      "label": "Good order: Dockerfile",
+      "detail": "package.json + npm install first, app.js last",
+      "nodes": [
+        "g2",
+        "g3",
+        "g4",
+        "g5"
+      ],
+      "color": "green",
+      "pad": 40
+    },
+    {
+      "label": "Bad order: Dockerfile.slow",
+      "detail": "copy everything, then npm install",
+      "nodes": [
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "color": "red",
+      "pad": 40
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        560,
+        420
+      ],
+      "w": 420,
+      "text": "Docker reuses a step (CACHED) only if the step and everything before it are exactly the same as last time.\n\nSo: things that rarely change go first (installing packages). Things you change all the time go last (your code)."
+    },
+    {
+      "style": "code",
+      "pos": [
+        -40,
+        780
+      ],
+      "text": "# after editing one line of app.js:\ndocker build -t layers-cow .                     # good: only step 5 runs\ndocker build -f Dockerfile.slow -t layers-cow-slow .  # bad: npm install runs again"
+    }
+  ]
+}

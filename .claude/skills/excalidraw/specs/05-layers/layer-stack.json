@@ -1,0 +1,189 @@
+{
+  "title": "An image is a stack of read-only layers",
+  "subtitle": "layers-cow, as 'docker history' shows it. Newest on top. Each step that changes files adds one layer.",
+  "nodes": [
+    {
+      "id": "l9",
+      "label": "COPY app.js .",
+      "detail": "adds app.js · 12.3kB",
+      "color": "green",
+      "pos": [
+        0,
+        0
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l8",
+      "label": "RUN npm install",
+      "detail": "adds node_modules (cowsay) · 9.27MB",
+      "color": "green",
+      "pos": [
+        0,
+        80
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l7",
+      "label": "COPY package.json .",
+      "detail": "adds package.json · 12.3kB",
+      "color": "green",
+      "pos": [
+        0,
+        160
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l6",
+      "label": "WORKDIR /app",
+      "detail": "makes the /app folder · 8.19kB",
+      "color": "green",
+      "pos": [
+        0,
+        240
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l5",
+      "label": "docker-entrypoint.sh",
+      "detail": "a start-up script · 20.5kB",
+      "color": "blue",
+      "pos": [
+        0,
+        450
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l4",
+      "label": "yarn",
+      "detail": "another package tool · 7.33MB",
+      "color": "blue",
+      "pos": [
+        0,
+        530
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l3",
+      "label": "Node.js itself",
+      "detail": "node and npm · 157MB",
+      "color": "blue",
+      "pos": [
+        0,
+        610
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l2",
+      "label": "user 'node'",
+      "detail": "adds a user account · 69.6kB",
+      "color": "blue",
+      "pos": [
+        0,
+        690
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "l1",
+      "label": "Debian Linux files",
+      "detail": "the bottom sheet: /bin, /etc, /usr ... · 85.3MB",
+      "color": "blue",
+      "pos": [
+        0,
+        770
+      ],
+      "w": 440,
+      "h": 66
+    },
+    {
+      "id": "settings",
+      "label": "Settings, not layers",
+      "detail": "ENTRYPOINT [\"node\", \"app.js\"]\nCMD, ENV, EXPOSE ...\nthey change no files: 0B",
+      "color": "gray",
+      "pos": [
+        620,
+        0
+      ],
+      "w": 300,
+      "h": 120
+    }
+  ],
+  "edges": [
+    {
+      "from": "l1",
+      "to": "l9",
+      "label": "stacked in order,\nnewest on top",
+      "via": [
+        [
+          -110,
+          803
+        ],
+        [
+          -110,
+          33
+        ]
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "label": "Your Dockerfile: 4 layers",
+      "detail": "built by: docker build -t layers-cow .",
+      "nodes": [
+        "l9",
+        "l8",
+        "l7",
+        "l6"
+      ],
+      "color": "green",
+      "pad": 24
+    },
+    {
+      "label": "FROM node:24-slim: 5 layers",
+      "detail": "downloaded, not built by you",
+      "nodes": [
+        "l5",
+        "l4",
+        "l3",
+        "l2",
+        "l1"
+      ],
+      "color": "blue",
+      "pad": 24
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        620,
+        200
+      ],
+      "w": 380,
+      "text": "Like transparent sheets on a projector: each sheet adds or changes a few files. Look down through the whole stack and you see one complete set of folders. That view is what a container starts with.\n\nLayers never change once built. A new build makes new sheets on top."
+    },
+    {
+      "style": "code",
+      "pos": [
+        620,
+        640
+      ],
+      "text": "docker history layers-cow\ndocker image inspect layers-cow \\\n  --format '{{len .RootFS.Layers}}'\n# 9"
+    }
+  ]
+}

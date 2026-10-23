@@ -1,0 +1,24 @@
+{
+  "title": "What happens when you open a website",
+  "subtitle": "Five steps, in about a tenth of a second. Example: http://example.com",
+  "nodes": [
+    {"id": "browser", "label": "Your browser", "detail": "you type example.com\nand press Enter", "color": "blue", "pos": [0, 160], "w": 250, "h": 110},
+    {"id": "dns", "label": "DNS server", "detail": "example.com → 104.20.23.154", "color": "violet", "pos": [480, -130], "w": 300, "h": 90},
+    {"id": "server", "label": "example.com's server", "detail": "IP 104.20.23.154\nport 80 (http), 443 (https)", "color": "green", "pos": [1000, 160], "w": 300, "h": 110}
+  ],
+  "edges": [
+    {"from": "browser", "to": "dns", "label": "where is example.com?", "step": 1, "color": "violet", "via": [[125, -85]]},
+    {"from": "dns", "to": "browser", "label": "104.20.23.154", "step": 2, "color": "violet"},
+    {"from": "browser", "to": "server", "label": "knock: 104.20.23.154, door 80", "step": 3, "via": [[625, 180]]},
+    {"from": "browser", "to": "server", "label": "request: GET /", "step": 4, "color": "blue", "via": [[625, 245]]},
+    {"from": "server", "to": "browser", "label": "response: 200 OK + the page", "step": 5, "color": "green", "via": [[1150, 380], [125, 380]]}
+  ],
+  "areas": [
+    {"label": "Your laptop", "nodes": ["browser"], "color": "gray", "pad": 40},
+    {"label": "The internet", "nodes": ["dns", "server"], "color": "violet", "pad": 40}
+  ],
+  "notes": [
+    {"style": "callout", "pos": [0, 500], "w": 520, "text": "Request = a letter: 'please send me /'. Response = the reply letter, starting with a code: 200 OK, 404 Not Found...\n\nBig replies don't travel in one piece. They're cut into small numbered packets, like a long letter sent on many postcards. Your laptop puts the postcards back in order."},
+    {"style": "code", "pos": [600, 500], "text": "curl -sv -o /dev/null http://example.com\n\n* Connected to example.com (104.20.23.154) port 80\n> GET / HTTP/1.1          # the request\n> Host: example.com\n< HTTP/1.1 200 OK         # the response"}
+  ]
+}

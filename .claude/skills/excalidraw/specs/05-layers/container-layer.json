@@ -1,0 +1,115 @@
+{
+  "title": "Every container gets its own thin writable layer",
+  "subtitle": "The image underneath is read-only and shared. Changes go into the container's own layer, and die with it.",
+  "nodes": [
+    {
+      "id": "wa",
+      "label": "writable layer of layers-a",
+      "detail": "A /app/note.txt (added)\nC /app/app.js (changed: copied up first)\nD /app/package.json (deleted: just hidden)\n24.6kB",
+      "color": "yellow",
+      "pos": [
+        0,
+        0
+      ],
+      "w": 400,
+      "h": 130
+    },
+    {
+      "id": "wb",
+      "label": "writable layer of layers-b",
+      "detail": "nothing changed yet\n0B",
+      "color": "yellow",
+      "pos": [
+        520,
+        15
+      ],
+      "w": 320,
+      "h": 100
+    },
+    {
+      "id": "ours",
+      "label": "your 4 layers",
+      "detail": "/app, package.json, node_modules, app.js",
+      "color": "green",
+      "pos": [
+        120,
+        360
+      ],
+      "w": 600,
+      "h": 76
+    },
+    {
+      "id": "base",
+      "label": "node:24-slim's 5 layers",
+      "detail": "Debian files, Node.js, npm",
+      "color": "blue",
+      "pos": [
+        120,
+        450
+      ],
+      "w": 600,
+      "h": 76
+    }
+  ],
+  "edges": [
+    {
+      "from": "wa",
+      "to": "ours",
+      "label": "reads through to",
+      "color": "gray"
+    },
+    {
+      "from": "wb",
+      "to": "ours",
+      "label": "reads through to",
+      "color": "gray"
+    }
+  ],
+  "areas": [
+    {
+      "label": "Container layers-a",
+      "nodes": [
+        "wa"
+      ],
+      "color": "green",
+      "pad": 24
+    },
+    {
+      "label": "Container layers-b",
+      "nodes": [
+        "wb"
+      ],
+      "color": "green",
+      "pad": 24
+    },
+    {
+      "label": "Image layers-cow: read-only",
+      "detail": "shared by both containers, never changed by them",
+      "nodes": [
+        "ours",
+        "base"
+      ],
+      "color": "blue",
+      "pad": 30
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        960,
+        -40
+      ],
+      "w": 380,
+      "text": "Copy-on-write: to change a file that came from the image, Docker first copies it up into the container's layer, then changes the copy. The image's file stays as it was.\n\ndocker rm throws the writable layer away. The image is untouched, so the next container starts fresh."
+    },
+    {
+      "style": "code",
+      "pos": [
+        960,
+        340
+      ],
+      "text": "docker diff layers-a\n# A = added, C = changed, D = deleted\ndocker ps -as\n# SIZE 24.6kB (virtual 259MB)"
+    }
+  ]
+}

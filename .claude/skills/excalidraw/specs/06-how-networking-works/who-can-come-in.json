@@ -1,0 +1,24 @@
+{
+  "title": "Who can come in? 127.0.0.1 vs 0.0.0.0",
+  "subtitle": "The address a program listens on decides who can reach it: only the laptop itself, or anyone on the network.",
+  "nodes": [
+    {"id": "browser", "label": "Your browser", "detail": "on the laptop", "pos": [0, 150], "w": 220, "h": 90},
+    {"id": "srvA", "label": "server A", "detail": "--bind 127.0.0.1\nport 9003\nonly from inside", "color": "green", "pos": [470, 0], "w": 240, "h": 120},
+    {"id": "srvB", "label": "server B", "detail": "--bind 0.0.0.0\nport 9004\nfrom anywhere", "color": "green", "pos": [470, 270], "w": 240, "h": 120},
+    {"id": "phone", "label": "Your phone", "detail": "IP 192.168.1.40\nsame Wi-Fi", "color": "blue", "pos": [1080, 140], "w": 230, "h": 100}
+  ],
+  "edges": [
+    {"from": "browser", "to": "srvA", "label": "localhost:9003  ✓", "color": "green"},
+    {"from": "browser", "to": "srvB", "label": "localhost:9004  ✓", "color": "green"},
+    {"from": "phone", "to": "srvA", "label": "192.168.1.23:9003  ✗\nrefused", "color": "red", "dashed": true},
+    {"from": "phone", "to": "srvB", "label": "192.168.1.23:9004  ✓", "color": "green"}
+  ],
+  "areas": [
+    {"label": "Your laptop", "detail": "192.168.1.23", "nodes": ["browser", "srvA", "srvB"], "color": "gray", "pad": 40},
+    {"label": "Your home Wi-Fi", "nodes": ["browser", "srvA", "srvB", "phone"], "color": "white", "pad": 40}
+  ],
+  "notes": [
+    {"style": "callout", "pos": [0, 560], "w": 520, "text": "127.0.0.1 = the intercom inside the building. Only people already inside can use it.\n\n0.0.0.0 = the front door, open to the street. Anyone who knows the address can knock.\n\nDocker's -p 8080:80 opens the front door (0.0.0.0). -p 127.0.0.1:8080:80 keeps it to the intercom."},
+    {"style": "code", "pos": [600, 560], "text": "python3 -m http.server 9003 --bind 127.0.0.1\npython3 -m http.server 9004 --bind 0.0.0.0\n\n# on your phone's browser:\nhttp://192.168.1.23:9004   # works\nhttp://192.168.1.23:9003   # can't connect"}
+  ]
+}

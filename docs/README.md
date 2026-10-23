@@ -55,3 +55,29 @@ How containers find and talk to each other: IP addresses, your own networks, nam
 4. [Which address do I use?](04-networking/04-which-address.md)
 
 Finished app: [`04-networking/visit-counter/`](04-networking/visit-counter/). To watch everything run step by step: `cd docs/04-networking && ./demo.sh` (press Enter for each step).
+
+## 5. Layers
+
+What an image is really made of, why some builds are fast and others slow, and how to keep images small. The example is `cow-says`, a cow that says what you tell it.
+
+1. [Layers: what an image is made of](05-layers/01-what-is-a-layer.md)
+2. [The build cache: why order matters](05-layers/02-build-cache.md)
+3. [Sharing layers, and keeping images small](05-layers/03-sharing-and-size.md)
+4. [The container's own layer](05-layers/04-the-container-layer.md)
+5. [Multi-stage builds: build big, ship small](05-layers/05-multi-stage-builds.md)
+
+Finished files: [`05-layers/cow-says/`](05-layers/cow-says/) and [`05-layers/tiny-cow/`](05-layers/tiny-cow/).
+
+## 6. How networking works
+
+Not just Docker: how any two computers find and talk to each other. Addresses, ports, who's allowed in, names, what happens when you open a website, and your home network. It explains the *why* behind section 4.
+
+1. [Every computer has an address](06-how-networking-works/01-addresses.md)
+2. [One address, many doors: ports](06-how-networking-works/02-ports.md)
+3. [Who can come in? 127.0.0.1 vs 0.0.0.0](06-how-networking-works/03-who-can-come-in.md)
+4. [DNS: the contacts app of the internet](06-how-networking-works/04-dns.md)
+5. [What happens when you open a website](06-how-networking-works/05-opening-a-website.md)
+6. [Your home network: private and public addresses](06-how-networking-works/06-your-home-network.md)
+
+To watch it all run step by step: `cd docs/06-how-networking-works && ./demo.sh`.
+

@@ -18,3 +18,4 @@ Notes for Claude. Read this first, then whichever file the task needs. Keep each
 - Message-box project (JS app + Docker + storage), 9 pages in `docs/02-message-app/` (latest: 09 go inside a container).
 - Producer/consumer project, 3 pages in `docs/03-two-apps/`: two apps sharing data via a volume, then a bind mount.
 - Networking, 4 pages in `docs/04-networking/` (visit counter: Node + Redis) + `demo.sh`. First section with the new detailed diagram style.
+- Layers, 5 pages in `docs/05-layers/`. Networking fundamentals, 6 pages in `docs/06-how-networking-works/` + `demo.sh`. Compose (todo app) in progress in `docs/07-compose/`.

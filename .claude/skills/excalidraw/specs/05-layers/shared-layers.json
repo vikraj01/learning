@@ -1,0 +1,22 @@
+{
+  "title": "Images share layers: stored once, used many times",
+  "subtitle": "Three images built FROM node:24-slim. Each says 341MB, but the base layers are on your disk only once.",
+  "nodes": [
+    {"id": "a", "label": "layers-cow", "detail": "341MB in total\nonly 11MB its own", "color": "green", "pos": [0, 0], "w": 230, "h": 100},
+    {"id": "b", "label": "layers-cow-x", "detail": "342MB in total\nonly 11.6MB its own", "color": "green", "pos": [290, 0], "w": 230, "h": 100},
+    {"id": "c", "label": "layers-cow-slow", "detail": "341MB in total\nonly 11MB its own", "color": "green", "pos": [580, 0], "w": 230, "h": 100},
+    {"id": "base", "label": "node:24-slim layers", "detail": "Debian + Node.js + npm\n330MB · stored once, shared by all three", "color": "blue", "pos": [150, 250], "w": 510, "h": 110}
+  ],
+  "edges": [
+    {"from": "a", "to": "base", "label": "uses", "color": "blue"},
+    {"from": "b", "to": "base", "label": "uses", "color": "blue"},
+    {"from": "c", "to": "base", "label": "uses", "color": "blue"}
+  ],
+  "areas": [
+    {"label": "Your laptop's disk", "detail": "330MB + 11MB + 11.6MB + 11MB ≈ 364MB, not 3 × 341MB = 1GB", "nodes": ["a", "b", "c", "base"], "color": "gray", "pad": 40}
+  ],
+  "notes": [
+    {"style": "callout", "pos": [920, -60], "w": 380, "text": "Pick a small base image: every image you build on it carries its size.\n\nAnd keep junk out of the build with .dockerignore: a 50MB video copied by COPY . . becomes a 50MB layer."},
+    {"style": "code", "pos": [920, 230], "text": "docker images node\n# node:24         1.65GB\n# node:24-slim     333MB\n# node:24-alpine   244MB\n\ndocker system df -v\n# SIZE / SHARED SIZE / UNIQUE SIZE"}
+  ]
+}

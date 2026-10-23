@@ -1,0 +1,151 @@
+{
+  "title": "One address, many doors: ports",
+  "subtitle": "Your laptop has one IP address but 65,535 numbered doors. Each program listens behind its own door.",
+  "nodes": [
+    {
+      "id": "browser",
+      "label": "Browser / curl",
+      "detail": "you, knocking",
+      "pos": [
+        0,
+        150
+      ],
+      "w": 220,
+      "h": 90
+    },
+    {
+      "id": "door1",
+      "label": "door 9001",
+      "color": "yellow",
+      "size": "small",
+      "pos": [
+        420,
+        40
+      ],
+      "w": 130
+    },
+    {
+      "id": "srv1",
+      "label": "server 1",
+      "detail": "python3 -m http.server 9001\nshows folder flat-1",
+      "color": "green",
+      "pos": [
+        700,
+        20
+      ],
+      "w": 300,
+      "h": 100
+    },
+    {
+      "id": "door2",
+      "label": "door 9002",
+      "color": "yellow",
+      "size": "small",
+      "pos": [
+        420,
+        290
+      ],
+      "w": 130
+    },
+    {
+      "id": "srv2",
+      "label": "server 2",
+      "detail": "python3 -m http.server 9002\nshows folder flat-2",
+      "color": "green",
+      "pos": [
+        700,
+        270
+      ],
+      "w": 300,
+      "h": 100
+    },
+    {
+      "id": "clash",
+      "label": "server 3",
+      "detail": "python3 -m http.server 9001\nwants the same door",
+      "color": "red",
+      "pos": [
+        1120,
+        20
+      ],
+      "w": 290,
+      "h": 100
+    }
+  ],
+  "edges": [
+    {
+      "from": "browser",
+      "to": "door1",
+      "label": "localhost:9001",
+      "color": "green"
+    },
+    {
+      "from": "door1",
+      "to": "srv1",
+      "color": "green"
+    },
+    {
+      "from": "browser",
+      "to": "door2",
+      "label": "localhost:9002",
+      "color": "green"
+    },
+    {
+      "from": "door2",
+      "to": "srv2",
+      "color": "green"
+    },
+    {
+      "from": "clash",
+      "to": "door1",
+      "label": "✗ Address already in use\none program per door",
+      "color": "red",
+      "dashed": true,
+      "via": [
+        [
+          1265,
+          -70
+        ],
+        [
+          485,
+          -70
+        ]
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "label": "Your laptop",
+      "detail": "one address: 192.168.1.23 (and 127.0.0.1)",
+      "nodes": [
+        "browser",
+        "door1",
+        "srv1",
+        "door2",
+        "srv2",
+        "clash"
+      ],
+      "color": "gray",
+      "pad": 50
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        0,
+        470
+      ],
+      "w": 470,
+      "text": "IP address = the building. Port = the flat number.\n\n192.168.1.23:9001 and 192.168.1.23:9002 are two different flats in the same building. Only one program can live in each flat."
+    },
+    {
+      "style": "code",
+      "pos": [
+        540,
+        470
+      ],
+      "text": "Doors you'll meet a lot:\n  80    websites (http)\n  443   websites (https)\n  3000  our Node apps\n  6379  Redis\n  5432  PostgreSQL"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "cow-says",
+  "dependencies": {
+    "cowsay": "1.6.0"
+  }
+}

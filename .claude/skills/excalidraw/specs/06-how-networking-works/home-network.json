@@ -1,0 +1,191 @@
+{
+  "title": "Your home network: one public address for the whole house",
+  "subtitle": "Inside, each device has a private address. Outside, everyone shares the router's public address.",
+  "nodes": [
+    {
+      "id": "laptop",
+      "label": "Your laptop",
+      "detail": "private: 192.168.1.23",
+      "color": "blue",
+      "pos": [
+        0,
+        0
+      ],
+      "w": 250,
+      "h": 90
+    },
+    {
+      "id": "phone",
+      "label": "Your phone",
+      "detail": "private: 192.168.1.40",
+      "color": "blue",
+      "pos": [
+        0,
+        300
+      ],
+      "w": 250,
+      "h": 90
+    },
+    {
+      "id": "router",
+      "label": "Router (the watchman)",
+      "detail": "inside: 192.168.1.1\noutside: 27.7.203.40",
+      "color": "yellow",
+      "pos": [
+        460,
+        130
+      ],
+      "w": 280,
+      "h": 110
+    },
+    {
+      "id": "site",
+      "label": "example.com",
+      "detail": "104.20.23.154",
+      "color": "green",
+      "pos": [
+        1080,
+        0
+      ],
+      "w": 240,
+      "h": 90
+    },
+    {
+      "id": "stranger",
+      "label": "A stranger",
+      "detail": "somewhere on the internet",
+      "pos": [
+        1080,
+        300
+      ],
+      "w": 240,
+      "h": 90
+    }
+  ],
+  "edges": [
+    {
+      "from": "laptop",
+      "to": "router",
+      "label": "from 192.168.1.23",
+      "step": 1,
+      "via": [
+        [
+          440,
+          45
+        ]
+      ]
+    },
+    {
+      "from": "router",
+      "to": "site",
+      "label": "from 27.7.203.40",
+      "step": 2,
+      "via": [
+        [
+          760,
+          45
+        ]
+      ]
+    },
+    {
+      "from": "site",
+      "to": "router",
+      "label": "reply to 27.7.203.40",
+      "step": 3,
+      "color": "green",
+      "via": [
+        [
+          1200,
+          210
+        ],
+        [
+          760,
+          210
+        ]
+      ]
+    },
+    {
+      "from": "router",
+      "to": "laptop",
+      "label": "back to 192.168.1.23",
+      "step": 4,
+      "color": "green",
+      "via": [
+        [
+          300,
+          210
+        ],
+        [
+          125,
+          210
+        ]
+      ]
+    },
+    {
+      "from": "phone",
+      "to": "router",
+      "label": "phone uses it too",
+      "dashed": true,
+      "via": [
+        [
+          600,
+          345
+        ]
+      ]
+    },
+    {
+      "from": "stranger",
+      "to": "router",
+      "label": "192.168.1.23?  ✗\nprivate: not reachable\nfrom outside",
+      "color": "red",
+      "dashed": true,
+      "via": [
+        [
+          950,
+          345
+        ]
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "label": "Your home Wi-Fi",
+      "detail": "private addresses 192.168.1.x",
+      "nodes": [
+        "laptop",
+        "phone",
+        "router"
+      ],
+      "color": "gray",
+      "pad": 50
+    },
+    {
+      "label": "The internet",
+      "nodes": [
+        "site",
+        "stranger"
+      ],
+      "color": "violet",
+      "pad": 40
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        0,
+        500
+      ],
+      "w": 560,
+      "text": "Your Wi-Fi is a gated society. Each building inside has a society number (private IP), which means nothing outside the gate. The world only knows the gate's address (public IP).\n\nThe watchman (router) notes who sent each letter, writes the gate's address as the return address, and hands each reply back to the right building. This is called NAT."
+    },
+    {
+      "style": "code",
+      "pos": [
+        640,
+        500
+      ],
+      "text": "hostname -I                         # Linux: private IP\nipconfig getifaddr en0              # Mac: private IP\nip route | grep default             # Linux: router\nroute -n get default | grep gateway # Mac: router\ncurl ifconfig.me                    # public IP"
+    }
+  ]
+}

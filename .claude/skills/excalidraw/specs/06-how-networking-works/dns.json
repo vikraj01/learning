@@ -1,0 +1,141 @@
+{
+  "title": "DNS: the contacts app of the internet",
+  "subtitle": "Computers connect to numbers. DNS turns the names you type into those numbers.",
+  "nodes": [
+    {
+      "id": "hosts",
+      "label": "hosts file",
+      "detail": "your private contacts\nlocalhost → 127.0.0.1",
+      "color": "yellow",
+      "pos": [
+        0,
+        -150
+      ],
+      "w": 250,
+      "h": 100
+    },
+    {
+      "id": "laptop",
+      "label": "Your laptop",
+      "detail": "you type example.com",
+      "color": "blue",
+      "pos": [
+        0,
+        120
+      ],
+      "w": 250,
+      "h": 100
+    },
+    {
+      "id": "dns",
+      "label": "DNS server",
+      "detail": "the big phone book\nexample.com → 104.20.23.154\ngoogle.com → 142.250.193.174",
+      "color": "violet",
+      "pos": [
+        620,
+        100
+      ],
+      "w": 320,
+      "h": 130
+    },
+    {
+      "id": "site",
+      "label": "example.com's server",
+      "detail": "IP 104.20.23.154",
+      "color": "green",
+      "pos": [
+        620,
+        380
+      ],
+      "w": 320,
+      "h": 90
+    }
+  ],
+  "edges": [
+    {
+      "from": "laptop",
+      "to": "hosts",
+      "label": "in my own contacts?",
+      "step": 1,
+      "color": "violet"
+    },
+    {
+      "from": "laptop",
+      "to": "dns",
+      "label": "what's example.com?",
+      "step": 2,
+      "color": "violet",
+      "via": [
+        [
+          440,
+          140
+        ]
+      ]
+    },
+    {
+      "from": "dns",
+      "to": "laptop",
+      "label": "104.20.23.154",
+      "step": 3,
+      "color": "violet",
+      "via": [
+        [
+          440,
+          200
+        ]
+      ]
+    },
+    {
+      "from": "laptop",
+      "to": "site",
+      "label": "connect to 104.20.23.154",
+      "step": 4,
+      "color": "green",
+      "via": [
+        [
+          125,
+          425
+        ]
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "label": "Your laptop",
+      "nodes": [
+        "hosts",
+        "laptop"
+      ],
+      "color": "gray",
+      "pad": 70
+    },
+    {
+      "label": "The internet",
+      "nodes": [
+        "dns",
+        "site"
+      ],
+      "color": "violet",
+      "pad": 40
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        1060,
+        -120
+      ],
+      "w": 400,
+      "text": "Like the contacts app on your phone: you tap 'Mum', and the phone dials her number. You never type the number.\n\nYour laptop checks its own hosts file first, then asks a DNS server. A made-up name gets 'NXDOMAIN': no such contact."
+    },
+    {
+      "style": "code",
+      "pos": [
+        1060,
+        250
+      ],
+      "text": "nslookup example.com\nping -c 2 google.com\ncat /etc/hosts\nnslookup made-up-tanvi.com   # NXDOMAIN"
+    }
+  ]
+}

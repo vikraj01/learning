@@ -61,3 +61,16 @@ nav:
       - 04-networking/02-your-own-network.md
       - 04-networking/03-the-visit-counter.md
       - 04-networking/04-which-address.md
+  - 5. Layers:
+      - 05-layers/01-what-is-a-layer.md
+      - 05-layers/02-build-cache.md
+      - 05-layers/03-sharing-and-size.md
+      - 05-layers/04-the-container-layer.md
+      - 05-layers/05-multi-stage-builds.md
+  - 6. How networking works:
+      - 06-how-networking-works/01-addresses.md
+      - 06-how-networking-works/02-ports.md
+      - 06-how-networking-works/03-who-can-come-in.md
+      - 06-how-networking-works/04-dns.md
+      - 06-how-networking-works/05-opening-a-website.md
+      - 06-how-networking-works/06-your-home-network.md
