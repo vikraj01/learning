@@ -8,7 +8,8 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 - Vikash asked how a container reaches a database on the host, and laid out the order to teach networking to Tanvi again (see `decisions.md`). Explained in chat, with a step-by-step outline built on the message box.
 - Tested on this laptop: Docker here is **rootless** (rootlesskit, `--disable-host-loopback`), so `host-gateway` (172.17.0.1) does **not** reach the real host; the laptop's LAN IP (192.168.1.18) does, if the server listens on `0.0.0.0`. Normal (rootful) Docker and Docker Desktop behave as the textbook says. Check which one Tanvi runs before writing pages.
-- Explainer for Vikash himself (not Tanvi), all 8 steps with real outputs: https://claude.ai/artifact/7zxDgDJPBaziv8dkTPukuE. Vikash wanted to be taught first, before any teaching plan.
+- Explainer for Vikash himself (not Tanvi): https://claude.ai/artifact/7zxDgDJPBaziv8dkTPukuE. v1 (one long page) was rejected as too thin and too advanced; v2 has 12 tabs, starting on the Linux laptop (interfaces, ports lab, DNS path nsswitch → /etc/hosts → 127.0.0.53 systemd-resolved → 8.8.8.8 with TTL, loopback), then the container, bridge, own network + Docker DNS 127.0.0.11, host DB, host, none, cheat sheet, Tanvi plan. All outputs from this laptop.
+- Lesson for explainers: start from the basics on the machine itself, go deep and detailed, split into tabs; never open with the advanced answer.
 - Next: Vikash decides on the `box` + `store` example and whether this replaces section 4 or becomes a new section.
 
 ## 2026-10-24: practice list made truly beginner-level
