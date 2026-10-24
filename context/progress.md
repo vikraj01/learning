@@ -10,6 +10,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 - Mistakes this session: added graphs/trees/Medium problems and a 150-problem list after Vikash asked whether the *Python* was covered. Reverted to 50 easy.
 - Left out (untracked, not committed): agent-written lessons 12–17 (grids, built-ins, recursion, classes, collections, heapq). Lesson 11 (two pointers/stacks) stays in the repo but not in the PDF. `practice/`/`solutions/` (old 50, runnable with tests) kept; they overlap the list but don't match it exactly.
 - Next: Vikash's call on lessons 12–17 and on the `practice/` folder.
+- CLAUDE.md layout line for `python-dsa/` updated to match (lessons 1–10, two PDFs).
 
 ## 2026-10-24: Tanvi's first branch merged
 
