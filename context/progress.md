@@ -4,6 +4,13 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-25: networks demo with the notes app
+
+- Vikash gave a notes app (zip in ~/Downloads/Archives/container): web → api → db (Postgres). Set up as `docs/08-networks-demo/` with one README page: what a network is (houses), demo 1 default network (ENOTFOUND), container IPs + using numbers instead of names, demo 2 own network `notes-net` ✓, demo 3 db on `other-net` ✗, cleanup, questions.
+- Vikash's rules for it: **plain docker commands, no Compose, no environment variables** (Tanvi doesn't know them yet). Names are written in the code (`"api"`, `"db"`); the Postgres password lives in `db/Dockerfile`. No `ip addr`-level detail.
+- Not run end to end: Vikash asked to stop testing and finish. Images build. Port 3000 is taken on this laptop by another container, so run it elsewhere or free 3000 first.
+- Next: Vikash reviews; a diagram if wanted.
+
 ## 2026-10-24: networking redo, planned (no pages yet)
 
 - Vikash asked how a container reaches a database on the host, and laid out the order to teach networking to Tanvi again (see `decisions.md`). Explained in chat, with a step-by-step outline built on the message box.

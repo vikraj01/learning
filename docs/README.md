@@ -93,3 +93,10 @@ A real app in three parts: a todo list page (frontend), the program that does th
 
 Finished project: [`07-compose/todo-app/`](07-compose/todo-app/). To watch it all run step by step: `cd docs/07-compose && ./demo.sh`.
 
+## 8. Networks demo: the notes app
+
+A notes app in three parts (web, api, database), run with plain `docker` commands. See what the default network does, what changes on a network of your own, what happens on different networks, and how to find a container's address.
+
+- [The notes app on different networks](08-networks-demo/README.md)
+
+Files: [`08-networks-demo/notes-app/`](08-networks-demo/notes-app/).

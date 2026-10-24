@@ -80,3 +80,4 @@ nav:
       - 07-compose/03-compose-yaml.md
       - 07-compose/04-living-with-compose.md
       - 07-compose/05-how-the-parts-find-each-other.md
+  - "8. Networks demo: the notes app": 08-networks-demo/README.md
