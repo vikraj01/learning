@@ -4,6 +4,13 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-24: Python for LeetCode
+
+- Done: new root folder `python-dsa/` (index `README.md`). 11 learn pages in `learn/` (run Python → variables/numbers → if → functions → how LeetCode looks → strings → lists → loops → dicts → sets/tuples → two pointers/stacks), each with a runnable `examples/` script. 50 Easy problems in 7 stages (`practice/README.md` has the list with tick boxes): starter file with plain-words problem, self-running ✓/✗ tests and 2–3 hints; `solutions/` mirrors it with a beginner-level solution, a "how this works" walk-through and an "another way". Each stage uses only what earlier pages taught.
+- Verified: all 11 examples run, 50 solutions pass (218 ✓, 0 ✗), all 50 practice files run unsolved without crashing. Page outputs are real runs. LeetCode method names are from memory (not checked online).
+- Known: a few in-place edge-case tests pass before any code is written (Move Zeroes `[0]`, `[1,2,3]`; Merge Sorted Array with empty nums2). Pages run 200–420 lines, longer than the usual 10-minute page; loops page longest. No diagrams yet. Not on the MkDocs site.
+- Next: Vikash reviews; whether to add `python-dsa/` to the site; diagrams for key pages (lists/indexes, loops, dicts) if wanted.
+
 ## 2026-10-24: Tanvi's first branch merged
 
 - Done: merged Tanvi's branch `01tanvi-work` (her commit "bind-mount": message-box on port 8080, a `/messages` route, her test `data/messages.txt`, `package.json` + lock) into main, together with Vikash's own edit (`table/` folder + `/messages`). Conflict in `message-box/app.js` resolved by keeping both: `table/` + port 8080, one `/messages` route. App tested in Docker. Branch left on GitHub; backup tag `backup/main-before-tanvi-merge` (local only).
