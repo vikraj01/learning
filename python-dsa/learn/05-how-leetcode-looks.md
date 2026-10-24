@@ -265,4 +265,4 @@ IndentationError: expected an indented block after class definition on line 1
 
 ## Next
 
-Time to practise. Solve the problems in **Stage 1** of the LeetCode list (`leetcode-list.pdf`), in order. You've already done the first one above.
+Time to practise. Solve the problems in **Stage 1** of the practice list (`leetcode-list.pdf`), in order. Add Two Integers is one of them, and you've already solved it above.

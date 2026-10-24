@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-24: practice list made truly beginner-level
+
+- Vikash: the 50 "were not easy". LeetCode Easy (Two Sum, Roman to Integer, Single Number…) is too hard for a first-time programmer.
+- Done: new 50 in `leetcode-list.md` / `.pdf`: 35 GeeksforGeeks problems (its "Basic" level, plus 6 from its Python practice set) and 15 LeetCode problems with ≥85% acceptance. Names and links generated from the sites' own APIs. Stages: 8 / 9 / 7 / 17 / 3 / 6 (after lessons 5–10). Rule for future lists: pick by measured easiness (GfG Basic, LeetCode acceptance ≥85%), not by the "Easy" label.
+- Next: Vikash's review.
+
 ## 2026-10-24: Python for LeetCode → two PDFs
 
 - Done: `python-dsa/` with lessons 1–10 (+ examples) and two PDFs built by `make pdf` (`python-dsa/pdf/build.py`, Markdown → HTML → headless Chrome): `python-for-leetcode.pdf` (84 pages) and `leetcode-list.pdf` (50 easy problems, 6 stages matching lessons 5–10, from `leetcode-list.md`). All 46 LeetCode problems checked against LeetCode's API (title, Easy, free); 4 GfG problems checked against GfG's API. Signatures switched to LeetCode's current `list[int]` style everywhere.
