@@ -15,11 +15,8 @@ You'll need: for over a list (page 8), if/else (page 3)
 Run this file:  python3 25-0485-max-consecutive-ones.py
 """
 
-from typing import List
-
-
 class Solution:
-    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+    def findMaxConsecutiveOnes(self, nums: list[int]) -> int:
         # your code here
         pass
 

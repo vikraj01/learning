@@ -22,11 +22,8 @@ You'll need: changing a list in place (page 7), while loops (page 8),
 Run this file:  python3 50-0088-merge-sorted-array.py
 """
 
-from typing import List
-
-
 class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+    def merge(self, nums1: list[int], m: int, nums2: list[int], n: int) -> None:
         i = m - 1  # last real number in nums1
         j = n - 1  # last number in nums2
         write = m + n - 1  # last spot in nums1

@@ -17,11 +17,8 @@ You'll need: list comprehensions (page 8), set() and & (page 10)
 Run this file:  python3 43-0349-intersection-of-two-arrays.py
 """
 
-from typing import List
-
-
 class Solution:
-    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    def intersection(self, nums1: list[int], nums2: list[int]) -> list[int]:
         # sets drop repeats, and & keeps what's in both
         common = set(nums1) & set(nums2)
 

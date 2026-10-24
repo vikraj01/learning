@@ -19,11 +19,8 @@ You'll need: for over a list (page 8), max and append (page 7), >= (page 3)
 Run this file:  python3 23-1431-kids-with-the-greatest-number-of-candies.py
 """
 
-from typing import List
-
-
 class Solution:
-    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+    def kidsWithCandies(self, candies: list[int], extraCandies: int) -> list[bool]:
         most = max(candies)  # the most any kid has right now
         answer = []
 

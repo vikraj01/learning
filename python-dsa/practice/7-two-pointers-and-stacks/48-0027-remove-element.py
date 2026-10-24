@@ -24,11 +24,8 @@ You'll need: changing a list in place (page 7), for and range (page 8),
 Run this file:  python3 48-0027-remove-element.py
 """
 
-from typing import List
-
-
 class Solution:
-    def removeElement(self, nums: List[int], val: int) -> int:
+    def removeElement(self, nums: list[int], val: int) -> int:
         # your code here
         pass
 

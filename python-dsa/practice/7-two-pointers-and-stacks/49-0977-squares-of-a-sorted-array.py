@@ -17,11 +17,8 @@ You'll need: while loops and list comprehensions (page 8),
 Run this file:  python3 49-0977-squares-of-a-sorted-array.py
 """
 
-from typing import List
-
-
 class Solution:
-    def sortedSquares(self, nums: List[int]) -> List[int]:
+    def sortedSquares(self, nums: list[int]) -> list[int]:
         # your code here
         pass
 

@@ -16,11 +16,8 @@ You'll need: nested for loops, range(len(...)) (page 8), == (page 3)
 Run this file:  python3 26-1512-number-of-good-pairs.py
 """
 
-from typing import List
-
-
 class Solution:
-    def numIdenticalPairs(self, nums: List[int]) -> int:
+    def numIdenticalPairs(self, nums: list[int]) -> int:
         count = 0
 
         # i is the first place of the pair

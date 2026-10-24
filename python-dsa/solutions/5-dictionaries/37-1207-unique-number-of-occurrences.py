@@ -18,11 +18,8 @@ You'll need: counting with a dictionary, .items() and `in` (page 9)
 Run this file:  python3 37-1207-unique-number-of-occurrences.py
 """
 
-from typing import List
-
-
 class Solution:
-    def uniqueOccurrences(self, arr: List[int]) -> bool:
+    def uniqueOccurrences(self, arr: list[int]) -> bool:
         # count every number
         counts = {}
         for num in arr:

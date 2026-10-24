@@ -22,11 +22,8 @@ You'll need: changing a list in place (page 7), for and range (page 8),
 Run this file:  python3 47-0026-remove-duplicates-from-sorted-array.py
 """
 
-from typing import List
-
-
 class Solution:
-    def removeDuplicates(self, nums: List[int]) -> int:
+    def removeDuplicates(self, nums: list[int]) -> int:
         write = 1  # nums[0] is always kept, so start writing at index 1
 
         for read in range(1, len(nums)):

@@ -16,11 +16,8 @@ You'll need: for over a list and [::-1] (pages 8 and 6), % and // (page 2), inse
 Run this file:  python3 30-0066-plus-one.py
 """
 
-from typing import List
-
-
 class Solution:
-    def plusOne(self, digits: List[int]) -> List[int]:
+    def plusOne(self, digits: list[int]) -> list[int]:
         answer = []
         carry = 1  # the "+ 1" we're adding, which starts at the last digit
 

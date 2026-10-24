@@ -19,11 +19,8 @@ You'll need: enumerate (page 8), a dictionary that remembers
 Run this file:  python3 32-0001-two-sum.py
 """
 
-from typing import List
-
-
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
         seen = {}  # number -> the index where we saw it
 
         for i, num in enumerate(nums):

@@ -16,11 +16,8 @@ You'll need: for loops (page 8), a set with add and `in` (page 10)
 Run this file:  python3 40-0217-contains-duplicate.py
 """
 
-from typing import List
-
-
 class Solution:
-    def containsDuplicate(self, nums: List[int]) -> bool:
+    def containsDuplicate(self, nums: list[int]) -> bool:
         seen = set()  # numbers we've already passed
 
         for num in nums:

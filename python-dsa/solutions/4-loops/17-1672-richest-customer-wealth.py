@@ -17,11 +17,8 @@ You'll need: for over a list (page 8), sum and lists in lists (page 7), if (page
 Run this file:  python3 17-1672-richest-customer-wealth.py
 """
 
-from typing import List
-
-
 class Solution:
-    def maximumWealth(self, accounts: List[List[int]]) -> int:
+    def maximumWealth(self, accounts: list[list[int]]) -> int:
         richest = 0  # best wealth seen so far (money is never negative)
 
         for customer in accounts:

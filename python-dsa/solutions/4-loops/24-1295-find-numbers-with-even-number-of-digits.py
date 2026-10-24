@@ -16,11 +16,8 @@ You'll need: for over a list (page 8), str() and len (page 6), % (page 2)
 Run this file:  python3 24-1295-find-numbers-with-even-number-of-digits.py
 """
 
-from typing import List
-
-
 class Solution:
-    def findNumbers(self, nums: List[int]) -> int:
+    def findNumbers(self, nums: list[int]) -> int:
         count = 0
 
         for number in nums:

@@ -418,4 +418,4 @@ IndexError: list index out of range
 
 ## Next
 
-This is the biggest practice stage, and where most of your learning happens: [Practice stage 4: loops](../practice/README.md#stage-4-loops).
+This is the biggest practice stage, and where most of your learning happens: **Stage 4** in the LeetCode list (`leetcode-list.pdf`).

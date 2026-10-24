@@ -16,11 +16,8 @@ You'll need: for over a list (page 8), in on strings (page 6), if/else (page 3)
 Run this file:  python3 21-2011-final-value-of-variable.py
 """
 
-from typing import List
-
-
 class Solution:
-    def finalValueAfterOperations(self, operations: List[str]) -> int:
+    def finalValueAfterOperations(self, operations: list[str]) -> int:
         # your code here
         pass
 

@@ -16,11 +16,8 @@ You'll need: nested for loops, range(len(...)) (page 8), indexing and slicing (p
 Run this file:  python3 29-0014-longest-common-prefix.py
 """
 
-from typing import List
-
-
 class Solution:
-    def longestCommonPrefix(self, strs: List[str]) -> str:
+    def longestCommonPrefix(self, strs: list[str]) -> str:
         # your code here
         pass
 

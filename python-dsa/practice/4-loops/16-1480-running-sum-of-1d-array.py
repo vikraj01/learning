@@ -16,11 +16,8 @@ You'll need: for over a list (page 8), += (page 2), append (page 7)
 Run this file:  python3 16-1480-running-sum-of-1d-array.py
 """
 
-from typing import List
-
-
 class Solution:
-    def runningSum(self, nums: List[int]) -> List[int]:
+    def runningSum(self, nums: list[int]) -> list[int]:
         # your code here
         pass
 

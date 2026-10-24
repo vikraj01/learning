@@ -22,11 +22,8 @@ You'll need: + and * with decimal numbers (page 2), return (page 4),
 Run this file:  python3 02-2469-convert-the-temperature.py
 """
 
-from typing import List
-
-
 class Solution:
-    def convertTemperature(self, celsius: float) -> List[float]:
+    def convertTemperature(self, celsius: float) -> list[float]:
         kelvin = celsius + 273.15             # first formula
         fahrenheit = celsius * 1.80 + 32.00   # second formula
         return [kelvin, fahrenheit]           # both answers, Kelvin first

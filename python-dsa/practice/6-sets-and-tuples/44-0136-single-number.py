@@ -15,11 +15,8 @@ You'll need: for loops (page 8), a set with add, remove and `in` (page 10)
 Run this file:  python3 44-0136-single-number.py
 """
 
-from typing import List
-
-
 class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
+    def singleNumber(self, nums: list[int]) -> int:
         # your code here
         pass
 

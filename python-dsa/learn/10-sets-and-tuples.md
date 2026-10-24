@@ -253,4 +253,4 @@ A set has no order, so there's no "item 0". If you need positions, use a list.
 
 ## Next
 
-Practise with sets: [Practice stage 6: sets and tuples](../practice/README.md#stage-6-sets-and-tuples).
+Practise with sets: **Stage 6** in the LeetCode list (`leetcode-list.pdf`).

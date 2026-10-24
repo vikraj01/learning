@@ -83,14 +83,13 @@ Python doesn't check them. They're there to tell **you** what to expect. Read th
 Later problems use list types like this:
 
 ```python
-from typing import List
-
 class Solution:
-    def runningSum(self, nums: List[int]) -> List[int]:
+    def runningSum(self, nums: list[int]) -> list[int]:
 ```
 
-- **`List[int]`** means "a list of whole numbers". So `nums` is a list of ints, and the function returns a list of ints.
-- **`from typing import List`** lets Python know what `List` means. LeetCode adds this line for you behind the scenes, so it's not in their editor. On your laptop it's needed, and the practice files already have it where it's needed.
+- **`list[int]`** means "a list of whole numbers". So `nums` is a list of ints, and the function returns a list of ints.
+- **`list[str]`** is a list of strings, and **`list[list[int]]`** is a list of lists (a grid; that's lesson 12).
+- Older solutions you find online write `List[int]` with a capital L and a line `from typing import List` at the top. It means the same thing; that's the older way of writing it.
 
 ## Solve your first problem on your laptop
 
@@ -266,4 +265,4 @@ IndentationError: expected an indented block after class definition on line 1
 
 ## Next
 
-Time to practise. Solve the 5 problems in **Stage 1** of [../practice/README.md](../practice/README.md), in order. Start with 01, the one you solved above.
+Time to practise. Solve the problems in **Stage 1** of the LeetCode list (`leetcode-list.pdf`), in order. You've already done the first one above.

@@ -19,11 +19,8 @@ You'll need: for and range (page 8), % (page 2), if/elif/else (page 3), str() (p
 Run this file:  python3 15-0412-fizz-buzz.py
 """
 
-from typing import List
-
-
 class Solution:
-    def fizzBuzz(self, n: int) -> List[str]:
+    def fizzBuzz(self, n: int) -> list[str]:
         # your code here
         pass
 

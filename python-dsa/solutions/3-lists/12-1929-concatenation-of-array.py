@@ -15,11 +15,8 @@ You'll need: joining lists with + (page 7), return (page 4)
 Run this file:  python3 12-1929-concatenation-of-array.py
 """
 
-from typing import List
-
-
 class Solution:
-    def getConcatenation(self, nums: List[int]) -> List[int]:
+    def getConcatenation(self, nums: list[int]) -> list[int]:
         ans = nums + nums   # + puts two lists one after the other, in a new list
         return ans
 

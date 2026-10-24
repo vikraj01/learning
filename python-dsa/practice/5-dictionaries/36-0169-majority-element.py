@@ -17,11 +17,8 @@ You'll need: // (page 2), len (page 7),
 Run this file:  python3 36-0169-majority-element.py
 """
 
-from typing import List
-
-
 class Solution:
-    def majorityElement(self, nums: List[int]) -> int:
+    def majorityElement(self, nums: list[int]) -> int:
         # your code here
         pass
 

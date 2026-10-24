@@ -16,11 +16,8 @@ You'll need: sort and indexing with [-1] and [-2] (page 7), - and * (page 2), re
 Run this file:  python3 14-1464-maximum-product-of-two-elements.py
 """
 
-from typing import List
-
-
 class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
+    def maxProduct(self, nums: list[int]) -> int:
         # your code here
         pass
 

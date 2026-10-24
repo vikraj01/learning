@@ -20,11 +20,8 @@ You'll need: changing a list in place (page 7), for and range (page 8),
 Run this file:  python3 46-0283-move-zeroes.py
 """
 
-from typing import List
-
-
 class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
+    def moveZeroes(self, nums: list[int]) -> None:
         # your code here
         pass
 

@@ -320,4 +320,4 @@ TypeError: can only concatenate str (not "int") to str
 
 ## Next
 
-Time to use this on real problems: [Practice stage 2: strings](../practice/README.md#stage-2-strings).
+Time to use this on real problems: **Stage 2** in the LeetCode list (`leetcode-list.pdf`).

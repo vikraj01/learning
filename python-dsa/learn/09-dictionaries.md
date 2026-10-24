@@ -250,4 +250,4 @@ KeyError: 'a'
 
 ## Next
 
-Practise counting and looking things up: [Practice stage 5: dictionaries](../practice/README.md#stage-5-dictionaries).
+Practise counting and looking things up: **Stage 5** in the LeetCode list (`leetcode-list.pdf`).

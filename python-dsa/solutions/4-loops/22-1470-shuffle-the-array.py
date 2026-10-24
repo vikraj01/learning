@@ -17,11 +17,8 @@ You'll need: for and range (page 8), indexes and append (page 7)
 Run this file:  python3 22-1470-shuffle-the-array.py
 """
 
-from typing import List
-
-
 class Solution:
-    def shuffle(self, nums: List[int], n: int) -> List[int]:
+    def shuffle(self, nums: list[int], n: int) -> list[int]:
         answer = []
 
         for i in range(n):

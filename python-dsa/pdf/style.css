@@ -1,0 +1,65 @@
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+  @bottom-center { content: counter(page); font: 9pt "DejaVu Sans", sans-serif; color: #888; }
+}
+
+body {
+  font: 10.5pt/1.5 "Noto Sans", "DejaVu Sans", sans-serif;
+  color: #1d1d1f;
+  background: #fff;
+}
+
+h1, h2, h3 { line-height: 1.25; color: #0b4f4a; }
+h1 { font-size: 22pt; margin: 0 0 6pt; }
+h2 { font-size: 14pt; margin: 18pt 0 6pt; border-bottom: 1px solid #d6e6e4; padding-bottom: 3pt; }
+h3 { font-size: 11.5pt; margin: 14pt 0 4pt; }
+h2, h3 { break-after: avoid; }
+
+a { color: #0a6c64; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code {
+  font: 9.2pt "DejaVu Sans Mono", monospace;
+  background: #f1f5f4;
+  padding: 0 3px;
+  border-radius: 3px;
+}
+.codehilite, pre {
+  background: #f6f8f8 !important;
+  border: 1px solid #e1e8e7;
+  border-radius: 5px;
+  padding: 7pt 9pt;
+  overflow: hidden;
+  break-inside: avoid;
+}
+pre { margin: 6pt 0; white-space: pre-wrap; }
+pre code { background: none; padding: 0; font-size: 8.8pt; line-height: 1.4; }
+
+table { border-collapse: collapse; width: 100%; margin: 6pt 0 10pt; font-size: 9.5pt; }
+th, td { border: 1px solid #d9e2e1; padding: 4pt 6pt; text-align: left; vertical-align: top; }
+th { background: #eef5f4; }
+tr { break-inside: avoid; }
+
+blockquote { margin: 6pt 0; padding: 4pt 10pt; border-left: 3px solid #9cc9c4; color: #333; background: #f7fbfa; }
+
+.kicker { text-transform: uppercase; letter-spacing: .08em; font-size: 9pt; color: #5c8f8a; font-weight: 600; }
+.lead { font-size: 12pt; color: #333; }
+
+/* Lessons PDF */
+.cover h1 { font-size: 32pt; margin-top: 30mm; }
+.lesson { break-before: page; }
+.toc { padding-left: 0; list-style: none; font-size: 11.5pt; }
+.toc li { padding: 4pt 0; border-bottom: 1px dotted #cfdedc; }
+.toc .num { display: inline-block; width: 2.2em; color: #5c8f8a; font-weight: 600; }
+
+/* List PDF */
+.list h2 { break-before: auto; margin-top: 16pt; }
+.list h2 + p { break-after: avoid; }
+.list table { table-layout: fixed; }
+.list th:nth-child(1) { width: 3.2em; text-align: center; }
+.list td:nth-child(1) { text-align: center; font-size: 13pt; line-height: 1; }
+.list th:nth-child(2) { width: 2.4em; }
+.list td:nth-child(2) { color: #5c8f8a; font-weight: 600; }
+.list th:nth-child(3) { width: 55%; }
+.list td:nth-child(4) { color: #444; }

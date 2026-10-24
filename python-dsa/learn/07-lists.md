@@ -6,7 +6,7 @@ After this page you'll be able to keep many values in one place, in order, and c
 
 Picture a shelf with a row of boxes. Each box holds one thing, and each box has a number painted under it, starting at 0. You can look in any box, swap what's inside, add a box at the end, or take one away.
 
-That shelf is a **list**. Most LeetCode problems hand you a list, usually called `nums`. When the problem says `nums: List[int]`, it means "a list of whole numbers".
+That shelf is a **list**. Most LeetCode problems hand you a list, usually called `nums`. When the problem says `nums: list[int]`, it means "a list of whole numbers".
 
 ## Making a list, and reading from it
 
@@ -315,4 +315,4 @@ TypeError: 'NoneType' object is not subscriptable
 
 ## Next
 
-Practise with lists: [Practice stage 3: lists](../practice/README.md#stage-3-lists).
+Practise with lists: **Stage 3** in the LeetCode list (`leetcode-list.pdf`).

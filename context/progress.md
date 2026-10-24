@@ -4,13 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
-## 2026-10-24: Python for LeetCode
+## 2026-10-24: Python for LeetCode → two PDFs
 
-- Done: new root folder `python-dsa/` (index `README.md`). 11 learn pages in `learn/` (run Python → variables/numbers → if → functions → how LeetCode looks → strings → lists → loops → dicts → sets/tuples → two pointers/stacks), each with a runnable `examples/` script. 50 Easy problems in 7 stages (`practice/README.md` has the list with tick boxes): starter file with plain-words problem, self-running ✓/✗ tests and 2–3 hints; `solutions/` mirrors it with a beginner-level solution, a "how this works" walk-through and an "another way". Each stage uses only what earlier pages taught.
-- Verified: all 11 examples run, 50 solutions pass (218 ✓, 0 ✗), all 50 practice files run unsolved without crashing. Page outputs are real runs. LeetCode method names are from memory (not checked online).
-- Known: a few in-place edge-case tests pass before any code is written (Move Zeroes `[0]`, `[1,2,3]`; Merge Sorted Array with empty nums2). Pages run 200–420 lines, longer than the usual 10-minute page; loops page longest. No diagrams yet. Not on the MkDocs site.
-- Feedback (same day): Vikash finds it "pretty thin" and asked about graphs, matrices etc. Correct: it covers Python basics + easy array/string/hash problems only. No matrices, recursion, binary search, linked lists, trees, graphs, heaps, DP, and no diagrams.
-- Next: agree the scope of a proper DSA part with Vikash, then build it topic by topic.
+- Done: `python-dsa/` with lessons 1–10 (+ examples) and two PDFs built by `make pdf` (`python-dsa/pdf/build.py`, Markdown → HTML → headless Chrome): `python-for-leetcode.pdf` (84 pages) and `leetcode-list.pdf` (50 easy problems, 6 stages matching lessons 5–10, from `leetcode-list.md`). All 46 LeetCode problems checked against LeetCode's API (title, Easy, free); 4 GfG problems checked against GfG's API. Signatures switched to LeetCode's current `list[int]` style everywhere.
+- Mistakes this session: added graphs/trees/Medium problems and a 150-problem list after Vikash asked whether the *Python* was covered. Reverted to 50 easy.
+- Left out (untracked, not committed): agent-written lessons 12–17 (grids, built-ins, recursion, classes, collections, heapq). Lesson 11 (two pointers/stacks) stays in the repo but not in the PDF. `practice/`/`solutions/` (old 50, runnable with tests) kept; they overlap the list but don't match it exactly.
+- Next: Vikash's call on lessons 12–17 and on the `practice/` folder.
 
 ## 2026-10-24: Tanvi's first branch merged
 

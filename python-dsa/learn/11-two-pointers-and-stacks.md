@@ -291,4 +291,4 @@ There's no plate to take. Before you `pop` (or peek with `stack[-1]`), check the
 
 ## Next
 
-The last practice stage: [Practice stage 7: two pointers and stacks](../practice/README.md#stage-7-two-pointers-and-stacks).
+Practise: **Stage 7** in the LeetCode list (`leetcode-list.pdf`).

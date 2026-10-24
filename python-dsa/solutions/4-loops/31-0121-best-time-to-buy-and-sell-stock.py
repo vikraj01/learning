@@ -17,11 +17,8 @@ You'll need: for over a list (page 8), if (page 3), indexing (page 7)
 Run this file:  python3 31-0121-best-time-to-buy-and-sell-stock.py
 """
 
-from typing import List
-
-
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, prices: list[int]) -> int:
         cheapest = prices[0]  # cheapest price seen so far
         best = 0              # best profit seen so far (0 = don't trade)
 

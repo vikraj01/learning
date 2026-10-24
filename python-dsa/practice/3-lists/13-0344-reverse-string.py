@@ -15,11 +15,8 @@ You'll need: changing a list in place, reverse (page 7)
 Run this file:  python3 13-0344-reverse-string.py
 """
 
-from typing import List
-
-
 class Solution:
-    def reverseString(self, s: List[str]) -> None:
+    def reverseString(self, s: list[str]) -> None:
         """
         Do not return anything, modify s in-place instead.
         """

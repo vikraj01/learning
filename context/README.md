@@ -19,4 +19,4 @@ Notes for Claude. Read this first, then whichever file the task needs. Keep each
 - Producer/consumer project, 3 pages in `docs/03-two-apps/`: two apps sharing data via a volume, then a bind mount.
 - Networking, 4 pages in `docs/04-networking/` (visit counter: Node + Redis) + `demo.sh`. First section with the new detailed diagram style.
 - Layers, 5 pages in `docs/05-layers/`. Networking fundamentals, 6 pages in `docs/06-how-networking-works/` + `demo.sh`. Compose project (todo app: nginx + Node API + Postgres), 5 pages in `docs/07-compose/` + `demo.sh`.
-- Python for LeetCode, in `python-dsa/` (root, outside the site): 11 learn pages + examples, 50 easy problems in 7 stages with solutions. Index `python-dsa/README.md`, problem list `python-dsa/practice/README.md`.
+- Python for LeetCode, in `python-dsa/` (root, outside the site): lessons 1–10 + examples, two PDFs (`python-for-leetcode.pdf`, `leetcode-list.pdf` = exactly 50 easy problems). `make pdf` rebuilds them.

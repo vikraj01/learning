@@ -1,4 +1,4 @@
-.PHONY: help install serve build clean
+.PHONY: help install serve build clean pdf
 
 help:            ## Show this list
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-8s %s\n", $$1, $$2}'
@@ -14,3 +14,6 @@ build: install   ## Build the static site into site/
 
 clean:           ## Delete the built site
 	rm -rf site
+
+pdf: install     ## Build the two Python PDFs in python-dsa/ (needs google-chrome)
+	uv run python python-dsa/pdf/build.py
