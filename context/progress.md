@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-24: networking redo, planned (no pages yet)
+
+- Vikash asked how a container reaches a database on the host, and laid out the order to teach networking to Tanvi again (see `decisions.md`). Explained in chat, with a step-by-step outline built on the message box.
+- Tested on this laptop: Docker here is **rootless** (rootlesskit, `--disable-host-loopback`), so `host-gateway` (172.17.0.1) does **not** reach the real host; the laptop's LAN IP (192.168.1.18) does, if the server listens on `0.0.0.0`. Normal (rootful) Docker and Docker Desktop behave as the textbook says. Check which one Tanvi runs before writing pages.
+- Next: Vikash decides on the `box` + `store` example and whether this replaces section 4 or becomes a new section.
+
 ## 2026-10-24: practice list made truly beginner-level
 
 - Vikash: the 50 "were not easy". LeetCode Easy (Two Sum, Roman to Integer, Single Number…) is too hard for a first-time programmer.
