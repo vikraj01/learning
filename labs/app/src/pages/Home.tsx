@@ -2,94 +2,80 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import type { LabSummary, Track } from "../types";
-import { Check, ChevronRight, Logo, Search } from "../components/Icons";
+import { Check, ChevronRight, GridIcon, ListIcon, Logo, RowsIcon, Search } from "../components/Icons";
 
-type Filter = "all" | "todo" | "started" | "solved";
+type Status = "all" | "todo" | "started" | "solved";
 type Level = "all" | "Easy" | "Medium";
+type View = "gallery" | "list" | "compact";
 
-const FILTERS: { id: Filter; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "todo", label: "To do" },
-  { id: "started", label: "In progress" },
-  { id: "solved", label: "Solved" },
-];
-
+const VIEW_KEY = "docker-labs:view";
+const TOPICS_SHOWN = 10;
 const pad = (n: number) => String(n).padStart(2, "0");
 
-interface Filters {
-  status: Filter;
-  level: Level;
-  tags: Set<string>;
-  query: string;
+// Each track gets its own colour, used for the stripe on cards and the dots in the sidebar.
+const TRACK_HUES: Record<string, string> = {
+  basics: "#3fa7f5",
+  images: "#a487f5",
+  inside: "#e0a63b",
+  storage: "#36c2b4",
+  networking: "#5fcf7f",
+};
+const hueOf = (track: string) => TRACK_HUES[track] ?? "#8796a8";
+
+function readView(): View {
+  try {
+    const v = localStorage.getItem(VIEW_KEY);
+    if (v === "gallery" || v === "list" || v === "compact") return v;
+  } catch {
+    /* storage blocked */
+  }
+  return "gallery";
 }
 
-function matches(lab: LabSummary, { status: filter, level, tags, query }: Filters) {
-  if (level !== "all" && lab.level !== level) return false;
-  if (tags.size > 0 && !lab.topics.some((t) => tags.has(t))) return false;
-  if (filter === "todo" && (lab.solved || lab.started)) return false;
-  if (filter === "started" && (lab.solved || !lab.started)) return false;
-  if (filter === "solved" && !lab.solved) return false;
-  if (!query) return true;
-  const text = [lab.title, lab.summary, ...lab.topics].join(" ").toLowerCase();
-  return query.toLowerCase().split(/\s+/).every((word) => text.includes(word));
+function statusOf(lab: LabSummary): Exclude<Status, "all"> {
+  return lab.solved ? "solved" : lab.started ? "started" : "todo";
 }
 
-function StatusBadge({ lab }: { lab: LabSummary }) {
-  if (lab.solved) return <span className="badge-status solved" title="Solved"><Check size={14} /></span>;
-  if (lab.started) return <span className="badge-status started" title="In progress">{pad(lab.number)}</span>;
-  return <span className="badge-status" title="Not started">{pad(lab.number)}</span>;
+function StatusMark({ lab }: { lab: LabSummary }) {
+  const s = statusOf(lab);
+  if (s === "solved") return <span className="mark-dot solved" title="Solved"><Check size={12} /></span>;
+  if (s === "started") return <span className="mark-dot started" title="In progress" />;
+  return <span className="mark-dot" title="Not started" />;
 }
 
-function LabRow({ lab, tags, onTag }: { lab: LabSummary; tags: Set<string>; onTag: (t: string) => void }) {
-  return (
-    <Link className={`lab-row${lab.solved ? " solved" : ""}`} to={`/lab/${lab.id}`}>
-      <StatusBadge lab={lab} />
-      <div className="lab-main">
-        <div className="lab-title">{lab.title}</div>
-        <div className="lab-sum">{lab.summary}</div>
-        <div className="lab-meta">
-          <span className={`chip ${lab.level.toLowerCase()}`}>{lab.level}</span>
-          <span className="chip">~{lab.minutes} min</span>
-          <span className="chip">{lab.tasks.length} tasks</span>
-          {lab.topics.map((t) => (
-            <button
-              key={t}
-              type="button"
-              className={`chip topic tag-btn${tags.has(t) ? " on" : ""}`}
-              title={tags.has(t) ? `Stop filtering by ${t}` : `Show labs about ${t}`}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onTag(t);
-              }}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="lab-side">
-        {lab.solved ? (
-          <span className="status solved">Solved</span>
-        ) : lab.started ? (
-          <span className="status started">In progress</span>
-        ) : null}
-        <span className={`btn small-row${!lab.solved && lab.started ? " primary" : ""}`}>
-          {lab.solved ? "Open" : lab.started ? "Continue" : "Start"} <ChevronRight />
-        </span>
-      </div>
-    </Link>
-  );
-}
+const STATUS_TEXT = { solved: "Solved", started: "In progress", todo: "Not started" } as const;
 
 export default function Home() {
   const [labs, setLabs] = useState<LabSummary[] | null>(null);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [error, setError] = useState(false);
-  const [filter, setFilter] = useState<Filter>("all");
-  const [query, setQuery] = useState("");
+
+  const [track, setTrack] = useState<string>("all");
+  const [status, setStatus] = useState<Status>("all");
   const [level, setLevel] = useState<Level>("all");
   const [tags, setTags] = useState<Set<string>>(new Set());
+  const [query, setQuery] = useState("");
+  const [allTopics, setAllTopics] = useState(false);
+  const [view, setView] = useState<View>(readView);
+
+  useEffect(() => {
+    document.title = "Docker Labs";
+    Promise.all([api.labs(), api.tracks().catch(() => [] as Track[])])
+      .then(([l, t]) => {
+        setLabs(l);
+        setTracks(t);
+      })
+      .catch(() => setError(true));
+  }, []);
+
+  function chooseView(v: View) {
+    setView(v);
+    try {
+      localStorage.setItem(VIEW_KEY, v);
+    } catch {
+      /* storage blocked */
+    }
+  }
 
   const toggleTag = (t: string) =>
     setTags((prev) => {
@@ -98,193 +84,312 @@ export default function Home() {
       else next.add(t);
       return next;
     });
+
   const clearFilters = () => {
-    setFilter("all");
+    setTrack("all");
+    setStatus("all");
     setLevel("all");
     setTags(new Set());
     setQuery("");
   };
-  const filtering = filter !== "all" || level !== "all" || tags.size > 0 || query.trim() !== "";
 
-  useEffect(() => {
-    document.title = "Docker Labs";
-    Promise.all([api.labs(), api.tracks().catch(() => [])])
-      .then(([l, t]) => {
-        setLabs(l);
-        setTracks(t);
-      })
-      .catch(() => setError(true));
-  }, []);
+  const all = labs ?? [];
+  const solved = all.filter((l) => l.solved).length;
+  const minutesLeft = all.filter((l) => !l.solved).reduce((n, l) => n + l.minutes, 0);
+  const upNext = all.find((l) => l.started && !l.solved) ?? all.find((l) => !l.solved) ?? null;
+  const trackTitle = (id: string) => tracks.find((t) => t.id === id)?.title ?? "Other";
 
-  const solved = labs?.filter((l) => l.solved).length ?? 0;
-  const total = labs?.length ?? 0;
-  const minutesLeft = labs?.filter((l) => !l.solved).reduce((sum, l) => sum + l.minutes, 0) ?? 0;
-  const upNext = labs?.find((l) => l.started && !l.solved) ?? labs?.find((l) => !l.solved) ?? null;
-
-  const allTags = useMemo(() => {
+  const topics = useMemo(() => {
     const count = new Map<string, number>();
-    for (const l of labs ?? []) for (const t of l.topics) count.set(t, (count.get(t) ?? 0) + 1);
+    for (const l of all) for (const t of l.topics) count.set(t, (count.get(t) ?? 0) + 1);
     return [...count.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-  }, [labs]);
+  }, [all]);
 
-  const groups = useMemo(() => {
-    if (!labs) return [];
-    const known = new Set(tracks.map((t) => t.id));
-    const all = [...tracks, ...(labs.some((l) => !known.has(l.track)) ? [{ id: "", title: "More labs", description: "" }] : [])];
-    return all.map((track) => {
-      const inTrack = labs.filter((l) => (track.id ? l.track === track.id : !known.has(l.track)));
-      return {
-        track,
-        labs: inTrack,
-        shown: inTrack.filter((l) => matches(l, { status: filter, level, tags, query: query.trim() })),
-        solved: inTrack.filter((l) => l.solved).length,
-      };
+  const shown = useMemo(() => {
+    const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    return all.filter((lab) => {
+      if (track !== "all" && lab.track !== track) return false;
+      if (status !== "all" && statusOf(lab) !== status) return false;
+      if (level !== "all" && lab.level !== level) return false;
+      if (tags.size && !lab.topics.some((t) => tags.has(t))) return false;
+      if (words.length) {
+        const text = [lab.title, lab.summary, ...lab.topics].join(" ").toLowerCase();
+        if (!words.every((w) => text.includes(w))) return false;
+      }
+      return true;
     });
-  }, [labs, tracks, filter, level, tags, query]);
+  }, [all, track, status, level, tags, query]);
 
-  const shownCount = groups.reduce((n, g) => n + g.shown.length, 0);
-  const nothingShown = labs && shownCount === 0;
+  const filtering = track !== "all" || status !== "all" || level !== "all" || tags.size > 0 || query.trim() !== "";
+  const currentTrack = tracks.find((t) => t.id === track);
+
+  // Gallery and list are grouped by track; compact is one table.
+  const groups = useMemo(() => {
+    const order = [...tracks.map((t) => t.id), ...new Set(shown.map((l) => l.track).filter((id) => !tracks.some((t) => t.id === id)))];
+    return order.map((id) => ({ id, labs: shown.filter((l) => l.track === id) })).filter((g) => g.labs.length);
+  }, [shown, tracks]);
+
+  const countBy = (pred: (l: LabSummary) => boolean) => all.filter(pred).length;
 
   return (
-    <main className="home">
-      <header className="home-top">
+    <div className="shell">
+      {/* ---------------- sidebar ---------------- */}
+      <aside className="side">
         <div className="brand">
           <div className="logo"><Logo /></div>
           <div>
             <div className="brand-name">Docker Labs</div>
-            <div className="brand-sub">Learn by doing, one lab at a time</div>
-          </div>
-        </div>
-        {labs && (
-          <div className="top-stats">
-            <span><b>{solved}</b> of {total} solved</span>
-            <span className="dot-sep" />
-            <span>{minutesLeft > 0 ? <>about <b>{Math.round(minutesLeft / 6) / 10}</b> hours to go</> : "all done"}</span>
-          </div>
-        )}
-      </header>
-
-      <section className="hero">
-        <div className="hero-text">
-          <h1>Real tasks. A real terminal. <em>Press Check.</em></h1>
-          <p>Each lab gives you a small job to do with Docker. You type the commands, change the files, and the lab tells you what worked and what didn't.</p>
-          <div className="steps-inline">
-            <span><i>1</i> Read the task</span>
-            <ChevronRight size={14} />
-            <span><i>2</i> Type commands, edit files</span>
-            <ChevronRight size={14} />
-            <span><i>3</i> Press Check</span>
+            <div className="brand-sub">Learn by doing</div>
           </div>
         </div>
 
-        {upNext ? (
-          <Link className="next-card" to={`/lab/${upNext.id}`}>
-            <span className="next-eyebrow">{upNext.started ? "Continue where you left off" : solved ? "Up next" : "Start here"}</span>
-            <span className="next-num">Lab {pad(upNext.number)}</span>
-            <span className="next-title">{upNext.title}</span>
-            <span className="next-sum">{upNext.summary}</span>
-            <span className="next-foot">
-              <span className="chip">~{upNext.minutes} min</span>
-              <span className="chip">{upNext.tasks.length} tasks</span>
-              <span className="btn primary">{upNext.started ? "Continue" : "Start"} <ChevronRight /></span>
-            </span>
+        <div className="side-progress">
+          <div className="sp-top">
+            <span><b>{solved}</b> / {all.length} solved</span>
+            <span>{minutesLeft ? `~${Math.round(minutesLeft / 6) / 10} h left` : "all done"}</span>
+          </div>
+          <div className="sp-bar">
+            {tracks.map((t) => {
+              const inT = all.filter((l) => l.track === t.id);
+              const done = inT.filter((l) => l.solved).length;
+              return (
+                <span key={t.id} style={{ flex: inT.length || 1 }} title={`${t.title}: ${done}/${inT.length}`}>
+                  <i style={{ width: `${inT.length ? (done / inT.length) * 100 : 0}%`, background: hueOf(t.id) }} />
+                </span>
+              );
+            })}
+          </div>
+        </div>
+
+        <nav className="side-section">
+          <div className="side-label">Tracks</div>
+          <button type="button" className={`side-item${track === "all" ? " on" : ""}`} onClick={() => setTrack("all")}>
+            <span className="swatch all" />
+            <span className="si-name">All labs</span>
+            <span className="si-count">{all.length}</span>
+          </button>
+          {tracks.map((t) => {
+            const inT = all.filter((l) => l.track === t.id);
+            const done = inT.filter((l) => l.solved).length;
+            return (
+              <button key={t.id} type="button" className={`side-item${track === t.id ? " on" : ""}`} onClick={() => setTrack(t.id)}>
+                <span className="swatch" style={{ background: hueOf(t.id) }} />
+                <span className="si-name">{t.title}</span>
+                <span className={`si-count${done === inT.length && inT.length ? " done" : ""}`}>
+                  {done === inT.length && inT.length ? <Check size={12} /> : `${done}/${inT.length}`}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="side-section">
+          <div className="side-label">Status</div>
+          {([
+            ["all", "Any status", all.length],
+            ["todo", "Not started", countBy((l) => statusOf(l) === "todo")],
+            ["started", "In progress", countBy((l) => statusOf(l) === "started")],
+            ["solved", "Solved", solved],
+          ] as [Status, string, number][]).map(([id, label, n]) => (
+            <button key={id} type="button" className={`side-item${status === id ? " on" : ""}`} onClick={() => setStatus(id)}>
+              <span className={`state-dot ${id}`} />
+              <span className="si-name">{label}</span>
+              <span className="si-count">{n}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="side-section">
+          <div className="side-label">Level</div>
+          <div className="seg small">
+            {(["all", "Easy", "Medium"] as Level[]).map((l) => (
+              <button key={l} type="button" className={level === l ? "on" : ""} onClick={() => setLevel(l)}>
+                {l === "all" ? "Any" : l}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="side-section">
+          <div className="side-label">
+            Topics
+            {tags.size > 0 && <button type="button" className="side-clear" onClick={() => setTags(new Set())}>clear</button>}
+          </div>
+          <div className="topic-cloud">
+            {(allTopics ? topics : topics.slice(0, TOPICS_SHOWN)).map(([t, n]) => (
+              <button key={t} type="button" className={`topic${tags.has(t) ? " on" : ""}`} onClick={() => toggleTag(t)} aria-pressed={tags.has(t)}>
+                {t}<span>{n}</span>
+              </button>
+            ))}
+          </div>
+          {topics.length > TOPICS_SHOWN && (
+            <button type="button" className="side-more" onClick={() => setAllTopics((v) => !v)}>
+              {allTopics ? "Show fewer" : `Show all ${topics.length}`}
+            </button>
+          )}
+        </div>
+      </aside>
+
+      {/* ---------------- main ---------------- */}
+      <main className="main">
+        {upNext && !filtering && (
+          <Link className="resume" to={`/lab/${upNext.id}`}>
+            <span className="resume-stripe" style={{ background: hueOf(upNext.track) }} />
+            <span className="resume-label">{upNext.started ? "Continue" : solved ? "Up next" : "Start here"}</span>
+            <span className="resume-num">{pad(upNext.number)}</span>
+            <span className="resume-title">{upNext.title}</span>
+            <span className="resume-meta">{trackTitle(upNext.track)} · ~{upNext.minutes} min</span>
+            <span className="resume-go">{upNext.started ? "Continue" : "Start"} <ChevronRight /></span>
           </Link>
-        ) : labs ? (
-          <div className="next-card done">
-            <span className="next-eyebrow">All done</span>
-            <span className="next-title">Every lab solved.</span>
-            <span className="next-sum">Open any lab again to practise, or press Reset inside it to start it fresh.</span>
-          </div>
-        ) : (
-          <div className="next-card skeleton" />
         )}
-      </section>
 
-      {labs && (
-        <section className="track-progress" aria-label="Progress by track">
-          {groups.map(({ track, labs: inTrack, solved: done }) => (
-            <a key={track.id} href={`#track-${track.id}`} className="tp">
-              <span className="tp-name">{track.title}</span>
-              <span className="tp-bar"><i style={{ width: `${inTrack.length ? (done / inTrack.length) * 100 : 0}%` }} /></span>
-              <span className="tp-count">{done}/{inTrack.length}</span>
-            </a>
-          ))}
-        </section>
-      )}
+        <div className="main-head">
+          <div>
+            <h1>{currentTrack ? currentTrack.title : "All labs"}</h1>
+            <p>
+              {currentTrack
+                ? currentTrack.description
+                : "Each lab is a small job: you type the commands, change the files, and press Check."}
+            </p>
+          </div>
+        </div>
 
-      <div className="toolbar">
-        <div className="seg" role="tablist" aria-label="Show">
-          {FILTERS.map((f) => (
-            <button key={f.id} type="button" role="tab" aria-selected={filter === f.id}
-              className={filter === f.id ? "on" : ""} onClick={() => setFilter(f.id)}>
-              {f.label}
-            </button>
-          ))}
-        </div>
-        <label className="search">
-          <Search size={15} />
-          <input id="lab-search" type="search" placeholder="Search labs: volumes, ports, logs…" value={query} onChange={(e) => setQuery(e.target.value)} />
-        </label>
-      </div>
-
-      <div className="filters">
-        <div className="filter-group">
-          <span className="filter-label">Level</span>
-          {(["all", "Easy", "Medium"] as Level[]).map((l) => (
-            <button key={l} type="button" className={`chip pick${level === l ? " on" : ""}${l !== "all" ? ` ${l.toLowerCase()}-pick` : ""}`} onClick={() => setLevel(l)}>
-              {l === "all" ? "Any" : l}
-            </button>
-          ))}
-        </div>
-        <div className="filter-group tags">
-          <span className="filter-label">Topics</span>
-          {allTags.map(([t, n]) => (
-            <button key={t} type="button" className={`chip pick tag-btn${tags.has(t) ? " on" : ""}`} onClick={() => toggleTag(t)} aria-pressed={tags.has(t)}>
-              {t}<span className="count">{n}</span>
-            </button>
-          ))}
-        </div>
-        {labs && (
-          <div className="filter-result">
+        <div className="main-tools">
+          <label className="search">
+            <Search size={15} />
+            <input id="lab-search" type="search" placeholder="Search by name or topic" value={query} onChange={(e) => setQuery(e.target.value)} />
+          </label>
+          <span className="result">
             {filtering ? (
               <>
-                Showing <b>{shownCount}</b> of {total} labs
+                <b>{shown.length}</b> of {all.length}
                 <button className="link-btn" type="button" onClick={clearFilters}>Clear filters</button>
               </>
             ) : (
-              <>All <b>{total}</b> labs, in order. Click a topic to filter.</>
+              <><b>{all.length}</b> labs</>
             )}
+          </span>
+          <div className="seg views" role="tablist" aria-label="View">
+            {([
+              ["gallery", "Gallery", <GridIcon key="g" />],
+              ["list", "List", <ListIcon key="l" />],
+              ["compact", "Compact", <RowsIcon key="c" />],
+            ] as [View, string, React.ReactNode][]).map(([id, label, icon]) => (
+              <button key={id} type="button" role="tab" aria-selected={view === id} className={view === id ? "on" : ""} onClick={() => chooseView(id)} title={label}>
+                {icon}<span>{label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {error && <div className="empty">Could not load the labs. Is the lab server running? Run <code>make start</code> in <code>labs/</code>.</div>}
+        {!labs && !error && <div className="empty">Loading labs…</div>}
+        {labs && shown.length === 0 && (
+          <div className="empty">
+            No labs match. <button className="link-btn" type="button" onClick={clearFilters}>Clear filters</button>
           </div>
         )}
-      </div>
 
-      {error && <div className="labs empty-row">Could not load the labs. Is the lab server running? Start it with <code>make start</code> in <code>labs/</code>.</div>}
-      {!labs && !error && <div className="labs empty-row">Loading labs…</div>}
-      {nothingShown && (
-        <div className="labs empty-row">
-          No labs match these filters. <button className="link-btn" type="button" onClick={clearFilters}>Clear filters</button>
-        </div>
-      )}
-
-      {groups.map(({ track, labs: inTrack, shown, solved: done }, i) =>
-        shown.length === 0 ? null : (
-          <section key={track.id} className="track" id={`track-${track.id}`}>
-            <div className="track-head">
-              <span className="track-num">{pad(i + 1)}</span>
-              <div>
-                <h2>{track.title}</h2>
-                {track.description && <p>{track.description}</p>}
+        {/* gallery */}
+        {view === "gallery" &&
+          groups.map((g) => (
+            <section key={g.id} className="group">
+              {track === "all" && <GroupHead id={g.id} title={trackTitle(g.id)} labs={g.labs} />}
+              <div className="gallery">
+                {g.labs.map((lab) => (
+                  <Link key={lab.id} to={`/lab/${lab.id}`} className={`card ${statusOf(lab)}`} style={{ "--hue": hueOf(lab.track) } as React.CSSProperties}>
+                    <div className="card-top">
+                      <span className="card-num">{pad(lab.number)}</span>
+                      <span className="card-track">{trackTitle(lab.track)}</span>
+                      <StatusMark lab={lab} />
+                    </div>
+                    <div className="card-title">{lab.title}</div>
+                    <div className="card-sum">{lab.summary}</div>
+                    <div className="card-foot">
+                      <span className={`lvl ${lab.level.toLowerCase()}`}>{lab.level}</span>
+                      <span className="meta">{lab.minutes} min</span>
+                      <span className="meta">{lab.tasks.length} tasks</span>
+                      <span className="card-status">{STATUS_TEXT[statusOf(lab)]}</span>
+                    </div>
+                  </Link>
+                ))}
               </div>
-              <span className={`track-count${done === inTrack.length ? " complete" : ""}`}>
-                {done === inTrack.length ? <><Check size={13} /> Complete</> : `${done} / ${inTrack.length} solved`}
-              </span>
-            </div>
-            <div className="labs">
-              {shown.map((lab) => <LabRow key={lab.id} lab={lab} tags={tags} onTag={toggleTag} />)}
-            </div>
-          </section>
-        )
-      )}
-    </main>
+            </section>
+          ))}
+
+        {/* list */}
+        {view === "list" &&
+          groups.map((g) => (
+            <section key={g.id} className="group">
+              {track === "all" && <GroupHead id={g.id} title={trackTitle(g.id)} labs={g.labs} />}
+              <div className="list">
+                {g.labs.map((lab) => (
+                  <Link key={lab.id} to={`/lab/${lab.id}`} className={`row ${statusOf(lab)}`}>
+                    <StatusMark lab={lab} />
+                    <span className="row-num">{pad(lab.number)}</span>
+                    <span className="row-main">
+                      <span className="row-title">{lab.title}</span>
+                      <span className="row-sum">{lab.summary}</span>
+                    </span>
+                    <span className="row-topics">
+                      {lab.topics.slice(0, 3).map((t) => (
+                        <span key={t} className={`topic mini${tags.has(t) ? " on" : ""}`}>{t}</span>
+                      ))}
+                    </span>
+                    <span className={`lvl ${lab.level.toLowerCase()}`}>{lab.level}</span>
+                    <span className="meta w">{lab.minutes} min</span>
+                    <ChevronRight />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ))}
+
+        {/* compact */}
+        {view === "compact" && shown.length > 0 && (
+          <div className="table-wrap">
+            <table className="compact">
+              <thead>
+                <tr>
+                  <th aria-label="Status" />
+                  <th>#</th>
+                  <th>Lab</th>
+                  <th>Track</th>
+                  <th>Level</th>
+                  <th className="num">Time</th>
+                  <th className="num">Tasks</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {shown.map((lab) => (
+                  <tr key={lab.id} className={statusOf(lab)}>
+                    <td><StatusMark lab={lab} /></td>
+                    <td className="mono">{pad(lab.number)}</td>
+                    <td className="t-title"><Link to={`/lab/${lab.id}`}>{lab.title}</Link></td>
+                    <td><span className="t-track"><span className="swatch" style={{ background: hueOf(lab.track) }} />{trackTitle(lab.track)}</span></td>
+                    <td><span className={`lvl ${lab.level.toLowerCase()}`}>{lab.level}</span></td>
+                    <td className="num">{lab.minutes} min</td>
+                    <td className="num">{lab.tasks.length}</td>
+                    <td className="t-status">{STATUS_TEXT[statusOf(lab)]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
+
+function GroupHead({ id, title, labs }: { id: string; title: string; labs: LabSummary[] }) {
+  const done = labs.filter((l) => l.solved).length;
+  return (
+    <div className="group-head">
+      <span className="swatch" style={{ background: hueOf(id) }} />
+      <h2>{title}</h2>
+      <span className="group-count">{done}/{labs.length}</span>
+    </div>
   );
 }

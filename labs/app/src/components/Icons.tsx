@@ -30,4 +30,7 @@ export const NewFile = ({ size = 16 }: P) => svg(size, <><path d="M9 1.5H4a1 1 0
 export const NewFolder = ({ size = 16 }: P) => svg(size, <><path d="M1.5 4a1 1 0 0 1 1-1h3.5l1.5 1.5h6a1 1 0 0 1 1 1V12a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z" /><path d="M8 7v4M6 9h4" /></>, 1.4);
 export const Trash = ({ size = 14 }: P) => svg(size, <><path d="M2.5 4.5h11M6 4.5V3h4v1.5M4 4.5l.7 9h6.6l.7-9" /></>, 1.4);
 export const Search = ({ size = 16 }: P) => svg(size, <><circle cx="7" cy="7" r="4.5" /><path d="M10.5 10.5l3.5 3.5" /></>, 1.6);
-export const Whale =({ size = 16 }: P) => svg(size, <><rect x="2" y="7" width="3" height="3" rx=".5" /><rect x="5.5" y="7" width="3" height="3" rx=".5" /><rect x="9" y="7" width="3" height="3" rx=".5" /><rect x="5.5" y="3.5" width="3" height="3" rx=".5" /><path d="M1 11.5c1.5 1.5 11 2 14-1.5" /></>, 1.3);
+export const GridIcon = ({ size = 15 }: P) => svg(size, <><rect x="2" y="2" width="5" height="5" rx="1" /><rect x="9" y="2" width="5" height="5" rx="1" /><rect x="2" y="9" width="5" height="5" rx="1" /><rect x="9" y="9" width="5" height="5" rx="1" /></>, 1.4);
+export const ListIcon = ({ size = 15 }: P) => svg(size, <><rect x="2" y="2.5" width="12" height="4.5" rx="1" /><rect x="2" y="9" width="12" height="4.5" rx="1" /></>, 1.4);
+export const RowsIcon = ({ size = 15 }: P) => svg(size, <path d="M2 3.5h12M2 6.5h12M2 9.5h12M2 12.5h12" />, 1.4);
+export const Whale = ({ size = 16 }: P) => svg(size, <><rect x="2" y="7" width="3" height="3" rx=".5" /><rect x="5.5" y="7" width="3" height="3" rx=".5" /><rect x="9" y="7" width="3" height="3" rx=".5" /><rect x="5.5" y="3.5" width="3" height="3" rx=".5" /><path d="M1 11.5c1.5 1.5 11 2 14-1.5" /></>, 1.3);
