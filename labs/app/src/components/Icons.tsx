@@ -9,7 +9,7 @@ const svg = (size: number, children: React.ReactNode, strokeWidth = 1.6) => (
 );
 
 export const Logo = ({ size = 22 }: P) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#9fd3ff" strokeWidth="1.6" aria-hidden="true">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#f7f4ee" strokeWidth="1.6" aria-hidden="true">
     <rect x="3" y="11" width="5" height="5" rx="1" /><rect x="9.5" y="11" width="5" height="5" rx="1" />
     <rect x="16" y="11" width="5" height="5" rx="1" /><rect x="9.5" y="4.5" width="5" height="5" rx="1" />
     <path d="M2 18.5c2.5 2 17.5 2 20 0" />
