@@ -1,0 +1,25 @@
+{
+  "number": 2,
+  "title": "Fix a broken Dockerfile",
+  "summary": "The message box won't build, and once it does, it won't stay up. Find the three mistakes.",
+  "level": "Easy",
+  "minutes": 15,
+  "topics": ["Dockerfile", "docker build", "docker logs"],
+  "tasks": [
+    {
+      "id": "build",
+      "title": "The image `message-box-fixed` builds",
+      "hint": "Build from this folder: `docker build -t message-box-fixed .` When it fails, read the red lines: they name the Dockerfile line that broke. Two lines are misspelled. Compare each name with the files on the left and with the image name you've used before (`node:24-slim`)."
+    },
+    {
+      "id": "running",
+      "title": "A container called `box`, made from that image, keeps running",
+      "hint": "Start it with `docker run -d --name box -p 8081:8080 message-box-fixed`. If `docker ps` doesn't show it, it crashed: `docker logs box` tells you why. Look at the last line of the Dockerfile. After a fix: rebuild, `docker rm -f box`, and run it again."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:8081/web` shows the message box",
+      "hint": "The app listens on port 8080 inside the container. Your laptop's door is 8081, so use `-p 8081:8080`."
+    }
+  ]
+}

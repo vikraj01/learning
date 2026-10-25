@@ -1,4 +1,4 @@
-.PHONY: help install serve build clean pdf notebooks
+.PHONY: help install serve build clean pdf labs notebooks
 
 help:            ## Show this list
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
@@ -20,3 +20,6 @@ pdf: install     ## Build the two Python PDFs in python-dsa/ (needs google-chrom
 
 notebooks: install ## Open the Python notebooks in Jupyter (browser opens)
 	uv run jupyter lab --notebook-dir=python-dsa/notebooks
+
+labs:            ## Open Docker Labs at http://localhost:7000 (installs and builds the first time)
+	cd labs/app && npm install --no-audit --no-fund --silent && npm run build --silent && npm start

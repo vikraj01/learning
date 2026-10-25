@@ -1,0 +1,9 @@
+# The lab terminal: your normal settings, then a short, clear prompt.
+[ -f ~/.bashrc ] && source ~/.bashrc
+
+PS1='\[\e[38;5;81m\]lab\[\e[0m\] \[\e[38;5;245m\]\W\[\e[0m\] \[\e[38;5;150m\]$\[\e[0m\] '
+alias ls='ls --color=auto'
+alias ll='ls -la --color=auto'
+cd "$LAB_WORKSPACE" 2>/dev/null
+clear
+printf '\e[38;5;245mYou are in the lab folder. Files you change in the editor are right here.\e[0m\n\n'

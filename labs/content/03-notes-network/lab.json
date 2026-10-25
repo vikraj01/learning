@@ -1,0 +1,30 @@
+{
+  "number": 3,
+  "title": "Make the notes app talk",
+  "summary": "Three containers that can't find each other. Put them on one network so the notes app works.",
+  "level": "Medium",
+  "minutes": 20,
+  "topics": ["networks", "names"],
+  "tasks": [
+    {
+      "id": "running",
+      "title": "`web`, `api` and `db` are all running",
+      "hint": "`docker ps` lists them. If one is missing, start it again with the commands from the task, plus the network you made."
+    },
+    {
+      "id": "network",
+      "title": "All three are on the same network, one that you made",
+      "hint": "Make a network: `docker network create notes-net`. Then plug each running container into it: `docker network connect notes-net web`, and the same for `api` and `db`. Or remove them and start them again with `--network notes-net`."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3300` opens with no red error",
+      "hint": "Read the red message. \"web can't reach the api\" means web and api aren't on the same network yet. \"api can't reach the database\" means api and db aren't."
+    },
+    {
+      "id": "note",
+      "title": "You saved a note, and it shows in the list",
+      "hint": "Open http://localhost:3300, type a note and press Save."
+    }
+  ]
+}

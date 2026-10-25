@@ -4,6 +4,14 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-25: Docker Labs (KodeKloud-style, local)
+
+- Vikash wanted "a UI like LeetCode / KodeKloud / Killercoda" with tasks, a terminal, a file viewer/editor and checks. Built `labs/`: React + TypeScript (Vite) site and Express + TypeScript server. Monaco editor, xterm.js terminal (real bash through a Python pty bridge, no native modules), file tree (new/delete, auto-reload), task panel with hints, Check (Ctrl+Enter), Reset, progress ring. `make labs` → http://localhost:7000, bound to 127.0.0.1.
+- Vikash rejected a plain-HTML first cut ("why html, we are not using react… take this job seriously"): build proper apps with a real stack.
+- Labs: 01 run nginx (`hello-web`, 8080), 02 fix a broken Dockerfile (`node:24-slm`, `ap.js`, CMD `server.js` → teaches docker logs; port 8081), 03 notes app network (web/api/db started on default network, page on 3300; make a network, connect all three, save a note).
+- Verified: typecheck, build, API, terminal over WebSocket. Labs themselves not played through end to end.
+- Next: Vikash tries it; more labs (volumes, bind mount, IP instead of names, build cache).
+
 ## 2026-10-25: all Python notebooks (in progress)
 
 - Vikash: make all the notebooks; keep easy stuff (printing) short, go deep where beginners struggle (loops, dictionaries, etc.), think for myself. Recorded in `teaching-style.md` and `decisions.md`.

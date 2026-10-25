@@ -19,3 +19,8 @@ site/
 
 # Jupyter autosave copies
 .ipynb_checkpoints/
+
+# Docker Labs: her working copies, progress and the built site
+labs/workspace/
+labs/.progress.json
+labs/app/dist/

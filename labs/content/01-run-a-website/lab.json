@@ -1,0 +1,25 @@
+{
+  "number": 1,
+  "title": "Run a website in a container",
+  "summary": "Start nginx in a container and open it in your browser.",
+  "level": "Easy",
+  "minutes": 10,
+  "topics": ["docker run", "ports"],
+  "tasks": [
+    {
+      "id": "running",
+      "title": "A container called `hello-web` is running",
+      "hint": "Give the container a name with `--name hello-web`, and keep it running in the background with `-d`. `docker ps` lists the running ones."
+    },
+    {
+      "id": "image",
+      "title": "It runs the `nginx` image",
+      "hint": "The image name goes last: `docker run -d --name hello-web nginx`."
+    },
+    {
+      "id": "port",
+      "title": "`http://localhost:8080` shows the nginx welcome page",
+      "hint": "nginx listens on port 80 inside the container. Open a door on your laptop with `-p 8080:80`. A container's ports can't be changed after it starts, so remove it first with `docker rm -f hello-web`, then run it again."
+    }
+  ]
+}
