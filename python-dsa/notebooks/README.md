@@ -2,9 +2,32 @@
 
 Each notebook is one lesson: an explanation, code you run yourself, then tasks and a quiz that checks your answers.
 
+Do them in order. Each one only uses what the ones before it taught. The early ones are short; the harder ideas (loops, dictionaries, recursion) get more time and more tasks.
+
 | # | Notebook | You'll be able to |
 | --- | --- | --- |
 | 1 | `01-run-python.ipynb` | run code, print things, read an error |
+| 2 | `02-variables-and-numbers.ipynb` | store values and do maths, including `//` and `%` |
+| 3 | `03-if-else.ipynb` | make your code choose |
+| 4 | `04-functions.ipynb` | write a function that returns an answer |
+| 5 | `05-how-leetcode-looks.ipynb` | read `class Solution` and solve your first problems |
+| 6 | `06-strings.ipynb` | work with text: index, slice, split, join |
+| 7 | `07-lists.ipynb` | keep many values in order and change them |
+| 8 | `08-loops.ipynb` | repeat work with `for` and `while` |
+| 9 | `09-loop-patterns.ipynb` | sum, count, find the biggest, build a list, check every pair |
+| 10 | `10-dictionaries.ipynb` | store and look up values by name |
+| 11 | `11-counting-and-seen-before.ipynb` | count things and remember what you've seen (Two Sum) |
+| 12 | `12-sets-and-tuples.ipynb` | remove duplicates, keep pairs together |
+| 13 | `13-two-pointers.ipynb` | walk a list from both ends at once |
+| 14 | `14-stacks.ipynb` | use a stack (valid brackets and more) |
+| 15 | `15-grids.ipynb` | work with rows and columns |
+| 16 | `16-handy-built-ins.ipynb` | use Python's ready-made tools, sort by your own rule |
+| 17 | `17-recursion.ipynb` | write a function that calls itself |
+| 18 | `18-recursion-in-practice.ipynb` | use recursion in real problems, and make it fast |
+| 19 | `19-classes-and-design.ipynb` | write your own class and "design" problems |
+| 20 | `20-linked-lists-and-trees.ipynb` | walk a linked list and a tree |
+| 21 | `21-collections.ipynb` | use `defaultdict`, `Counter` and `deque` |
+| 22 | `22-heapq-and-bisect.ipynb` | keep the smallest on top, find a place in a sorted list |
 
 Answers are in `solutions/`. Try each task yourself first.
 

@@ -10,4 +10,5 @@ Starting rules. Update as Vikash gives feedback.
 - **Show what she'll see.** Include the expected output of commands, so she knows it worked.
 - **One diagram when it helps**, drawn with `/excalidraw`. Never decorative.
 - **End with 2–3 tiny questions** she can answer herself, and what's next.
+- **Spend time where beginners struggle, not on the easy bits** (Vikash, 2026-10-25). Printing, variables, `if`: brief, but she still does them herself. Loops, dictionaries, `return`, mutation, recursion, grids, sorting with `key`: slow, traced step by step, predict-then-run, more tasks. Think about what is actually hard; don't copy only his examples.
 - **Calm tone.** Friendly, no hype, no "simply"/"just"/"obviously", no wall of emojis.

@@ -4,6 +4,13 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-25: all Python notebooks (in progress)
+
+- Vikash: make all the notebooks; keep easy stuff (printing) short, go deep where beginners struggle (loops, dictionaries, etc.), think for myself. Recorded in `teaching-style.md` and `decisions.md`.
+- Plan: 22 notebooks (hard lessons split in two). `checks.py` now has `check(got, expected)` for task tests plus `check_answer` for quizzes. Index in `notebooks/README.md` lists all 22.
+- State: notebooks 02–22 being built in 6 parallel groups; answer notebooks executed to confirm all ✓.
+- Next: merge quiz answers into `checks.py`, commit, push; Vikash reviews.
+
 ## 2026-10-25: Python notebook 01
 
 - Vikash wants Python taught through Jupyter notebooks (see `decisions.md`). Made `python-dsa/notebooks/01-run-python.ipynb` from lesson 01: how a notebook works (cells, Shift+Enter, restart kernel), print, top-to-bottom, comments, reading a traceback, missing bracket; then 5 tasks (expected output shown, two "fix me") and a 4-question quiz checked by `checks.py`. Answers in `notebooks/solutions/01-run-python.ipynb`.
