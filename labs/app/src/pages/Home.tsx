@@ -11,7 +11,7 @@ type View = "gallery" | "list" | "compact";
 const VIEW_KEY = "docker-labs:view";
 const TOPICS_SHOWN = 10;
 
-// Each track is painted like a shipping container: one paint per track.
+// A small colour per track, only for the dots in the sidebar.
 const PAINT: Record<string, string> = {
   basics: "#2f5f8a",
   images: "#8c3d2c",
@@ -129,16 +129,12 @@ export default function Home() {
           <span className="brand-name">Docker Labs</span>
         </div>
 
-        <div className="yard" aria-label={`${solved} of ${all.length} labs done`}>
-          <div className="yard-text">
-            <b>{solved}</b> of {all.length} done
-            <span>{minutesLeft ? `about ${hours} hours left` : "all labs done"}</span>
+        <div className="progress">
+          <div className="progress-text">
+            <b>{solved} of {all.length}</b> labs done
           </div>
-          <div className="yard-boxes">
-            {all.map((l) => (
-              <i key={l.id} title={`${l.number}. ${l.title}`} className={statusOf(l)} style={{ "--paint": paintOf(l.track) } as React.CSSProperties} />
-            ))}
-          </div>
+          <div className="progress-bar"><i style={{ width: `${all.length ? (solved / all.length) * 100 : 0}%` }} /></div>
+          <div className="progress-sub">{minutesLeft ? `About ${hours} hours left` : "Every lab is done"}</div>
         </div>
 
         <nav className="side-section" aria-label="Tracks">
@@ -153,7 +149,7 @@ export default function Home() {
             const complete = inT.length > 0 && done === inT.length;
             return (
               <button key={t.id} type="button" className={`side-item${track === t.id ? " on" : ""}`} onClick={() => setTrack(t.id)}>
-                <span className="paint-chip" style={{ background: paintOf(t.id) }} />
+                <span className="dot" style={{ background: paintOf(t.id) }} />
                 <span className="si-name">{t.title}</span>
                 <span className={`si-count${complete ? " done" : ""}`}>{complete ? <Check size={13} /> : `${done}/${inT.length}`}</span>
               </button>
@@ -178,13 +174,12 @@ export default function Home() {
 
         <div className="side-section">
           <h3>Level</h3>
-          <div className="toggle">
-            {(["all", "Easy", "Medium"] as Level[]).map((l) => (
-              <button key={l} type="button" className={level === l ? "on" : ""} onClick={() => setLevel(l)}>
-                {l === "all" ? "Any" : l}
-              </button>
-            ))}
-          </div>
+          {(["all", "Easy", "Medium"] as Level[]).map((l) => (
+            <button key={l} type="button" className={`side-item${level === l ? " on" : ""}`} onClick={() => setLevel(l)}>
+              <span className="si-name">{l === "all" ? "Any" : l}</span>
+              <span className="si-count">{l === "all" ? all.length : countBy((x) => x.level === l)}</span>
+            </button>
+          ))}
         </div>
 
         <div className="side-section">
@@ -220,9 +215,8 @@ export default function Home() {
           </div>
           {upNext && !filtering && (
             <Link className="resume" to={`/lab/${upNext.id}`}>
-              <span className="resume-box" style={{ background: paintOf(upNext.track) }}>{upNext.number}</span>
               <span className="resume-text">
-                <span>{upNext.started ? "Pick up where you stopped" : "Next lab"}</span>
+                <span>{upNext.started ? `Pick up where you stopped: lab ${upNext.number}` : `Next: lab ${upNext.number}`}</span>
                 <b>{upNext.title}</b>
               </span>
               <span className="resume-go">{upNext.started ? "Continue" : "Start"}</span>
@@ -272,20 +266,20 @@ export default function Home() {
               {track === "all" && <GroupHead title={trackTitle(g.id)} labs={g.labs} />}
               <div className="gallery">
                 {g.labs.map((lab) => (
-                  <Link key={lab.id} to={`/lab/${lab.id}`} className={`container ${statusOf(lab)}`} style={{ "--paint": paintOf(lab.track) } as React.CSSProperties}>
-                    <span className="doors">
-                      <span className="stencil">{String(lab.number).padStart(2, "0")}</span>
-                      {lab.solved && <span className="done-tag"><Check size={13} /> Done</span>}
-                      {!lab.solved && lab.started && <span className="wip-tag">In progress</span>}
-                    </span>
-                    <span className="plate">
-                      <span className="plate-title">{lab.title}</span>
-                      <span className="plate-sum">{lab.summary}</span>
-                      <span className="plate-meta">
-                        <span className={`lvl ${lab.level.toLowerCase()}`}>{lab.level}</span>
-                        <span>{lab.minutes} min</span>
-                        <span>{lab.tasks.length} tasks</span>
+                  <Link key={lab.id} to={`/lab/${lab.id}`} className={`card ${statusOf(lab)}`}>
+                    <span className="card-top">
+                      <span className="card-num">Lab {lab.number}</span>
+                      <span className={`card-status ${statusOf(lab)}`}>
+                        {lab.solved && <Check size={13} />}
+                        {lab.solved || lab.started ? STATUS_TEXT[statusOf(lab)] : ""}
                       </span>
+                    </span>
+                    <span className="card-title">{lab.title}</span>
+                    <span className="card-sum">{lab.summary}</span>
+                    <span className="card-meta">
+                      <span className={`lvl ${lab.level.toLowerCase()}`}>{lab.level}</span>
+                      <span>{lab.minutes} min</span>
+                      <span>{lab.tasks.length} tasks</span>
                     </span>
                   </Link>
                 ))}
@@ -300,7 +294,7 @@ export default function Home() {
               <div className="list">
                 {g.labs.map((lab) => (
                   <Link key={lab.id} to={`/lab/${lab.id}`} className={`row ${statusOf(lab)}`}>
-                    <span className="box-end" style={{ background: paintOf(lab.track) }}>{lab.number}</span>
+                    <span className="row-num">{lab.number}</span>
                     <span className="row-main">
                       <span className="row-title">{lab.title}</span>
                       <span className="row-sum">{lab.summary}</span>
@@ -336,7 +330,7 @@ export default function Home() {
                   <tr key={lab.id} className={statusOf(lab)}>
                     <td className="num">{lab.number}</td>
                     <td className="t-title"><Link to={`/lab/${lab.id}`}>{lab.title}</Link></td>
-                    <td><span className="t-track"><span className="paint-chip" style={{ background: paintOf(lab.track) }} />{trackTitle(lab.track)}</span></td>
+                    <td>{trackTitle(lab.track)}</td>
                     <td><span className={`lvl ${lab.level.toLowerCase()}`}>{lab.level}</span></td>
                     <td className="num">{lab.minutes} min</td>
                     <td className="num">{lab.tasks.length}</td>
