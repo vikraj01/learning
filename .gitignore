@@ -16,3 +16,6 @@ node_modules/
 
 # MkDocs build output
 site/
+
+# Jupyter autosave copies
+.ipynb_checkpoints/

@@ -4,6 +4,14 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-25: Python notebook 01
+
+- Vikash wants Python taught through Jupyter notebooks (see `decisions.md`). Made `python-dsa/notebooks/01-run-python.ipynb` from lesson 01: how a notebook works (cells, Shift+Enter, restart kernel), print, top-to-bottom, comments, reading a traceback, missing bracket; then 5 tasks (expected output shown, two "fix me") and a 4-question quiz checked by `checks.py`. Answers in `notebooks/solutions/01-run-python.ipynb`.
+- Easy start: `jupyterlab` added to `pyproject.toml`, `make notebooks` target, `notebooks/README.md` with first-time setup (install uv, clone) and start/stop steps. `.ipynb_checkpoints/` ignored.
+- Not opened in a browser yet; notebooks validated with nbformat and the quiz helper tried.
+- Open question: if Tanvi edits the notebooks in place, `git pull` can clash when Vikash updates them.
+- Next: Vikash reviews 01; then 02 variables and numbers.
+
 ## 2026-10-25: networks demo with the notes app
 
 - Vikash gave a notes app (zip in ~/Downloads/Archives/container): web → api → db (Postgres). Set up as `docs/08-networks-demo/` with one README page: what a network is (houses), demo 1 default network (ENOTFOUND), container IPs + using numbers instead of names, demo 2 own network `notes-net` ✓, demo 3 db on `other-net` ✗, cleanup, questions.

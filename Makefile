@@ -1,9 +1,9 @@
-.PHONY: help install serve build clean pdf
+.PHONY: help install serve build clean pdf notebooks
 
 help:            ## Show this list
-	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-8s %s\n", $$1, $$2}'
+	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
 
-install:         ## Install MkDocs (uses uv)
+install:         ## Install MkDocs and Jupyter (uses uv)
 	uv sync
 
 serve: install   ## Open the notes at http://localhost:8000 (live reload)
@@ -17,3 +17,6 @@ clean:           ## Delete the built site
 
 pdf: install     ## Build the two Python PDFs in python-dsa/ (needs google-chrome)
 	uv run python python-dsa/pdf/build.py
+
+notebooks: install ## Open the Python notebooks in Jupyter (browser opens)
+	uv run jupyter lab --notebook-dir=python-dsa/notebooks

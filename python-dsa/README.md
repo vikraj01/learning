@@ -4,6 +4,10 @@ This folder teaches you Python from zero by solving 50 easy problems.
 
 The plan is simple: learn a little, then solve problems with it straight away. You learn Python by using it, not by reading about it.
 
+## Notebooks (start here)
+
+The lessons are becoming **Jupyter notebooks** in [notebooks/](notebooks/): read, run the code, then do the tasks and quiz in the same page. [notebooks/README.md](notebooks/README.md) shows how to start them (`make notebooks`).
+
 ## The two PDFs
 
 - **[python-for-leetcode.pdf](python-for-leetcode.pdf)**: lessons 1–10 in one file, each with its example script.
@@ -34,6 +38,7 @@ Both are built from the files in this folder with `make pdf` (from the repo root
 
 ## Files
 
+- `notebooks/`: the lessons as notebooks, with tasks and a quiz; `solutions/` has the answers.
 - `learn/`: the lessons (`.md`) and `examples/` (one script per lesson).
 - `leetcode-list.md`: the source of the practice list PDF.
 - `practice/` and `solutions/`: extra files you can run on your laptop, with tests built in, for many of the problems.
