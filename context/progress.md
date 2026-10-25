@@ -10,6 +10,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 - Easy start: `jupyterlab` added to `pyproject.toml`, `make notebooks` target, `notebooks/README.md` with first-time setup (install uv, clone) and start/stop steps. `.ipynb_checkpoints/` ignored.
 - Not opened in a browser yet; notebooks validated with nbformat and the quiz helper tried.
 - Open question: if Tanvi edits the notebooks in place, `git pull` can clash when Vikash updates them.
+- Later: Vikash wanted a `Makefile` **inside** `python-dsa/notebooks/` (annoyed it wasn't there): `make` there runs `uv sync` + `jupyter lab --notebook-dir=.`. Her README now says `cd learning/python-dsa/notebooks` then `make`. Put run commands where she works, not only at the root.
 - Next: Vikash reviews 01; then 02 variables and numbers.
 
 ## 2026-10-25: networks demo with the notes app
