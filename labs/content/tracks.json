@@ -1,0 +1,7 @@
+[
+  { "id": "basics", "title": "Basics", "description": "Run containers, open doors with ports, and tidy up after yourself." },
+  { "id": "images", "title": "Images and Dockerfiles", "description": "Write a Dockerfile, fix one, and make builds fast." },
+  { "id": "inside", "title": "Inside a container", "description": "Look inside a running container and find out why things break." },
+  { "id": "storage", "title": "Keeping data", "description": "Volumes and bind mounts: data that survives, files you can edit live." },
+  { "id": "networking", "title": "Networking", "description": "How containers find each other, and how to keep some of them private." }
+]

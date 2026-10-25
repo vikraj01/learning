@@ -4,6 +4,13 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-25: Docker Labs → 15 labs in 5 tracks, new lab list
+
+- Vikash loved the labs ("this is really good love it"), asked for a better list and lots more meaningful labs (network, volume, port mapping…). Also fixed a button overflow he spotted.
+- Lab list: tracks with progress bars, "Up next / Continue where you left off" card, filters (All / To do / In progress / Solved), search, status badges. Lab ids renamed to slugs (no number prefix), progress and workspaces migrated.
+- New labs: two websites, port taken, only-for-you (127.0.0.1), tidy up, write a Dockerfile, faster rebuilds (checker rebuilds to prove CACHED), find the secret (exec), wrong door (logs → real port), messages that survive (volume, replace container), live edit (bind mount), every container has an address, keep the database private (front-net/back-net). Table with ports in `labs/README.md`.
+- Checked: typecheck, build, `bash -n` on every script, JSON valid. New labs not played through end to end.
+
 ## 2026-10-25: Docker Labs (KodeKloud-style, local)
 
 - Vikash wanted "a UI like LeetCode / KodeKloud / Killercoda" with tasks, a terminal, a file viewer/editor and checks. Built `labs/`: React + TypeScript (Vite) site and Express + TypeScript server. Monaco editor, xterm.js terminal (real bash through a Python pty bridge, no native modules), file tree (new/delete, auto-reload), task panel with hints, Check (Ctrl+Enter), Reset, progress ring. `make labs` → http://localhost:7000, bound to 127.0.0.1.

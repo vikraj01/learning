@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import http from "node:http";
 import express, { type Request, type Response } from "express";
-import { WORKSPACES, check, listLabs, prepare, publicLab, readLab, readProgress, type Lab } from "./labs.ts";
+import { WORKSPACES, check, listLabs, prepare, publicLab, readLab, readProgress, readTracks, type Lab } from "./labs.ts";
 import { safePath, tree } from "./files.ts";
 import { attachTerminal } from "./terminal.ts";
 
@@ -21,6 +21,8 @@ function labOr404(req: Request, res: Response): Lab | null {
 }
 
 // ---------- labs ----------
+
+app.get("/api/tracks", (_req, res) => res.json(readTracks()));
 
 app.get("/api/labs", (_req, res) => {
   const progress = readProgress();
@@ -46,6 +48,7 @@ app.get("/api/labs/:id", (req, res) => {
     started: Boolean(progress.started[lab.id]),
     ready: fs.existsSync(lab.workspace),
     next: next ? { id: next.id, title: next.title } : null,
+    trackTitle: readTracks().find((t) => t.id === lab.track)?.title ?? "",
   });
 });
 

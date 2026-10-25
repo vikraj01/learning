@@ -1,0 +1,21 @@
+{
+  "number": 3,
+  "track": "basics",
+  "title": "That door is taken",
+  "summary": "Port 8093 is already in use. Read the error, clean up, and use another door.",
+  "level": "Easy",
+  "minutes": 10,
+  "topics": ["ports", "errors", "docker rm"],
+  "tasks": [
+    {
+      "id": "squatter",
+      "title": "`squatter` is still running on port 8093",
+      "hint": "Leave `squatter` alone. If you stopped it by accident: `docker start squatter`."
+    },
+    {
+      "id": "shop",
+      "title": "`shop` (nginx) opens on `http://localhost:8094`",
+      "hint": "Port 8093 is taken, so use the next one: `-p 8094:80`. If Docker says the name `shop` is already in use, the failed try left a container behind: remove it with `docker rm shop`, then run again."
+    }
+  ]
+}

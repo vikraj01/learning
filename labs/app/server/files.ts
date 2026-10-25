@@ -12,7 +12,8 @@ export interface TreeNode {
   children?: TreeNode[];
 }
 
-const HIDDEN = new Set(["node_modules", ".git"]);
+// .lab-state holds what a lab needs to remember for its checks; she doesn't need to see it.
+const HIDDEN = new Set(["node_modules", ".git", ".lab-state"]);
 
 export function safePath(lab: Lab, rel: unknown): string | null {
   if (typeof rel !== "string" || rel === "") return null;

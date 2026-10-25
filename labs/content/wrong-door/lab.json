@@ -1,0 +1,26 @@
+{
+  "number": 10,
+  "track": "inside",
+  "title": "Running, but the page won't open",
+  "summary": "The container is up and happy, but the browser gets nothing. Find out which door the app really uses.",
+  "level": "Medium",
+  "minutes": 15,
+  "topics": ["docker logs", "ports", "debugging"],
+  "tasks": [
+    {
+      "id": "page",
+      "title": "`http://localhost:8098` shows the Quiet app",
+      "hint": "`docker logs quiet` shows the port the app listens on inside. The right side of `-p` must be that port: `-p 8098:<that port>`. Remove the old container first: `docker rm -f quiet`."
+    },
+    {
+      "id": "running",
+      "title": "The container is still called `quiet` and made from `quiet-app`",
+      "hint": "`docker run -d --name quiet -p 8098:... quiet-app`"
+    },
+    {
+      "id": "code",
+      "title": "The code is unchanged: the app still listens on 5000",
+      "hint": "Fix it with the `docker run` command, not by changing `app.js`. Put `const PORT = 5000;` back."
+    }
+  ]
+}

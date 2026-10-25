@@ -1,0 +1,26 @@
+{
+  "number": 8,
+  "track": "images",
+  "title": "Make rebuilds fast",
+  "summary": "Every small change reinstalls all the packages. Reorder the Dockerfile so Docker can reuse its work.",
+  "level": "Medium",
+  "minutes": 20,
+  "topics": ["build cache", "layers", "Dockerfile"],
+  "tasks": [
+    {
+      "id": "order",
+      "title": "`package.json` is copied and installed before the rest of the code",
+      "hint": "Copy only `package.json` first, then `RUN npm install`, and only then copy the rest: `COPY package.json .`, `RUN npm install`, `COPY app.js .`"
+    },
+    {
+      "id": "build",
+      "title": "`fast-box` is built from your new Dockerfile",
+      "hint": "Save the Dockerfile, then `docker build -t fast-box .`"
+    },
+    {
+      "id": "cached",
+      "title": "After changing `app.js`, `npm install` comes from the cache",
+      "hint": "The check changes `app.js` in a copy and builds it. If `npm install` runs again, something that changed is copied before it. Look at the order once more."
+    }
+  ]
+}

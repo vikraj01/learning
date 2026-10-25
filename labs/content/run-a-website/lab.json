@@ -1,10 +1,14 @@
 {
   "number": 1,
+  "track": "basics",
   "title": "Run a website in a container",
   "summary": "Start nginx in a container and open it in your browser.",
   "level": "Easy",
   "minutes": 10,
-  "topics": ["docker run", "ports"],
+  "topics": [
+    "docker run",
+    "ports"
+  ],
   "tasks": [
     {
       "id": "running",

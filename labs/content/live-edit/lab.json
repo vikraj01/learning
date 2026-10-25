@@ -1,0 +1,26 @@
+{
+  "number": 12,
+  "track": "storage",
+  "title": "Edit a website live",
+  "summary": "Share a folder from your laptop with nginx, then change the page and see it change, with no rebuild.",
+  "level": "Medium",
+  "minutes": 15,
+  "topics": ["bind mounts", "-v"],
+  "tasks": [
+    {
+      "id": "running",
+      "title": "`live-site` (nginx) opens on `http://localhost:8100`",
+      "hint": "`docker run -d --name live-site -p 8100:80 ... nginx`"
+    },
+    {
+      "id": "mount",
+      "title": "It shows the `site` folder from this lab, through a bind mount",
+      "hint": "nginx shows the files in `/usr/share/nginx/html`. Share your folder there: `-v \"$(pwd)/site\":/usr/share/nginx/html`. The left side must be a full path; `$(pwd)` gives the folder you're in. Remove the old container first."
+    },
+    {
+      "id": "edited",
+      "title": "You changed the heading, and the page shows your change",
+      "hint": "Open `site/index.html`, change the text inside `<h1>`, save with Ctrl + S, and reload the page. No rebuild, no restart."
+    }
+  ]
+}

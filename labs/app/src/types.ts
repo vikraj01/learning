@@ -4,9 +4,16 @@ export interface Task {
   hint: string;
 }
 
+export interface Track {
+  id: string;
+  title: string;
+  description: string;
+}
+
 export interface LabSummary {
   id: string;
   number: number;
+  track: string;
   title: string;
   summary: string;
   level: "Easy" | "Medium" | string;
@@ -21,6 +28,7 @@ export interface LabDetail extends LabSummary {
   task: string;
   ready: boolean;
   next: { id: string; title: string } | null;
+  trackTitle: string;
 }
 
 export interface CheckResult {

@@ -1,0 +1,31 @@
+{
+  "number": 15,
+  "track": "networking",
+  "title": "Keep the database private",
+  "summary": "The notes app works, but web can reach the database directly. Split it into two networks so only api can.",
+  "level": "Medium",
+  "minutes": 25,
+  "topics": ["networks", "security", "network connect"],
+  "tasks": [
+    {
+      "id": "networks",
+      "title": "Two networks exist: `front-net` and `back-net`",
+      "hint": "`docker network create front-net` and `docker network create back-net`."
+    },
+    {
+      "id": "api",
+      "title": "`api` is on both networks",
+      "hint": "api talks to web and to db, so it needs a cable to each: `docker network connect front-net api` and `docker network connect back-net api`."
+    },
+    {
+      "id": "private",
+      "title": "`web` and `db` share no network at all",
+      "hint": "Put web on `front-net` and db on `back-net`. Then unplug both from `notes-all`: `docker network disconnect notes-all web` (and the same for db and api)."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3301` still works, with no red error",
+      "hint": "If web can't reach api, they don't share `front-net`. If api can't reach the database, api and db don't share `back-net`."
+    }
+  ]
+}

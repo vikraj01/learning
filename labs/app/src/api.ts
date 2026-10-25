@@ -1,4 +1,4 @@
-import type { CheckResponse, LabDetail, LabSummary, TreeNode } from "./types";
+import type { CheckResponse, LabDetail, LabSummary, Track, TreeNode } from "./types";
 
 async function call<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(url, {
@@ -15,6 +15,7 @@ const q = (path: string) => `?path=${encodeURIComponent(path)}`;
 
 export const api = {
   labs: () => call<LabSummary[]>("/api/labs"),
+  tracks: () => call<Track[]>("/api/tracks"),
   lab: (id: string) => call<LabDetail>(lab(id)),
   start: (id: string) => call<{ ok: boolean; output: string }>(`${lab(id)}/start`, { method: "POST" }),
   reset: (id: string) => call<{ ok: boolean; output: string }>(`${lab(id)}/reset`, { method: "POST" }),

@@ -1,0 +1,26 @@
+{
+  "number": 13,
+  "track": "networking",
+  "title": "Every container has an address",
+  "summary": "Find a container's IP address and its network's gateway, then visit it by number from another container.",
+  "level": "Easy",
+  "minutes": 15,
+  "topics": ["IP addresses", "docker inspect", "bridge"],
+  "tasks": [
+    {
+      "id": "ip",
+      "title": "`ip.txt` holds the IP address of `target`",
+      "hint": "`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' target` prints it. Copy it into `ip.txt` and save."
+    },
+    {
+      "id": "gateway",
+      "title": "`gateway.txt` holds the gateway of the default network",
+      "hint": "The default network is called `bridge`: `docker network inspect bridge` and look for `Gateway`."
+    },
+    {
+      "id": "visit",
+      "title": "`page.txt` holds the title of `target`'s page, fetched by number",
+      "hint": "From another container on the same network: `docker run --rm busybox wget -qO- http://<ip>`. The title is the text between `<title>` and `</title>`."
+    }
+  ]
+}

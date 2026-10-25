@@ -56,8 +56,24 @@ make reset-progress  # forget solved labs, delete every workspace
 
 ## The labs
 
-| # | Lab | Teaches |
-|---|-----|---------|
-| 1 | Run a website in a container | `docker run`, `--name`, `-d`, `-p` |
-| 2 | Fix a broken Dockerfile | reading build errors, `FROM`, `COPY`, `CMD`, `docker logs` |
-| 3 | Make the notes app talk | default network vs your own network, names, `docker network connect` |
+Grouped into tracks (`content/tracks.json`); each lab's `lab.json` names its `track` and its `number` (the order).
+
+| # | Track | Lab | Teaches | Port |
+|---|-------|-----|---------|------|
+| 1 | Basics | Run a website in a container | `docker run`, `--name`, `-d`, `-p` | 8080 |
+| 2 | Basics | Two websites at once | same inside port, different laptop doors | 8091, 8092 |
+| 3 | Basics | That door is taken | "port is already allocated", leftover containers, `docker rm` | 8093, 8094 |
+| 4 | Basics | A website only you can open | `-p 127.0.0.1:…` | 8095 |
+| 5 | Basics | Tidy up Docker | `ps -a`, `start`, `rm`, `volume rm`, removing by name | – |
+| 6 | Images | Write your first Dockerfile | `FROM`, `WORKDIR`, `COPY`, `RUN`, `CMD` | 8096 |
+| 7 | Images | Fix a broken Dockerfile | build errors, `docker logs` | 8081 |
+| 8 | Images | Make rebuilds fast | build cache, layer order (the checker really rebuilds) | – |
+| 9 | Inside | Find the secret inside a container | `docker exec -it`, `ls -a`, `cat` | – |
+| 10 | Inside | Running, but the page won't open | `docker logs`, the app's real port | 8098 |
+| 11 | Storage | Messages that survive | volumes, `-v name:/path`, replacing a container | 8099 |
+| 12 | Storage | Edit a website live | bind mounts, `-v "$(pwd)/site":…` | 8100 |
+| 13 | Networking | Every container has an address | IPs, gateway, reaching a container by number | – |
+| 14 | Networking | Make the notes app talk | default vs own network, names, `network connect` | 3300 |
+| 15 | Networking | Keep the database private | two networks, `connect`/`disconnect` | 3301 |
+
+Labs 14 and 15 both use the notes app with containers named `web`, `api` and `db`, so opening one breaks the other's setup. Press **Reset** when you go back to one.

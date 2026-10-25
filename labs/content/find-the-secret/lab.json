@@ -1,0 +1,21 @@
+{
+  "number": 9,
+  "track": "inside",
+  "title": "Find the secret inside a container",
+  "summary": "A running container hides a secret code in its files. Go inside and find it.",
+  "level": "Easy",
+  "minutes": 15,
+  "topics": ["docker exec", "ls", "cat"],
+  "tasks": [
+    {
+      "id": "secret",
+      "title": "`answer.txt` holds the secret code",
+      "hint": "Open a shell inside: `docker exec -it vault sh`. Then look around `/var/lib/vault` with `ls -a`: files starting with a dot are hidden from plain `ls`. `cat` shows a file. Type `exit` to come back."
+    },
+    {
+      "id": "alive",
+      "title": "`vault` is still running",
+      "hint": "Looking inside doesn't stop a container. If it stopped: `docker start vault`."
+    }
+  ]
+}

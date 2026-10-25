@@ -1,0 +1,26 @@
+{
+  "number": 4,
+  "track": "basics",
+  "title": "A website only you can open",
+  "summary": "Open a door that only your own laptop can use, not your phone or anyone on the Wi-Fi.",
+  "level": "Easy",
+  "minutes": 10,
+  "topics": ["ports", "127.0.0.1"],
+  "tasks": [
+    {
+      "id": "running",
+      "title": "A container called `private-site` (nginx) is running",
+      "hint": "`docker run -d --name private-site ... nginx`"
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:8095` opens it",
+      "hint": "Its door on the laptop is 8095, and nginx listens on 80 inside."
+    },
+    {
+      "id": "only",
+      "title": "The door only lets in your own laptop",
+      "hint": "Put the address in front of the port: `-p 127.0.0.1:8095:80`. The door can't be changed on a running container, so `docker rm -f private-site` and run it again."
+    }
+  ]
+}

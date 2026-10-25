@@ -1,0 +1,31 @@
+{
+  "number": 6,
+  "track": "images",
+  "title": "Write your first Dockerfile",
+  "summary": "The message box has no Dockerfile. Write one from scratch, build it, and run it.",
+  "level": "Easy",
+  "minutes": 20,
+  "topics": ["Dockerfile", "docker build"],
+  "tasks": [
+    {
+      "id": "file",
+      "title": "There's a `Dockerfile` that starts from a Node image",
+      "hint": "Make a new file called exactly `Dockerfile` (capital D, no extension) with the + button. The first line picks the starting image: `FROM node:24-slim`."
+    },
+    {
+      "id": "build",
+      "title": "The image `my-box` builds",
+      "hint": "Save the file (Ctrl + S), then in the terminal: `docker build -t my-box .` The dot means \"this folder\"."
+    },
+    {
+      "id": "running",
+      "title": "A container called `my-box`, made from that image, keeps running",
+      "hint": "`docker run -d --name my-box -p 8096:8080 my-box`. If it stops, `docker logs my-box` says why. Missing packages? Copy `package.json` and run `npm install` in the Dockerfile."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:8096/web` shows the message box",
+      "hint": "The app listens on 8080 inside the container: `-p 8096:8080`."
+    }
+  ]
+}

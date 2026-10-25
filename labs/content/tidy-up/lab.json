@@ -1,0 +1,31 @@
+{
+  "number": 5,
+  "track": "basics",
+  "title": "Tidy up Docker",
+  "summary": "Old containers and volumes pile up. Start one, remove the junk, and keep what matters.",
+  "level": "Easy",
+  "minutes": 15,
+  "topics": ["docker ps -a", "start", "rm", "volumes"],
+  "tasks": [
+    {
+      "id": "sleepy",
+      "title": "`sleepy` is running again: the same container, not a new one",
+      "hint": "A stopped container can be started again with `docker start sleepy`. Don't remove it and run a new one: that would be a different container."
+    },
+    {
+      "id": "old",
+      "title": "The finished containers `old-1` and `old-2` are removed",
+      "hint": "`docker ps -a` shows stopped containers too. Remove them with `docker rm old-1 old-2`."
+    },
+    {
+      "id": "junk",
+      "title": "The volumes `junk-1` and `junk-2` are removed",
+      "hint": "`docker volume ls` lists volumes. Remove them with `docker volume rm junk-1 junk-2`."
+    },
+    {
+      "id": "kept",
+      "title": "`keep-me` is still running, and the volume `keep-data` is still there",
+      "hint": "Be careful with commands that remove everything at once, like `docker system prune --volumes`. Remove things by name."
+    }
+  ]
+}

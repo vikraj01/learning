@@ -31,6 +31,7 @@ export default function TaskPanel({ lab, results, solved, checking, onCheck, onR
   return (
     <aside className="left">
       <div className="left-scroll">
+        {lab.trackTitle && <div className="track-label">{lab.trackTitle} · Lab {String(lab.number).padStart(2, "0")}</div>}
         <div className="eyebrow">
           <span className={`chip ${lab.level.toLowerCase()}`}>{lab.level}</span>
           <span className="chip">~{lab.minutes} min</span>

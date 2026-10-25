@@ -1,10 +1,14 @@
 {
-  "number": 3,
+  "number": 14,
+  "track": "networking",
   "title": "Make the notes app talk",
   "summary": "Three containers that can't find each other. Put them on one network so the notes app works.",
   "level": "Medium",
   "minutes": 20,
-  "topics": ["networks", "names"],
+  "topics": [
+    "networks",
+    "names"
+  ],
   "tasks": [
     {
       "id": "running",

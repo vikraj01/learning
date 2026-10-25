@@ -1,0 +1,26 @@
+{
+  "number": 2,
+  "track": "basics",
+  "title": "Two websites at once",
+  "summary": "Run two different web servers side by side, each behind its own door.",
+  "level": "Easy",
+  "minutes": 10,
+  "topics": ["ports", "docker run"],
+  "tasks": [
+    {
+      "id": "one",
+      "title": "`site-one` runs nginx and opens on `http://localhost:8091`",
+      "hint": "nginx listens on port 80 inside its container: `docker run -d --name site-one -p 8091:80 nginx`."
+    },
+    {
+      "id": "two",
+      "title": "`site-two` runs httpd and opens on `http://localhost:8092`",
+      "hint": "httpd (Apache) also listens on port 80 inside its container. Only the laptop's door must be different: `-p 8092:80`. The image is called `httpd`."
+    },
+    {
+      "id": "both",
+      "title": "Both are running at the same time",
+      "hint": "`docker ps` should list `site-one` and `site-two`. If one stopped, `docker logs <name>` tells you why."
+    }
+  ]
+}

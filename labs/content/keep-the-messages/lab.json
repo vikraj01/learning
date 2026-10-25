@@ -1,0 +1,31 @@
+{
+  "number": 11,
+  "track": "storage",
+  "title": "Messages that survive",
+  "summary": "Remove the container and the messages are gone. Keep them in a volume so they outlive any container.",
+  "level": "Medium",
+  "minutes": 20,
+  "topics": ["volumes", "-v"],
+  "tasks": [
+    {
+      "id": "volume",
+      "title": "A volume called `messages` exists",
+      "hint": "`docker volume create messages`, or let `docker run -v messages:...` make it for you."
+    },
+    {
+      "id": "mounted",
+      "title": "`keeper` runs `msg-keeper` with `messages` mounted at `/app/data`",
+      "hint": "`docker run -d --name keeper -p 8099:8080 -v messages:/app/data msg-keeper`. The left side of `-v` is the volume, the right side is the folder inside the container."
+    },
+    {
+      "id": "saved",
+      "title": "A message is saved in the volume",
+      "hint": "Open http://localhost:8099/web, write a message and press Send. Then press Check: it remembers which container you used."
+    },
+    {
+      "id": "survived",
+      "title": "After removing `keeper` and starting a new one, the message is still there",
+      "hint": "First pass the task above. Then `docker rm -f keeper`, run the same `docker run` again, and press Check."
+    }
+  ]
+}

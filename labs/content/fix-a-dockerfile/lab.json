@@ -1,10 +1,15 @@
 {
-  "number": 2,
+  "number": 7,
+  "track": "images",
   "title": "Fix a broken Dockerfile",
   "summary": "The message box won't build, and once it does, it won't stay up. Find the three mistakes.",
   "level": "Easy",
   "minutes": 15,
-  "topics": ["Dockerfile", "docker build", "docker logs"],
+  "topics": [
+    "Dockerfile",
+    "docker build",
+    "docker logs"
+  ],
   "tasks": [
     {
       "id": "build",

@@ -16,9 +16,16 @@ export interface Task {
   hint: string;
 }
 
+export interface Track {
+  id: string;
+  title: string;
+  description: string;
+}
+
 export interface Lab {
   id: string;
   number: number;
+  track: string;
   title: string;
   summary: string;
   level: string;
@@ -46,6 +53,11 @@ export function readLab(id: string): Lab | null {
   if (!fs.existsSync(file)) return null;
   const meta = JSON.parse(fs.readFileSync(file, "utf8"));
   return { ...meta, id, dir, workspace: path.join(WORKSPACES, id) };
+}
+
+export function readTracks(): Track[] {
+  const file = path.join(CONTENT, "tracks.json");
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : [];
 }
 
 export function listLabs(): Lab[] {
