@@ -19,6 +19,13 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 - Verified: typecheck, build, API, terminal over WebSocket. Labs themselves not played through end to end.
 - Next: Vikash tries it; more labs (volumes, bind mount, IP instead of names, build cache).
 
+## 2026-10-25: strong practice sets P1–P6
+
+- Vikash: notebook tasks are too weak (keep the easy start). Built `P1`–`P6` in `python-dsa/notebooks/` + `solutions/`: P1 after 05 (numbers/functions), P2 after 09 (strings/lists/loops), P3 after 12 (dicts/sets), P4 after 16 (pointers/stacks/grids/sorting), P5 after 22 (recursion/classes/collections/heaps), 12 problems each (last 2 ⭐); P6 = 4 mini projects in 14 steps (shop till, text analyser, tic-tac-toe, expense diary).
+- Each problem: story, rules, worked examples, edge cases, stub, 6–13 checks, two folded hints. Only uses what earlier notebooks taught; a few extras (`strip(".,!?")`, `type(x) == list`) are explained in the statement.
+- Checked: all answers notebooks run, 550 ✓, 0 ✗; every empty stub fails its checks. Not clicked through in a browser.
+- Next: Vikash reviews; still open: markdown lessons/PDFs vs notebooks, `my-work/` copies.
+
 ## 2026-10-25: all 22 Python notebooks
 
 - Vikash: make all the notebooks; keep easy stuff (printing) short, go deep where beginners struggle (loops, dictionaries, etc.), think for myself. Recorded in `teaching-style.md` and `decisions.md`.
