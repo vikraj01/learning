@@ -4,11 +4,14 @@ Hands-on Docker practice for Tanvi, in the browser: a task on the left, a file e
 
 ## Start it
 
-From the repo root:
+From this folder:
 
 ```bash
-make labs
+make            # list the commands
+make start      # install, build and open the labs
 ```
+
+Or from the repo root: `make labs`.
 
 Then open **http://localhost:7000**. The first run installs packages and builds the site, which takes a minute.
 
@@ -46,10 +49,9 @@ Make a new folder in `content/` with the files above. Number it in `lab.json`. C
 ## Develop
 
 ```bash
-cd labs/app
-npm install
-npm run dev        # site on :5173 with live reload, server on :7000
-npm run typecheck
+make dev             # site on :5173 with live reload, server on :7000
+make typecheck
+make reset-progress  # forget solved labs, delete every workspace
 ```
 
 ## The labs
