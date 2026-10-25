@@ -36,17 +36,17 @@ Answers are in `solutions/`. Try each task yourself first.
 
 ### Every time
 
-Go into the repo folder and start Jupyter:
+Go into this folder and start Jupyter:
 
 ```bash
-cd learning
-make notebooks
+cd learning/python-dsa/notebooks
+make
 ```
 
-No `make` on your laptop? This does the same thing:
+No `make` on your laptop? This does the same thing, from the same folder:
 
 ```bash
-uv run jupyter lab --notebook-dir=python-dsa/notebooks
+uv run jupyter lab --notebook-dir=.
 ```
 
 The first time it downloads a few things, so give it a minute. Then your browser opens with the list of notebooks on the left. Double-click `01-run-python.ipynb` to open it.
