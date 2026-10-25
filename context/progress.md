@@ -12,12 +12,14 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 - Verified: typecheck, build, API, terminal over WebSocket. Labs themselves not played through end to end.
 - Next: Vikash tries it; more labs (volumes, bind mount, IP instead of names, build cache).
 
-## 2026-10-25: all Python notebooks (in progress)
+## 2026-10-25: all 22 Python notebooks
 
 - Vikash: make all the notebooks; keep easy stuff (printing) short, go deep where beginners struggle (loops, dictionaries, etc.), think for myself. Recorded in `teaching-style.md` and `decisions.md`.
 - Plan: 22 notebooks (hard lessons split in two). `checks.py` now has `check(got, expected)` for task tests plus `check_answer` for quizzes. Index in `notebooks/README.md` lists all 22.
-- State: notebooks 02–22 being built in 6 parallel groups; answer notebooks executed to confirm all ✓.
-- Next: merge quiz answers into `checks.py`, commit, push; Vikash reviews.
+- Done: notebooks 02–22 + solutions, built in 6 parallel groups from `learn/` 02–17. Easy ones (02, 03) short; hard ones traced with step tables, predict-then-run, 7–8 tasks ending in LeetCode Easy problems as `class Solution`. 87 quiz answers in `checks.py`.
+- Checked: all 22 solutions notebooks executed: 503 ✓, 0 ✗, no errors. Lesson "you'll see" blocks compared against real runs. Not clicked through in a browser.
+- Know: 08 has a never-ending `while` on purpose (she practises ■ / Kernel → Interrupt), so "Run All" stops there. 18's Climbing Stairs (n=45) hangs without `@cache`, on purpose, the task says so. 20 has no tree-from-list helper (needs deque); trees are written out by hand.
+- Next: Vikash reviews; still open: replace the markdown lessons/PDFs or keep both; `my-work/` copies so `git pull` doesn't clash.
 
 ## 2026-10-25: Python notebook 01
 
