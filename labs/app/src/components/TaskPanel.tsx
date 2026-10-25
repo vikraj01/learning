@@ -90,20 +90,16 @@ export default function TaskPanel({ lab, results, solved, checking, onCheck, onR
             </div>
           </div>
         )}
+        {solved && lab.next && (
+          <Link className="btn success next-lab" to={`/lab/${lab.next.id}`}>
+            <span className="next-text">Next lab: {lab.next.title}</span> <ChevronRight />
+          </Link>
+        )}
         <div className="row">
-          {solved && lab.next ? (
-            <Link className="btn success grow" to={`/lab/${lab.next.id}`}>Next lab: {lab.next.title} <ChevronRight /></Link>
-          ) : (
-            <button className="btn primary grow" type="button" onClick={onCheck} disabled={checking}>
-              {checking ? <span className="spinner" /> : <Check />}
-              {checking ? "Checking…" : "Check my work"}
-            </button>
-          )}
-          {solved && lab.next && (
-            <button className="btn" type="button" onClick={onCheck} disabled={checking} title="Check again">
-              {checking ? <span className="spinner" /> : <Check />}
-            </button>
-          )}
+          <button className={`btn grow${solved ? "" : " primary"}`} type="button" onClick={onCheck} disabled={checking}>
+            {checking ? <span className="spinner" /> : <Check />}
+            {checking ? "Checking…" : solved ? "Check again" : "Check my work"}
+          </button>
           <button className="btn" type="button" onClick={() => setConfirmReset(true)} title="Start this lab over">
             <Reset /> Reset
           </button>

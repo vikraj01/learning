@@ -175,8 +175,10 @@ code, kbd { font-family: var(--mono); font-size: 0.86em; }
 
 .left-foot { border-top: 1px solid var(--line); padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 10px; background: var(--panel); }
 .left-foot .row { display: flex; gap: 8px; }
-.left-foot .row .grow { flex: 1; height: 40px; }
+.left-foot .row .grow { flex: 1; min-width: 0; height: 40px; }
 .left-foot .row .btn { height: 40px; }
+.left-foot .next-lab { height: 42px; width: 100%; min-width: 0; }
+.left-foot .next-text { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .left-foot .kbd-note { font-size: 0.76rem; color: var(--faint); text-align: center; }
 .left-foot kbd { background: var(--raised); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
 .banner { border-radius: var(--radius); padding: 12px 14px; display: flex; gap: 12px; align-items: center; }
