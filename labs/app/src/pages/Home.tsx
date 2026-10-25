@@ -5,6 +5,7 @@ import type { LabSummary, Track } from "../types";
 import { Check, ChevronRight, Logo, Search } from "../components/Icons";
 
 type Filter = "all" | "todo" | "started" | "solved";
+type Level = "all" | "Easy" | "Medium";
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: "all", label: "All" },
@@ -15,7 +16,16 @@ const FILTERS: { id: Filter; label: string }[] = [
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-function matches(lab: LabSummary, filter: Filter, query: string) {
+interface Filters {
+  status: Filter;
+  level: Level;
+  tags: Set<string>;
+  query: string;
+}
+
+function matches(lab: LabSummary, { status: filter, level, tags, query }: Filters) {
+  if (level !== "all" && lab.level !== level) return false;
+  if (tags.size > 0 && !lab.topics.some((t) => tags.has(t))) return false;
   if (filter === "todo" && (lab.solved || lab.started)) return false;
   if (filter === "started" && (lab.solved || !lab.started)) return false;
   if (filter === "solved" && !lab.solved) return false;
@@ -30,7 +40,7 @@ function StatusBadge({ lab }: { lab: LabSummary }) {
   return <span className="badge-status" title="Not started">{pad(lab.number)}</span>;
 }
 
-function LabRow({ lab }: { lab: LabSummary }) {
+function LabRow({ lab, tags, onTag }: { lab: LabSummary; tags: Set<string>; onTag: (t: string) => void }) {
   return (
     <Link className={`lab-row${lab.solved ? " solved" : ""}`} to={`/lab/${lab.id}`}>
       <StatusBadge lab={lab} />
@@ -41,7 +51,21 @@ function LabRow({ lab }: { lab: LabSummary }) {
           <span className={`chip ${lab.level.toLowerCase()}`}>{lab.level}</span>
           <span className="chip">~{lab.minutes} min</span>
           <span className="chip">{lab.tasks.length} tasks</span>
-          {lab.topics.map((t) => <span key={t} className="chip topic">{t}</span>)}
+          {lab.topics.map((t) => (
+            <button
+              key={t}
+              type="button"
+              className={`chip topic tag-btn${tags.has(t) ? " on" : ""}`}
+              title={tags.has(t) ? `Stop filtering by ${t}` : `Show labs about ${t}`}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onTag(t);
+              }}
+            >
+              {t}
+            </button>
+          ))}
         </div>
       </div>
       <div className="lab-side">
@@ -64,10 +88,27 @@ export default function Home() {
   const [error, setError] = useState(false);
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
+  const [level, setLevel] = useState<Level>("all");
+  const [tags, setTags] = useState<Set<string>>(new Set());
+
+  const toggleTag = (t: string) =>
+    setTags((prev) => {
+      const next = new Set(prev);
+      if (next.has(t)) next.delete(t);
+      else next.add(t);
+      return next;
+    });
+  const clearFilters = () => {
+    setFilter("all");
+    setLevel("all");
+    setTags(new Set());
+    setQuery("");
+  };
+  const filtering = filter !== "all" || level !== "all" || tags.size > 0 || query.trim() !== "";
 
   useEffect(() => {
     document.title = "Docker Labs";
-    Promise.all([api.labs(), api.tracks()])
+    Promise.all([api.labs(), api.tracks().catch(() => [])])
       .then(([l, t]) => {
         setLabs(l);
         setTracks(t);
@@ -80,6 +121,12 @@ export default function Home() {
   const minutesLeft = labs?.filter((l) => !l.solved).reduce((sum, l) => sum + l.minutes, 0) ?? 0;
   const upNext = labs?.find((l) => l.started && !l.solved) ?? labs?.find((l) => !l.solved) ?? null;
 
+  const allTags = useMemo(() => {
+    const count = new Map<string, number>();
+    for (const l of labs ?? []) for (const t of l.topics) count.set(t, (count.get(t) ?? 0) + 1);
+    return [...count.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  }, [labs]);
+
   const groups = useMemo(() => {
     if (!labs) return [];
     const known = new Set(tracks.map((t) => t.id));
@@ -89,13 +136,14 @@ export default function Home() {
       return {
         track,
         labs: inTrack,
-        shown: inTrack.filter((l) => matches(l, filter, query.trim())),
+        shown: inTrack.filter((l) => matches(l, { status: filter, level, tags, query: query.trim() })),
         solved: inTrack.filter((l) => l.solved).length,
       };
     });
-  }, [labs, tracks, filter, query]);
+  }, [labs, tracks, filter, level, tags, query]);
 
-  const nothingShown = labs && groups.every((g) => g.shown.length === 0);
+  const shownCount = groups.reduce((n, g) => n + g.shown.length, 0);
+  const nothingShown = labs && shownCount === 0;
 
   return (
     <main className="home">
@@ -179,11 +227,42 @@ export default function Home() {
         </label>
       </div>
 
+      <div className="filters">
+        <div className="filter-group">
+          <span className="filter-label">Level</span>
+          {(["all", "Easy", "Medium"] as Level[]).map((l) => (
+            <button key={l} type="button" className={`chip pick${level === l ? " on" : ""}${l !== "all" ? ` ${l.toLowerCase()}-pick` : ""}`} onClick={() => setLevel(l)}>
+              {l === "all" ? "Any" : l}
+            </button>
+          ))}
+        </div>
+        <div className="filter-group tags">
+          <span className="filter-label">Topics</span>
+          {allTags.map(([t, n]) => (
+            <button key={t} type="button" className={`chip pick tag-btn${tags.has(t) ? " on" : ""}`} onClick={() => toggleTag(t)} aria-pressed={tags.has(t)}>
+              {t}<span className="count">{n}</span>
+            </button>
+          ))}
+        </div>
+        {labs && (
+          <div className="filter-result">
+            {filtering ? (
+              <>
+                Showing <b>{shownCount}</b> of {total} labs
+                <button className="link-btn" type="button" onClick={clearFilters}>Clear filters</button>
+              </>
+            ) : (
+              <>All <b>{total}</b> labs, in order. Click a topic to filter.</>
+            )}
+          </div>
+        )}
+      </div>
+
       {error && <div className="labs empty-row">Could not load the labs. Is the lab server running? Start it with <code>make start</code> in <code>labs/</code>.</div>}
       {!labs && !error && <div className="labs empty-row">Loading labs…</div>}
       {nothingShown && (
         <div className="labs empty-row">
-          No labs match. <button className="link-btn" type="button" onClick={() => { setFilter("all"); setQuery(""); }}>Show all labs</button>
+          No labs match these filters. <button className="link-btn" type="button" onClick={clearFilters}>Clear filters</button>
         </div>
       )}
 
@@ -201,7 +280,7 @@ export default function Home() {
               </span>
             </div>
             <div className="labs">
-              {shown.map((lab) => <LabRow key={lab.id} lab={lab} />)}
+              {shown.map((lab) => <LabRow key={lab.id} lab={lab} tags={tags} onTag={toggleTag} />)}
             </div>
           </section>
         )

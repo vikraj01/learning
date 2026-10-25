@@ -119,6 +119,23 @@ code, kbd { font-family: var(--mono); font-size: 0.86em; }
 .search input { flex: 1; min-width: 0; border: none; outline: none; background: none; color: var(--fg); font: inherit; font-size: 0.9rem; }
 .search input::placeholder { color: var(--faint); }
 
+.filters { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; margin-top: 4px; background: var(--panel); border: 1px solid var(--line-soft); border-radius: 12px; }
+.filter-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.filter-label { font: 600 0.7rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); width: 64px; flex: none; }
+.chip.pick { cursor: pointer; height: 26px; padding: 0 10px; font-size: 0.78rem; transition: background .15s, color .15s, border-color .15s; }
+.chip.pick:hover { color: var(--fg); border-color: var(--line); }
+.chip.pick.on { background: var(--accent-bg); color: var(--accent-strong); border-color: rgba(63,167,245,.5); }
+.chip.pick.easy-pick.on { background: var(--ok-bg); color: var(--ok); border-color: rgba(63,185,122,.5); }
+.chip.pick.medium-pick.on { background: var(--hint-bg); color: var(--hint); border-color: rgba(224,166,59,.5); }
+.chip .count { margin-left: 6px; font-family: var(--mono); font-size: 0.68rem; color: var(--faint); }
+.chip.pick.on .count { color: inherit; opacity: .75; }
+.filter-result { display: flex; align-items: center; gap: 10px; font-size: 0.84rem; color: var(--muted); border-top: 1px solid var(--line-soft); padding-top: 10px; }
+.filter-result b { color: var(--fg-strong); }
+.tag-btn { cursor: pointer; }
+.lab-meta .tag-btn:hover { color: var(--accent-strong); border-color: rgba(63,167,245,.4); }
+.lab-meta .tag-btn.on { background: var(--accent-bg); color: var(--accent-strong); border-color: rgba(63,167,245,.5); }
+@media (max-width: 640px) { .filter-label { width: 100%; } }
+
 .track { margin-top: 30px; scroll-margin-top: 70px; }
 .track-head { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; margin-bottom: 12px; }
 .track-num { font: 600 0.78rem var(--mono); color: var(--accent-strong); background: var(--accent-bg); border-radius: 7px; padding: 4px 7px; }

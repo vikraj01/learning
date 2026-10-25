@@ -125,9 +125,19 @@ app.delete("/api/labs/:id/file", (req, res) => {
 
 // ---------- the built site ----------
 
+// The page itself is never cached, so a rebuild shows up on the next reload.
+// The files in assets/ have a hash in their name, so they can be cached for good.
 if (fs.existsSync(DIST)) {
-  app.use(express.static(DIST));
-  app.get("*", (_req, res) => res.sendFile(path.join(DIST, "index.html")));
+  app.use(
+    express.static(DIST, {
+      setHeaders: (res, file) =>
+        res.setHeader("Cache-Control", file.includes(`${path.sep}assets${path.sep}`) ? "public, max-age=31536000, immutable" : "no-cache"),
+    })
+  );
+  app.get("*", (_req, res) => {
+    res.setHeader("Cache-Control", "no-cache");
+    res.sendFile(path.join(DIST, "index.html"));
+  });
 }
 
 const server = http.createServer(app);
