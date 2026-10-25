@@ -29,6 +29,21 @@ Do them in order. Each one only uses what the ones before it taught. The early o
 | 21 | `21-collections.ipynb` | use `defaultdict`, `Counter` and `deque` |
 | 22 | `22-heapq-and-bisect.ipynb` | keep the smallest on top, find a place in a sorted list |
 
+## Practice sets
+
+The tasks inside the notebooks are warm-ups. The **practice sets** are the real workout: harder problems that mix several ideas, with edge cases to think about and hints folded away. Do each one when you reach its checkpoint.
+
+| Set | Do it after | What it works on |
+| --- | --- | --- |
+| `P1-numbers-and-functions.ipynb` | notebook 5 | maths with `//` and `%`, many branches, functions using functions |
+| `P2-strings-lists-loops.ipynb` | notebook 9 | text, lists and loops together |
+| `P3-dictionaries-and-sets.ipynb` | notebook 12 | counting, grouping, lookups, reports |
+| `P4-pointers-stacks-grids.ipynb` | notebook 16 | stacks, grids, sorting by your own rules |
+| `P5-recursion-classes-collections.ipynb` | notebook 22 | recursion, your own classes, `deque`, `Counter`, heaps |
+| `P6-mini-projects.ipynb` | everything | four small projects built step by step |
+
+Give each problem 20–30 minutes before you open a hint. A problem that takes you an hour is a good problem.
+
 Answers are in `solutions/`. Try each task yourself first.
 
 ## Start the notebooks
