@@ -1,0 +1,194 @@
+{
+  "title": "Two ways the .env file reaches the app in a container",
+  "subtitle": "Way 1: Docker reads the file and passes settings. Way 2: the file goes inside and app.js reads it. Only Way 1 beats ENV.",
+  "nodes": [
+    {
+      "id": "env",
+      "label": ".env",
+      "detail": "in your greet folder\nNAME=Tanvi\nCOLOR=pink",
+      "color": "yellow",
+      "pos": [
+        0,
+        380
+      ],
+      "w": 200,
+      "font": "mono"
+    },
+    {
+      "id": "docker",
+      "label": "Docker reads it",
+      "detail": "--env-file .env\nsame as -e NAME=Tanvi\n-e COLOR=pink",
+      "color": "violet",
+      "pos": [
+        250,
+        160
+      ],
+      "w": 250
+    },
+    {
+      "id": "c1env",
+      "label": "environment",
+      "detail": "NAME=Tanvi\nCOLOR=pink\n(pink beats ENV lightblue)",
+      "color": "blue",
+      "pos": [
+        700,
+        170
+      ],
+      "w": 240
+    },
+    {
+      "id": "c1app",
+      "label": "app.js",
+      "detail": "pink page\nHello, Tanvi! ✓\nno .env file in here",
+      "color": "green",
+      "pos": [
+        1060,
+        170
+      ],
+      "w": 230
+    },
+    {
+      "id": "mount",
+      "label": "bind mount",
+      "detail": "-v \"$(pwd)/.env:/app/.env\"\nthe file itself goes in",
+      "color": "violet",
+      "pos": [
+        250,
+        560
+      ],
+      "w": 250
+    },
+    {
+      "id": "c2file",
+      "label": "/app/.env",
+      "detail": "NAME=Tanvi\nCOLOR=pink",
+      "color": "yellow",
+      "pos": [
+        700,
+        620
+      ],
+      "w": 240,
+      "font": "mono"
+    },
+    {
+      "id": "c2pre",
+      "label": "environment",
+      "detail": "COLOR=lightblue\n(already set by ENV\nin the Dockerfile)",
+      "color": "blue",
+      "pos": [
+        1080,
+        880
+      ],
+      "w": 260
+    },
+    {
+      "id": "c2app",
+      "label": "app.js",
+      "detail": "loadEnvFile()\nNAME → Tanvi (was missing)\nCOLOR stays lightblue\nlight blue page, Hello, Tanvi!",
+      "color": "red",
+      "pos": [
+        1080,
+        600
+      ],
+      "w": 260
+    }
+  ],
+  "edges": [
+    {
+      "from": "env",
+      "to": "docker",
+      "label": "reads",
+      "color": "green"
+    },
+    {
+      "from": "docker",
+      "to": "c1env",
+      "label": "real env vars",
+      "color": "green"
+    },
+    {
+      "from": "c1env",
+      "to": "c1app",
+      "label": "process.env",
+      "color": "green"
+    },
+    {
+      "from": "env",
+      "to": "mount",
+      "label": "shows the file",
+      "color": "green"
+    },
+    {
+      "from": "mount",
+      "to": "c2file",
+      "color": "green"
+    },
+    {
+      "from": "c2file",
+      "to": "c2app",
+      "label": "reads",
+      "color": "green"
+    },
+    {
+      "from": "c2pre",
+      "to": "c2app",
+      "label": "✗ pink ignored",
+      "color": "red",
+      "dashed": true
+    }
+  ],
+  "areas": [
+    {
+      "label": "Container (Way 1)",
+      "detail": "docker run --env-file .env greet",
+      "nodes": [
+        "c1env",
+        "c1app"
+      ],
+      "color": "green"
+    },
+    {
+      "label": "Container (Way 2)",
+      "detail": "docker run -v \"$(pwd)/.env:/app/.env\" greet",
+      "nodes": [
+        "c2file",
+        "c2pre",
+        "c2app"
+      ],
+      "color": "green"
+    },
+    {
+      "label": "Your laptop",
+      "nodes": [
+        "env",
+        "docker",
+        "mount",
+        "c1env",
+        "c1app",
+        "c2file",
+        "c2pre",
+        "c2app"
+      ],
+      "color": "gray"
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        1420,
+        200
+      ],
+      "w": 330,
+      "text": "Way 1 is the usual Docker way: the app just reads process.env, and --env-file behaves like -e.\n\nWay 2 is what happens with apps that read .env themselves (dotenv). The file only fills gaps, so ENV in the Dockerfile wins."
+    },
+    {
+      "style": "code",
+      "pos": [
+        0,
+        1160
+      ],
+      "text": "docker run --rm -d -p 3000:3000 --env-file .env --name greet greet              # Way 1: pink\ndocker run --rm -d -p 3000:3000 -v \"$(pwd)/.env:/app/.env\" --name greet greet  # Way 2: light blue\ndocker exec greet ls -a                                                         # is .env inside?"
+    }
+  ]
+}

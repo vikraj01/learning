@@ -1,0 +1,155 @@
+{
+  "title": "One folder, two Dockerfiles, two images",
+  "subtitle": "-f picks the recipe. The . at the end picks the folder the files come from. Both builds use the same greet folder.",
+  "nodes": [
+    {
+      "id": "code",
+      "label": "app.js  say.js  .env",
+      "detail": "the code and settings\n(the build context: \".\")",
+      "color": "yellow",
+      "pos": [
+        0,
+        120
+      ],
+      "w": 280
+    },
+    {
+      "id": "df",
+      "label": "Dockerfile",
+      "detail": "ENV COLOR=lightblue\nCMD [\"app.js\"]\nthe name Docker looks for",
+      "color": "white",
+      "pos": [
+        0,
+        540
+      ],
+      "w": 280,
+      "font": "mono"
+    },
+    {
+      "id": "dfd",
+      "label": "Dockerfile.dev",
+      "detail": "ENV COLOR=lightyellow\nCMD [\"--watch\", \"app.js\"]\nonly used with -f",
+      "color": "white",
+      "pos": [
+        0,
+        320
+      ],
+      "w": 280,
+      "font": "mono"
+    },
+    {
+      "id": "img",
+      "label": "greet:3.0",
+      "detail": "image\nthe real one",
+      "color": "blue",
+      "pos": [
+        500,
+        540
+      ],
+      "w": 220
+    },
+    {
+      "id": "imgd",
+      "label": "greet:dev",
+      "detail": "image\nfor working on the code",
+      "color": "blue",
+      "pos": [
+        500,
+        320
+      ],
+      "w": 220
+    },
+    {
+      "id": "c",
+      "label": "greet",
+      "detail": "localhost:3000\nlight blue · Hello, friend!\ncode copied at build time",
+      "color": "green",
+      "pos": [
+        920,
+        540
+      ],
+      "w": 300
+    },
+    {
+      "id": "cd",
+      "label": "greet-dev",
+      "detail": "localhost:3001\nlight yellow · Hello, Tanvi!\nruns YOUR app.js, restarts on save",
+      "color": "green",
+      "pos": [
+        920,
+        320
+      ],
+      "w": 300
+    }
+  ],
+  "edges": [
+    {
+      "from": "df",
+      "to": "img",
+      "label": "docker build\n-t greet:3.0 .",
+      "color": "green"
+    },
+    {
+      "from": "dfd",
+      "to": "imgd",
+      "label": "docker build -f\nDockerfile.dev\n-t greet:dev .",
+      "color": "green"
+    },
+    {
+      "from": "img",
+      "to": "c",
+      "label": "docker run\n-p 3000:3000",
+      "color": "green"
+    },
+    {
+      "from": "imgd",
+      "to": "cd",
+      "label": "docker run\n-p 3001:3000\n-v \"$(pwd):/app\"",
+      "color": "green"
+    },
+    {
+      "from": "code",
+      "to": "cd",
+      "label": "bind mount: edits show up live",
+      "color": "violet",
+      "dashed": true,
+      "via": [
+        [
+          1070,
+          175
+        ]
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "label": "greet folder",
+      "detail": "everything is in one place",
+      "nodes": [
+        "code",
+        "df",
+        "dfd"
+      ],
+      "color": "yellow"
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        1300,
+        300
+      ],
+      "w": 330,
+      "text": "Same code, two recipes.\n\nEdit app.js: greet-dev (3001) changes straight away. greet (3000) only changes when you build it again, with a new tag."
+    },
+    {
+      "style": "code",
+      "pos": [
+        0,
+        780
+      ],
+      "text": "docker build -t greet:3.0 .                       # uses Dockerfile (the default name)\ndocker build -f Dockerfile.dev -t greet:dev .     # -f = which recipe, . = which folder\ndocker build -f greet/Dockerfile.dev -t greet:dev greet   # same, from the folder above"
+    }
+  ]
+}

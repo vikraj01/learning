@@ -81,3 +81,13 @@ nav:
       - 07-compose/04-living-with-compose.md
       - 07-compose/05-how-the-parts-find-each-other.md
   - "8. Networks demo: the notes app": 08-networks-demo/README.md
+  - 9. Environment variables:
+      - 09-env/01-environment-variables.md
+      - 09-env/02-the-env-file.md
+      - 09-env/03-env-in-docker.md
+      - 09-env/04-env-file-and-docker.md
+  - 10. Tags: 10-tags/01-tags.md
+  - 11. CMD: 11-cmd/01-cmd.md
+  - 12. ENTRYPOINT: 12-entrypoint/01-entrypoint.md
+  - "13. Two Dockerfiles: build -f": 13-build-f/01-build-f.md
+  - 14. Compose for greet: 14-compose-greet/01-compose-greet.md

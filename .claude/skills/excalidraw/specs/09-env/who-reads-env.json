@@ -1,0 +1,150 @@
+{
+  "title": "A .env file does nothing until someone reads it",
+  "subtitle": "Either Node reads it before the app starts, or the app reads it itself. Either way the lines end up in process.env.",
+  "nodes": [
+    {
+      "id": "env",
+      "label": ".env",
+      "detail": "a plain text file\nNAME=Tanvi\nCOLOR=pink",
+      "color": "yellow",
+      "pos": [
+        0,
+        230
+      ],
+      "w": 200,
+      "font": "mono"
+    },
+    {
+      "id": "w1",
+      "label": "Way 1: Node reads it",
+      "detail": "node --env-file=.env app.js\nbefore app.js even starts\napp.js doesn't know about the file",
+      "color": "violet",
+      "pos": [
+        330,
+        40
+      ],
+      "w": 320
+    },
+    {
+      "id": "w2",
+      "label": "Way 2: app.js reads it",
+      "detail": "process.loadEnvFile()  (or dotenv)\nat the top of app.js\nthen plain: node app.js",
+      "color": "violet",
+      "pos": [
+        330,
+        240
+      ],
+      "w": 320
+    },
+    {
+      "id": "none",
+      "label": "Nobody reads it",
+      "detail": "plain node app.js\nwith the old app.js",
+      "color": "red",
+      "pos": [
+        330,
+        450
+      ],
+      "w": 320
+    },
+    {
+      "id": "penv",
+      "label": "process.env",
+      "detail": "NAME = Tanvi\nCOLOR = pink",
+      "color": "blue",
+      "pos": [
+        800,
+        180
+      ],
+      "w": 220,
+      "font": "mono"
+    },
+    {
+      "id": "page",
+      "label": "localhost:3000",
+      "detail": "pink page\nHello, Tanvi!",
+      "color": "green",
+      "pos": [
+        1220,
+        180
+      ],
+      "w": 200
+    },
+    {
+      "id": "plain",
+      "label": "localhost:3000",
+      "detail": "white page\nHello, friend!\n(the defaults in app.js)",
+      "color": "red",
+      "pos": [
+        800,
+        450
+      ],
+      "w": 220
+    }
+  ],
+  "edges": [
+    {
+      "from": "env",
+      "to": "w1",
+      "label": "reads",
+      "step": 1,
+      "color": "green"
+    },
+    {
+      "from": "w1",
+      "to": "penv",
+      "step": 2,
+      "color": "green"
+    },
+    {
+      "from": "env",
+      "to": "w2",
+      "label": "reads",
+      "color": "green"
+    },
+    {
+      "from": "w2",
+      "to": "penv",
+      "color": "green"
+    },
+    {
+      "from": "penv",
+      "to": "page",
+      "label": "app.js uses them",
+      "step": 3,
+      "color": "green"
+    },
+    {
+      "from": "env",
+      "to": "none",
+      "label": "✗ just sits there",
+      "color": "red",
+      "dashed": true
+    },
+    {
+      "from": "none",
+      "to": "plain",
+      "color": "red",
+      "dashed": true
+    }
+  ],
+  "notes": [
+    {
+      "style": "callout",
+      "pos": [
+        1120,
+        400
+      ],
+      "w": 330,
+      "text": "The file only fills in what's missing.\n\nCOLOR=green node app.js → green page. A setting that's already in the environment always beats the file."
+    },
+    {
+      "style": "code",
+      "pos": [
+        0,
+        640
+      ],
+      "text": "node app.js                    # old app.js: Hello, friend! (white)\nnode --env-file=.env app.js    # Way 1: Hello, Tanvi! (pink)\nnode app.js                    # Way 2, app.js has loadEnvFile(): Hello, Tanvi! (pink)\nCOLOR=green node app.js        # real setting wins: Hello, Tanvi! (green)"
+    }
+  ]
+}

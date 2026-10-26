@@ -100,3 +100,36 @@ A notes app in three parts (web, api, database), run with plain `docker` command
 - [The notes app on different networks](08-networks-demo/README.md)
 
 Files: [`08-networks-demo/notes-app/`](08-networks-demo/notes-app/).
+
+## 9. Environment variables
+
+Give a program its settings from outside: in Node, from a `.env` file, and in Docker. The example is **greet**, a tiny app that says hello, used in sections 9 to 14.
+
+1. [Environment variables: settings from outside](09-env/01-environment-variables.md)
+2. [Settings in a file: how an app reads `.env`](09-env/02-the-env-file.md)
+3. [Environment variables in Docker](09-env/03-env-in-docker.md)
+4. [The `.env` file and Docker](09-env/04-env-file-and-docker.md)
+
+Finished files: [`09-env/greet/`](09-env/greet/).
+
+## 10. Tags
+
+- [Tags: giving images versions](10-tags/01-tags.md)
+
+## 11. CMD
+
+- [CMD: what a container runs](11-cmd/01-cmd.md)
+
+## 12. ENTRYPOINT
+
+- [ENTRYPOINT: the part you can't replace by accident](12-entrypoint/01-entrypoint.md)
+
+## 13. Two Dockerfiles: `docker build -f`
+
+- [Two Dockerfiles in one folder](13-build-f/01-build-f.md)
+
+## 14. Compose for greet
+
+- [Compose: all of it in one file](14-compose-greet/01-compose-greet.md)
+
+Each section has its finished `greet/` folder, if you get stuck.

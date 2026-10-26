@@ -4,6 +4,16 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-26: sections 9–14, env vars → tags → CMD → ENTRYPOINT → build -f → Compose
+
+- Vikash asked for env vars (with Node, then how to apply them), then tagging, CMD, ENTRYPOINT, `docker build -f`, Compose, all consistent. First cut put everything in one `09-env-and-images/` folder; Vikash was angry ("can't you see the pattern… you are mixing things up… why compose in env"). Redone as **one folder per topic**, and he asked for more on **how an app consumes a `.env` file and how Docker makes it consume it**.
+- One example throughout: **greet** (Node, built-in `http`, no npm): `app.js` (web, reads `PORT`/`NAME`/`COLOR`, loads `.env` itself with `process.loadEnvFile()` if present), `say.js` (prints `Hello, <NAME>!`), `.env` (`NAME=Tanvi`, `COLOR=pink`). Tags: `greet` → `greet:1.0` → `greet:2.0` (adds 👋) → `greet:3.0` (ENTRYPOINT `node` + CMD `app.js`) → `greet:dev` (`Dockerfile.dev`, lightyellow, `--watch`).
+- `09-env/` (4 pages): env vars in Node; the `.env` file (does nothing alone; Node reads it with `--env-file` or the app with `loadEnvFile`/dotenv; a real env var beats the file); env in Docker (`ENV`, `-e`, who wins, `PORT` gotcha); `.env` and Docker (Way 1 `--env-file`, file never enters; Way 2 bind-mount the file and the app reads it, but `ENV COLOR=lightblue` beats the file → light blue; don't COPY `.env`).
+- `10-tags/`, `11-cmd/`, `12-entrypoint/`, `13-build-f/`, `14-compose-greet/`: one page each. Each folder with changed files has its own finished `greet/`. Compose: `web` (`env_file`, pink, 3000), `dev` (`Dockerfile.dev`, bind mount, yellow, 3001), `say` (`command: ["say.js"]`), plus a table mapping each flag to its Compose key.
+- Diagrams: `who-reads-env`, `env-file-docker`, `entrypoint-and-cmd`, `two-dockerfiles` (specs in `.claude/skills/excalidraw/specs/`).
+- Checked: Node `.env` precedence, `docker exec env`, `PORT` mismatch, ENTRYPOINT outputs, `node --watch` text, Compose up with the three services. Not played through end to end as Tanvi; Way 2 (bind-mounted `.env` → light blue) follows from the checked rule but wasn't run in Docker.
+- Next (Vikash): a lesson **using busybox and raw stuff**. Not started; wait for him.
+
 ## 2026-10-25: Docker Labs → 15 labs in 5 tracks, new lab list
 
 - Vikash loved the labs ("this is really good love it"), asked for a better list and lots more meaningful labs (network, volume, port mapping…). Also fixed a button overflow he spotted.

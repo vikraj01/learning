@@ -1,0 +1,29 @@
+name: greet
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: greet:3.0
+    env_file: .env
+    ports:
+      - "3000:3000"
+
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: greet:dev
+    environment:
+      NAME: Tanvi
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./:/app
+
+  say:
+    image: greet:3.0
+    environment:
+      NAME: Ravi
+    command: ["say.js"]

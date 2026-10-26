@@ -1,0 +1,209 @@
+{
+  "title": "ENTRYPOINT + CMD = the command the container runs",
+  "subtitle": "greet:3.0 has ENTRYPOINT [\"node\"] and CMD [\"app.js\"]. What you type after the image name replaces only the CMD part.",
+  "nodes": [
+    {
+      "id": "t1",
+      "label": "docker run greet:3.0",
+      "detail": "nothing after the image",
+      "color": "white",
+      "pos": [
+        0,
+        0
+      ],
+      "w": 460,
+      "font": "mono"
+    },
+    {
+      "id": "j1",
+      "label": "node + app.js",
+      "detail": "ENTRYPOINT + CMD (the default)",
+      "color": "violet",
+      "pos": [
+        600,
+        0
+      ],
+      "w": 300
+    },
+    {
+      "id": "r1",
+      "label": "node app.js",
+      "detail": "✓ the web server starts\nSaying hello to friend on port 3000",
+      "color": "green",
+      "pos": [
+        1020,
+        0
+      ],
+      "w": 330
+    },
+    {
+      "id": "t2",
+      "label": "docker run greet:3.0 say.js",
+      "detail": "say.js replaces CMD",
+      "color": "white",
+      "pos": [
+        0,
+        170
+      ],
+      "w": 460,
+      "font": "mono"
+    },
+    {
+      "id": "j2",
+      "label": "node + say.js",
+      "detail": "ENTRYPOINT stays\nCMD replaced",
+      "color": "violet",
+      "pos": [
+        600,
+        170
+      ],
+      "w": 300
+    },
+    {
+      "id": "r2",
+      "label": "node say.js",
+      "detail": "✓ Hello, friend!\nthen the container stops",
+      "color": "green",
+      "pos": [
+        1020,
+        170
+      ],
+      "w": 330
+    },
+    {
+      "id": "t3",
+      "label": "docker run greet:3.0 bash",
+      "detail": "bash replaces only CMD",
+      "color": "white",
+      "pos": [
+        0,
+        340
+      ],
+      "w": 460,
+      "font": "mono"
+    },
+    {
+      "id": "j3",
+      "label": "node + bash",
+      "detail": "node is still there!",
+      "color": "violet",
+      "pos": [
+        600,
+        340
+      ],
+      "w": 300
+    },
+    {
+      "id": "r3",
+      "label": "node bash",
+      "detail": "✗ Error: Cannot find\nmodule '/app/bash'",
+      "color": "red",
+      "pos": [
+        1020,
+        340
+      ],
+      "w": 330
+    },
+    {
+      "id": "t4",
+      "label": "docker run -it --entrypoint bash greet:3.0",
+      "detail": "--entrypoint goes BEFORE the image",
+      "color": "white",
+      "pos": [
+        0,
+        510
+      ],
+      "w": 610,
+      "font": "mono"
+    },
+    {
+      "id": "j4",
+      "label": "bash",
+      "detail": "ENTRYPOINT replaced\n(CMD dropped too)",
+      "color": "violet",
+      "pos": [
+        700,
+        510
+      ],
+      "w": 230
+    },
+    {
+      "id": "r4",
+      "label": "bash",
+      "detail": "✓ a shell inside\nroot@...:/app#",
+      "color": "green",
+      "pos": [
+        1020,
+        510
+      ],
+      "w": 330
+    }
+  ],
+  "edges": [
+    {
+      "from": "t1",
+      "to": "j1",
+      "color": "green"
+    },
+    {
+      "from": "j1",
+      "to": "r1",
+      "label": "runs",
+      "color": "green"
+    },
+    {
+      "from": "t2",
+      "to": "j2",
+      "color": "green"
+    },
+    {
+      "from": "j2",
+      "to": "r2",
+      "label": "runs",
+      "color": "green"
+    },
+    {
+      "from": "t3",
+      "to": "j3",
+      "color": "red",
+      "dashed": true
+    },
+    {
+      "from": "j3",
+      "to": "r3",
+      "label": "runs",
+      "color": "red",
+      "dashed": true
+    },
+    {
+      "from": "t4",
+      "to": "j4",
+      "color": "green"
+    },
+    {
+      "from": "j4",
+      "to": "r4",
+      "label": "runs",
+      "color": "green"
+    }
+  ],
+  "notes": [
+    {
+      "style": "code",
+      "pos": [
+        1440,
+        0
+      ],
+      "text": "# Dockerfile (greet:3.0)\nFROM node:24-slim\nWORKDIR /app\nCOPY app.js say.js ./\nENV COLOR=lightblue\nEXPOSE 3000\nENTRYPOINT [\"node\"]\nCMD [\"app.js\"]"
+    },
+    {
+      "style": "callout",
+      "pos": [
+        1440,
+        290
+      ],
+      "w": 340,
+      "text": "ENTRYPOINT is the coffee machine: it always runs.\nCMD is the cup size: a default you can change.\n\nTo change the machine itself, you have to ask for it with --entrypoint."
+    }
+  ]
+}
