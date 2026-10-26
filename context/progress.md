@@ -4,6 +4,11 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-26: pushed Vikash's own edits
+
+- Vikash changed `09-env/greet/app.js` to read `BACKEND_PORT` instead of `PORT` and started `09-env/scenario/` (`frontend.js`, `shopping.js`, both empty). Pushed as-is. The section 9–14 pages and Compose still say `PORT`, so they don't match the app yet. Asked whether to update them.
+- Not pushed: a stray `]` in `08-networks-demo/notes-app/api/server.js` (syntax error, asked Vikash) and the root `plan.md` (a JMAN work note, not learning material).
+
 ## 2026-10-26: sections 9–14, env vars → tags → CMD → ENTRYPOINT → build -f → Compose
 
 - Vikash asked for env vars (with Node, then how to apply them), then tagging, CMD, ENTRYPOINT, `docker build -f`, Compose, all consistent. First cut put everything in one `09-env-and-images/` folder; Vikash was angry ("can't you see the pattern… you are mixing things up… why compose in env"). Redone as **one folder per topic**, and he asked for more on **how an app consumes a `.env` file and how Docker makes it consume it**.
