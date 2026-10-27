@@ -4,6 +4,10 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-27: no learning work (answered a JMAN Azure question)
+
+- Vikash has uncommitted edits in `10-tags/greet/`: `console.log("print this")` twice in `app.js` and `CMD` switched to `say.js` in the `Dockerfile`. These look like experiments and would make the folder stop matching the tags page, so they're not pushed. Asked him about them.
+
 ## 2026-10-26: pushed Vikash's own edits
 
 - Vikash changed `09-env/greet/app.js` to read `BACKEND_PORT` instead of `PORT` and started `09-env/scenario/` (`frontend.js`, `shopping.js`, both empty). Pushed as-is. The section 9–14 pages and Compose still say `PORT`, so they don't match the app yet. Asked whether to update them.
