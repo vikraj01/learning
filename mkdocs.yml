@@ -90,4 +90,9 @@ nav:
   - 11. CMD: 11-cmd/01-cmd.md
   - 12. ENTRYPOINT: 12-entrypoint/01-entrypoint.md
   - "13. Two Dockerfiles: build -f": 13-build-f/01-build-f.md
-  - 14. Compose for greet: 14-compose-greet/01-compose-greet.md
+  - 14. Compose:
+      - 14-compose/01-compose-greet.md
+      - 14-compose/02-compose-reads-env.md
+      - 14-compose/03-notes-app.md
+      - 14-compose/04-wordpress.md
+      - 14-compose/commands.md

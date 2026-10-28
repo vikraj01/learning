@@ -2,6 +2,16 @@
 
 After this page you'll be able to write everything from sections 9 to 13 (settings, `.env`, tags, `CMD`, `ENTRYPOINT`, `-f`) into one `compose.yaml`, and start it all with one command.
 
+## This section
+
+You met Compose in section 7 with the todo app. This section goes further, one example per page:
+
+1. **This page**: greet. Everything from sections 9–13, in one file.
+2. [Compose reads `.env` too](02-compose-reads-env.md): `${...}` in `compose.yaml`.
+3. [The notes app](03-notes-app.md): frontend, backend and database, with two networks and a password in `.env`.
+4. [WordPress](04-wordpress.md): a ready-made app, no code at all.
+5. [Compose commands](commands.md): everything on one page.
+
 ## The long commands, written down once
 
 Look at what you typed in section 13 just to start two containers:
@@ -14,6 +24,21 @@ docker run --rm -d -p 3001:3000 -v "$(pwd):/app" -e NAME=Tanvi --name greet-dev 
 ```
 
 You already know Compose from section 7: it's a file that remembers all of this for you. This page shows where each thing from the last five sections goes in that file.
+
+## Before you start
+
+You need the `greet` folder from section 13: `app.js`, `say.js`, `Dockerfile` (with `ENTRYPOINT ["node"]` and `CMD ["app.js"]`), `Dockerfile.dev`, and `.env`:
+
+```
+NAME=Tanvi
+COLOR=pink
+```
+
+Stop the section 13 containers if they're still running, so ports 3000 and 3001 are free:
+
+```bash
+docker rm -f greet greet-dev
+```
 
 ## The file
 
@@ -175,6 +200,14 @@ docker compose down
 
 This stops and removes all three containers and the network. The images stay.
 
+## `up` or `run`?
+
+| | `docker compose up -d` | `docker compose run --rm say` |
+| --- | --- | --- |
+| Starts | every service in the file | one service, in a new container |
+| For | apps that keep running (`web`, `dev`) | one-off jobs that do something and stop (`say`) |
+| `command:` | as written in `compose.yaml` | can be replaced by words after the service name |
+
 ## Check yourself
 
 1. Which line in `compose.yaml` does the same job as `-f Dockerfile.dev`?
@@ -183,6 +216,6 @@ This stops and removes all three containers and the network. The images stay.
 
 ## Next
 
-Tell Vikash what felt easy and what felt confusing.
+[Compose reads `.env` too](02-compose-reads-env.md): use `${...}` in `compose.yaml` to fill in a port from `.env`.
 
-Finished files for this section: [`14-compose-greet/greet/`](greet/).
+Finished files: [`14-compose/greet/`](greet/). (Its `web` port line already has the change from page 2.)

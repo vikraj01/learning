@@ -1,0 +1,142 @@
+{
+ "title": "One .env file, two jobs",
+ "subtitle": "Compose reads .env itself to fill in ${...}. env_file: hands the same lines to the app inside the container.",
+ "nodes": [
+  {
+   "id": "env",
+   "label": ".env",
+   "detail": "NAME=Tanvi\nCOLOR=pink\nWEB_PORT=4000",
+   "color": "yellow",
+   "pos": [
+    0,
+    120
+   ],
+   "w": 260,
+   "h": 130,
+   "font": "mono"
+  },
+  {
+   "id": "yaml",
+   "label": "compose.yaml",
+   "detail": "web:\n  env_file: .env\n  ports:\n    - \"${WEB_PORT:-3000}:3000\"",
+   "color": "white",
+   "pos": [
+    0,
+    430
+   ],
+   "w": 340,
+   "h": 160,
+   "font": "mono"
+  },
+  {
+   "id": "compose",
+   "label": "docker compose up",
+   "detail": "1. reads .env by itself\n2. fills in ${WEB_PORT} → 4000\n3. starts the container",
+   "color": "violet",
+   "pos": [
+    560,
+    270
+   ],
+   "w": 320,
+   "h": 140
+  },
+  {
+   "id": "door",
+   "label": "door 4000",
+   "detail": "4000 → 3000",
+   "color": "yellow",
+   "pos": [
+    1460,
+    90
+   ],
+   "w": 160,
+   "h": 80
+  },
+  {
+   "id": "app",
+   "label": "greet-web-1",
+   "detail": "app.js reads\nprocess.env.NAME → Tanvi\nprocess.env.COLOR → pink\nlistens on 3000",
+   "color": "green",
+   "pos": [
+    1160,
+    320
+   ],
+   "w": 300,
+   "h": 160
+  }
+ ],
+ "edges": [
+  {
+   "from": "env",
+   "to": "compose",
+   "label": "job 2: Compose reads it\nfor ${...}",
+   "step": 1,
+   "color": "violet"
+  },
+  {
+   "from": "yaml",
+   "to": "compose",
+   "label": "the blanks to fill",
+   "color": "violet"
+  },
+  {
+   "from": "compose",
+   "to": "door",
+   "label": "${WEB_PORT}\n→ opens 4000",
+   "step": 2
+  },
+  {
+   "from": "compose",
+   "to": "app",
+   "label": "job 1: env_file\nNAME, COLOR\n→ the app",
+   "step": 3,
+   "color": "green"
+  },
+  {
+   "from": "door",
+   "to": "app"
+  }
+ ],
+ "areas": [
+  {
+   "label": "Container",
+   "detail": "sees only environment variables",
+   "nodes": [
+    "app"
+   ],
+   "color": "green",
+   "pad": 30
+  },
+  {
+   "label": "Your laptop: the greet folder",
+   "nodes": [
+    "env",
+    "yaml",
+    "compose",
+    "door",
+    "app"
+   ],
+   "color": "gray",
+   "pad": 50
+  }
+ ],
+ "notes": [
+  {
+   "style": "callout",
+   "pos": [
+    0,
+    720
+   ],
+   "w": 560,
+   "text": "Job 2 always happens: Compose looks for .env in the folder you run it from, with or without env_file.\n\nJob 1 only happens with env_file: .env. Without it, the app gets nothing from the file.\n\nWho wins for ${...}: the terminal (WEB_PORT=5000 docker compose up), then .env, then the default after :-"
+  },
+  {
+   "style": "code",
+   "pos": [
+    700,
+    740
+   ],
+   "text": "docker compose config\n# shows the file with every ${...} filled in\nWEB_PORT=5000 docker compose up -d\n# the terminal beats .env"
+  }
+ ]
+}

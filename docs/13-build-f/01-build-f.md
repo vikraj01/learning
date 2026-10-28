@@ -136,6 +136,6 @@ docker stop greet greet-dev
 
 ## Next
 
-[Compose: all of it in one file](../14-compose-greet/01-compose-greet.md). The commands are getting long.
+[Compose: all of it in one file](../14-compose/01-compose-greet.md). The commands are getting long.
 
 Finished files for this section: [`13-build-f/greet/`](greet/).

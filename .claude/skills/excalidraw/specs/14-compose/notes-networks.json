@@ -1,0 +1,223 @@
+{
+ "title": "Two networks: only api is on both",
+ "subtitle": "web can reach api, api can reach db, but web can't even find the name db. Only the kitchen goes into the pantry.",
+ "nodes": [
+  {
+   "id": "browser",
+   "label": "Browser",
+   "detail": "localhost:3000",
+   "pos": [
+    -80,
+    70
+   ],
+   "w": 180,
+   "h": 90
+  },
+  {
+   "id": "door",
+   "label": "door 3000",
+   "detail": "3000 → 3000",
+   "color": "yellow",
+   "pos": [
+    290,
+    75
+   ],
+   "w": 150,
+   "h": 80
+  },
+  {
+   "id": "web",
+   "label": "web",
+   "detail": "frontend\nlistens on 3000\nAPI_URL=http://api:4000",
+   "color": "green",
+   "pos": [
+    540,
+    40
+   ],
+   "w": 280,
+   "h": 150
+  },
+  {
+   "id": "api",
+   "label": "api",
+   "detail": "backend\nlistens on 4000\nDB_HOST=db\nDB_PASSWORD from .env",
+   "color": "green",
+   "pos": [
+    1060,
+    40
+   ],
+   "w": 280,
+   "h": 150
+  },
+  {
+   "id": "db",
+   "label": "db",
+   "detail": "database: postgres:17-alpine\nlistens on 5432\nno ports: private",
+   "color": "green",
+   "pos": [
+    1580,
+    40
+   ],
+   "w": 300,
+   "h": 150
+  },
+  {
+   "id": "front",
+   "label": "Network: notes_front",
+   "detail": "web + api",
+   "color": "blue",
+   "pos": [
+    800,
+    360
+   ],
+   "w": 280,
+   "h": 90
+  },
+  {
+   "id": "back",
+   "label": "Network: notes_back",
+   "detail": "api + db",
+   "color": "blue",
+   "pos": [
+    1320,
+    360
+   ],
+   "w": 280,
+   "h": 90
+  },
+  {
+   "id": "vol",
+   "label": "Volume: notes_data",
+   "detail": "the notes live here",
+   "color": "blue",
+   "pos": [
+    1700,
+    360
+   ],
+   "w": 240,
+   "h": 90
+  }
+ ],
+ "edges": [
+  {
+   "from": "browser",
+   "to": "door",
+   "label": "open the page",
+   "step": 1
+  },
+  {
+   "from": "door",
+   "to": "web"
+  },
+  {
+   "from": "web",
+   "to": "api",
+   "label": "✓ http://api:4000",
+   "step": 2,
+   "color": "green"
+  },
+  {
+   "from": "api",
+   "to": "db",
+   "label": "✓ db:5432",
+   "step": 3,
+   "color": "green"
+  },
+  {
+   "from": "web",
+   "to": "db",
+   "label": "✗ ping: bad address 'db'  (no shared network)",
+   "color": "red",
+   "dashed": true,
+   "via": [
+    [
+     680,
+     -15
+    ],
+    [
+     1730,
+     -15
+    ]
+   ]
+  },
+  {
+   "from": "web",
+   "to": "front",
+   "label": "joins",
+   "color": "blue",
+   "dashed": true
+  },
+  {
+   "from": "api",
+   "to": "front",
+   "label": "joins",
+   "color": "blue",
+   "dashed": true
+  },
+  {
+   "from": "api",
+   "to": "back",
+   "label": "joins",
+   "color": "blue",
+   "dashed": true
+  },
+  {
+   "from": "db",
+   "to": "back",
+   "label": "joins",
+   "color": "blue",
+   "dashed": true
+  },
+  {
+   "from": "db",
+   "to": "vol",
+   "label": "uses",
+   "color": "blue",
+   "dashed": true
+  }
+ ],
+ "areas": [
+  {
+   "label": "Your laptop: project notes",
+   "detail": "made by docker compose up",
+   "nodes": [
+    "door",
+    "web",
+    "api",
+    "db",
+    "front",
+    "back",
+    "vol"
+   ],
+   "color": "gray",
+   "pad": 50
+  }
+ ],
+ "notes": [
+  {
+   "style": "callout",
+   "pos": [
+    0,
+    620
+   ],
+   "w": 560,
+   "text": "A container can only find names on networks it has joined.\n\napi joined both, like a kitchen with one door to the dining room and one to the pantry. web and db share no network, so to web the name db doesn't exist.\n\nIf someone breaks into web, the database isn't even in sight."
+  },
+  {
+   "style": "code",
+   "pos": [
+    700,
+    640
+   ],
+   "text": "services:\n  web:  networks: [front]\n  api:  networks: [front, back]\n  db:   networks: [back]\nnetworks:\n  front:\n  back:"
+  },
+  {
+   "style": "code",
+   "pos": [
+    1260,
+    640
+   ],
+   "text": "docker compose exec api ping -c 1 db   # ✓\ndocker compose exec web ping -c 1 db   # ✗\ndocker network ls --filter name=notes"
+  }
+ ]
+}

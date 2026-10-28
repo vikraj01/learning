@@ -27,5 +27,6 @@ description: Write one study page for Tanvi in docs/, on a topic Vikash names, f
 
 ## After
 
+- **Wire it**: add the page to `nav` in `mkdocs.yml` and link it from `docs/README.md`, every time. No page in `docs/` is ever left unwired.
 - Tell Vikash the path and a two-line summary. Vikash will review and adjust.
 - Log it in `context/progress.md`. If the feedback changes the style, update `context/teaching-style.md`.

@@ -128,8 +128,15 @@ Finished files: [`09-env/greet/`](09-env/greet/).
 
 - [Two Dockerfiles in one folder](13-build-f/01-build-f.md)
 
-## 14. Compose for greet
+## 14. Compose
 
-- [Compose: all of it in one file](14-compose-greet/01-compose-greet.md)
+More Compose, one example per page: greet with everything from sections 9–13, `${...}` from `.env`, a frontend + backend + database app with two networks, and WordPress from ready-made images.
 
-Each section has its finished `greet/` folder, if you get stuck.
+1. [Compose: all of it in one file](14-compose/01-compose-greet.md)
+2. [Compose reads `.env` too: `${...}` in compose.yaml](14-compose/02-compose-reads-env.md)
+3. [Frontend, backend, database: the notes app in Compose](14-compose/03-notes-app.md)
+4. [A ready-made app: WordPress, with no code at all](14-compose/04-wordpress.md)
+
+Quick reference: [Compose commands](14-compose/commands.md).
+
+Finished files: [`14-compose/greet/`](14-compose/greet/), [`14-compose/notes-app/`](14-compose/notes-app/), [`14-compose/wordpress/`](14-compose/wordpress/). Sections 9–13 each have their finished `greet/` folder too.
