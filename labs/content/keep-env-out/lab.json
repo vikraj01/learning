@@ -1,0 +1,31 @@
+{
+  "number": 19,
+  "track": "settings",
+  "title": "Keep .env out of the image",
+  "summary": "COPY . . quietly put the password into the image. Find it, then use .dockerignore so it never gets in again.",
+  "level": "Medium",
+  "minutes": 20,
+  "topics": [".dockerignore", ".env", "secrets", "COPY"],
+  "tasks": [
+    {
+      "id": "found",
+      "title": "`found.txt` holds the password you found inside the `leaky` image",
+      "hint": "Anyone with the image can look at its files: `docker run --rm leaky cat /app/.env`. Copy the value after `DB_PASSWORD=` into `found.txt` and save."
+    },
+    {
+      "id": "ignore",
+      "title": "`.dockerignore` tells Docker to leave `.env` out",
+      "hint": "Make a new file called exactly `.dockerignore` (with the dot) next to the Dockerfile, with one line: `.env`"
+    },
+    {
+      "id": "clean",
+      "title": "The image `greet-clean` is built and has no `.env` inside",
+      "hint": "`docker build -t greet-clean .` after saving `.dockerignore`. Check it yourself: `docker run --rm greet-clean ls -a /app`."
+    },
+    {
+      "id": "running",
+      "title": "`clean` runs `greet-clean` on `http://localhost:3402`, still Tanvi on pink",
+      "hint": "The settings now come from outside: `docker run -d --name clean -p 3402:3000 --env-file .env greet-clean`."
+    }
+  ]
+}

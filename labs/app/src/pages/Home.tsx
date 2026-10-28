@@ -18,6 +18,9 @@ const PAINT: Record<string, string> = {
   inside: "#9c7420",
   storage: "#2c6a5c",
   networking: "#4f5f2c",
+  settings: "#6a4c7a",
+  "image-options": "#7a5a3c",
+  compose: "#2c5a7a",
 };
 const paintOf = (track: string) => PAINT[track] ?? "#4a4f57";
 

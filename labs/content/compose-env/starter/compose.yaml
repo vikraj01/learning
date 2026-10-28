@@ -1,0 +1,29 @@
+name: labenv
+
+services:
+  web:
+    build: ./web
+    environment:
+      API_URL: http://api:4000
+    ports:
+      - "3502:3000"
+
+  api:
+    build: ./api
+    environment:
+      DB_HOST: db
+      DB_USER: notes
+      DB_PASSWORD: secret
+      DB_NAME: notes
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: notes
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: notes
+    volumes:
+      - data:/var/lib/postgresql/data
+
+volumes:
+  data:

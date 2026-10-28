@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-10-28: 13 new labs (16–28)
+
+- Vikash: "add more into labs, we have lot more topics". Labs covered docs sections 1–8 only. Added: 16 multi-stage (`small-cow`, Images track); Settings track 17 `-e` vs `ENV`, 18 `--env-file` (read once at create), 19 `.dockerignore` (steal the password from `leaky`, then fix); "Tags, CMD and ENTRYPOINT" track 20 tags/`latest`, 21 CMD, 22 ENTRYPOINT, 23 `build -f` + bind mount + `--watch`; Compose track 24 first compose.yaml (greet), 25 notes app web+api+postgres+volume, 26 password to `${DB_PASSWORD}` in `.env` incl. the first-start catch (`down -v`), 27 two networks, 28 broken compose.yaml (indent, port 80 vs 3000, `DB_HOST: database`).
+- Helpers: `env_of`, `svc`/`svc_running`/`compose_wipe` in `_lib/check.sh` (Compose containers found by working-dir label), `_lib/notes.sh`. Track colours added in `Home.tsx`. Ports 3400–3406, 3500–3504.
+- Checked: `bash -n` on every script, JSON valid, numbers 1–28, task ids match checks, `make typecheck`, the broken compose file really fails and the starter compose files parse. **Not played through**: no lab was solved end to end in the app, so a checker may still be wrong somewhere.
+
 ## 2026-10-28: section 14 grown into a full Compose section
 
 - Vikash asked for more Compose examples (the frontend/backend/database stack again, plus others), better pages, everything wired into MkDocs as a standing rule, and a list of missing concepts.

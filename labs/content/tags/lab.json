@@ -1,0 +1,31 @@
+{
+  "number": 20,
+  "track": "image-options",
+  "title": "Give your image versions",
+  "summary": "Build version 1.0, change the app, build 2.0, point latest at it, and keep 1.0 running.",
+  "level": "Easy",
+  "minutes": 15,
+  "topics": ["tags", "docker tag", "versions"],
+  "tasks": [
+    {
+      "id": "one",
+      "title": "`greet-tags:1.0` is built from the code as it is now (it says Hello)",
+      "hint": "Before changing anything: `docker build -t greet-tags:1.0 .`"
+    },
+    {
+      "id": "two",
+      "title": "`greet-tags:2.0` is built after changing `Hello` to `Welcome` in `app.js`",
+      "hint": "In `app.js`, find `<h1>Hello, ${name}! 👋</h1>` and change `Hello` to `Welcome`. Save, then `docker build -t greet-tags:2.0 .`"
+    },
+    {
+      "id": "latest",
+      "title": "`greet-tags:latest` is the same image as `2.0`",
+      "hint": "A tag is a name on an image. Put a second name on 2.0: `docker tag greet-tags:2.0 greet-tags:latest`. `docker images greet-tags` shows the same IMAGE ID for both."
+    },
+    {
+      "id": "old",
+      "title": "`v1` runs `greet-tags:1.0` on `http://localhost:3403`, still saying Hello",
+      "hint": "`docker run -d --name v1 -p 3403:3000 greet-tags:1.0`. The old version is still there, untouched by your change."
+    }
+  ]
+}

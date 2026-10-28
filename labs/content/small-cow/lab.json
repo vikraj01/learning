@@ -1,0 +1,26 @@
+{
+  "number": 16,
+  "track": "images",
+  "title": "Build big, ship small",
+  "summary": "The cow image is over 1 GB because it ships the whole Go toolbox. Use a multi-stage build to ship only the program.",
+  "level": "Medium",
+  "minutes": 25,
+  "topics": ["multi-stage builds", "image size", "FROM scratch", "COPY --from"],
+  "tasks": [
+    {
+      "id": "stages",
+      "title": "The `Dockerfile` has two stages, and the second copies from the first",
+      "hint": "Name the first stage: `FROM golang:1.25 AS build`. After the build lines, start a second stage with `FROM scratch` and bring in only the program: `COPY --from=build /src/cow /cow`."
+    },
+    {
+      "id": "works",
+      "title": "`small-cow` is built and the cow still talks",
+      "hint": "`docker build -t small-cow .`, then `docker run --rm small-cow`. In the second stage the program is at `/cow`, so the last line is `ENTRYPOINT [\"/cow\"]`."
+    },
+    {
+      "id": "small",
+      "title": "`small-cow` is smaller than 20 MB",
+      "hint": "`docker images small-cow` shows the size. If it's still huge, the last `FROM` isn't `scratch` (or a small image like `alpine`)."
+    }
+  ]
+}

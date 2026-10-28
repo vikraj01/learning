@@ -1,0 +1,31 @@
+{
+  "number": 27,
+  "track": "compose",
+  "title": "Keep the database private, with Compose",
+  "summary": "All three parts share one network, so web can reach the database. Give compose.yaml two networks so only api can.",
+  "level": "Medium",
+  "minutes": 25,
+  "topics": ["networks", "docker compose", "security"],
+  "tasks": [
+    {
+      "id": "api",
+      "title": "`api` is on two networks",
+      "hint": "At the bottom of `compose.yaml`: `networks:` with `front:` and `back:` under it. Then under `api`: `networks:` `- front` `- back`. Apply with `docker compose up -d`."
+    },
+    {
+      "id": "private",
+      "title": "`web` and `db` share no network at all",
+      "hint": "`web` gets `networks:` `- front` only, `db` gets `- back` only. A service with no `networks:` line goes on `default`, so give all three one."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3503` still works, with no red error",
+      "hint": "\"web can't reach the api\": web and api don't share `front`. \"api can't reach the database\": api and db don't share `back`."
+    },
+    {
+      "id": "note",
+      "title": "You saved a note, and it shows in the list",
+      "hint": "Open http://localhost:3503, write a note, press Save."
+    }
+  ]
+}

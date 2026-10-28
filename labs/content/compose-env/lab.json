@@ -1,0 +1,36 @@
+{
+  "number": 26,
+  "track": "compose",
+  "title": "Move the password into .env",
+  "summary": "The password is typed into compose.yaml twice. Put it in .env, use ${DB_PASSWORD}, change it, and get past the first-start catch.",
+  "level": "Medium",
+  "minutes": 25,
+  "topics": [
+    ".env",
+    "${...}",
+    "docker compose config",
+    "volumes"
+  ],
+  "tasks": [
+    {
+      "id": "envfile",
+      "title": "`.env` sets `DB_PASSWORD` to a new password (not `secret`)",
+      "hint": "Make a file called `.env` next to `compose.yaml` with one line, like `DB_PASSWORD=mango-lassi-7`."
+    },
+    {
+      "id": "yaml",
+      "title": "`compose.yaml` says `${DB_PASSWORD}` in both places, and `secret` nowhere",
+      "hint": "Replace both `secret`s with `${DB_PASSWORD}`. `docker compose config | grep -i password` shows the filled-in values."
+    },
+    {
+      "id": "same",
+      "title": "The running `api` and `db` both got the password from `.env`",
+      "hint": "`docker compose up -d` makes new containers with the new settings. If `api` and `db` disagree, one of them wasn't recreated."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3502` works again, with no red error",
+      "hint": "The page says `28P01`? That's Postgres's code for \"wrong password\". Postgres set its password on its first start and saved it in the volume; a new `POSTGRES_PASSWORD` is ignored after that. Start the database over: `docker compose down -v`, then `docker compose up -d`."
+    }
+  ]
+}

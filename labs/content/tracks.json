@@ -3,5 +3,8 @@
   { "id": "images", "title": "Images and Dockerfiles", "description": "Write a Dockerfile, fix one, and make builds fast." },
   { "id": "inside", "title": "Inside a container", "description": "Look inside a running container and find out why things break." },
   { "id": "storage", "title": "Keeping data", "description": "Volumes and bind mounts: data that survives, files you can edit live." },
-  { "id": "networking", "title": "Networking", "description": "How containers find each other, and how to keep some of them private." }
+  { "id": "networking", "title": "Networking", "description": "How containers find each other, and how to keep some of them private." },
+  { "id": "settings", "title": "Settings", "description": "Give an app its settings from outside: environment variables, .env files, and keeping secrets out of images." },
+  { "id": "image-options", "title": "Tags, CMD and ENTRYPOINT", "description": "Version your images, choose what a container runs, and build from more than one Dockerfile." },
+  { "id": "compose", "title": "Compose", "description": "Write compose.yaml files: one service, a full frontend + backend + database app, settings from .env, private networks." }
 ]

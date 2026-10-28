@@ -1,0 +1,31 @@
+{
+  "number": 23,
+  "track": "image-options",
+  "title": "Two Dockerfiles: build -f",
+  "summary": "Add a Dockerfile.dev next to the real one, build it with -f, and edit the app live in a dev container.",
+  "level": "Medium",
+  "minutes": 25,
+  "topics": ["docker build -f", "Dockerfile.dev", "bind mounts", "--watch"],
+  "tasks": [
+    {
+      "id": "prod",
+      "title": "`greet-f:1.0` is built from the unchanged `Dockerfile`",
+      "hint": "Leave `Dockerfile` as it is. `docker build -t greet-f:1.0 .` uses it, because that's the name Docker looks for."
+    },
+    {
+      "id": "dev",
+      "title": "`greet-f:dev` is built from `Dockerfile.dev`: light yellow, with `--watch`",
+      "hint": "Make `Dockerfile.dev`: copy the Dockerfile's lines, change `ENV COLOR=lightblue` to `ENV COLOR=lightyellow` and the last line to `CMD [\"--watch\", \"app.js\"]`. Then `docker build -f Dockerfile.dev -t greet-f:dev .`"
+    },
+    {
+      "id": "running",
+      "title": "`greet-dev` runs `greet-f:dev` on `http://localhost:3406`, with this folder mounted on `/app`",
+      "hint": "`docker run -d --name greet-dev -p 3406:3000 -v \"$(pwd)\":/app greet-f:dev`"
+    },
+    {
+      "id": "live",
+      "title": "You changed `Hello` to `Hi` in `app.js`, and the page shows it without a rebuild",
+      "hint": "Edit the `<h1>` line in `app.js`, save, and reload the page. `--watch` restarts the app when the file changes; the bind mount lets it see your file. `docker logs greet-dev` shows the restart."
+    }
+  ]
+}

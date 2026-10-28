@@ -1,0 +1,31 @@
+{
+  "number": 17,
+  "track": "settings",
+  "title": "Settings from outside",
+  "summary": "The greet app says hello to \"friend\" on a light blue page. Make it greet you on a pink page without touching the code.",
+  "level": "Easy",
+  "minutes": 15,
+  "topics": ["environment variables", "-e", "ENV"],
+  "tasks": [
+    {
+      "id": "running",
+      "title": "A container called `hello`, made from `greet-lab`, is running",
+      "hint": "`docker run -d --name hello -p 3400:3000 ... greet-lab`. The image is already built."
+    },
+    {
+      "id": "name",
+      "title": "`http://localhost:3400` says hello to you, not to \"friend\"",
+      "hint": "The app reads `NAME`. Give it with `-e NAME=Tanvi` before the image name. Settings can't be changed on a running container: `docker rm -f hello` and run it again."
+    },
+    {
+      "id": "color",
+      "title": "The page is pink, although the image says light blue",
+      "hint": "The Dockerfile has `ENV COLOR=lightblue`. A `-e COLOR=pink` on `docker run` beats it."
+    },
+    {
+      "id": "code",
+      "title": "`app.js` and the `Dockerfile` are unchanged",
+      "hint": "Do it all with `docker run`. If you changed a file, put it back as it was (Reset gives you fresh files)."
+    }
+  ]
+}

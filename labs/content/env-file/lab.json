@@ -1,0 +1,26 @@
+{
+  "number": 18,
+  "track": "settings",
+  "title": "Settings in a file: --env-file",
+  "summary": "Hand the settings in .env to a container in one go, then change one and find out why restarting isn't enough.",
+  "level": "Easy",
+  "minutes": 15,
+  "topics": [".env", "--env-file", "environment variables"],
+  "tasks": [
+    {
+      "id": "file",
+      "title": "`from-file` runs `greet-lab`, with `NAME` and `COLOR` exactly as in `.env`",
+      "hint": "`docker run -d --name from-file -p 3401:3000 --env-file .env greet-lab`. `docker exec from-file env` shows what it got."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3401` shows the name and colour from `.env`",
+      "hint": "The app listens on 3000 inside, so the door is `-p 3401:3000`."
+    },
+    {
+      "id": "changed",
+      "title": "`.env` now says `COLOR=lightgreen`, and the page is light green",
+      "hint": "Change the line in `.env` and save. A container reads its settings only when it's made: `docker restart` keeps the old ones. `docker rm -f from-file` and run it again."
+    }
+  ]
+}

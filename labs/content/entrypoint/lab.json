@@ -1,0 +1,31 @@
+{
+  "number": 22,
+  "track": "image-options",
+  "title": "ENTRYPOINT: the part that stays",
+  "summary": "Split the start command into ENTRYPOINT node + CMD app.js, then run app.js, say.js and node --version from one image.",
+  "level": "Medium",
+  "minutes": 20,
+  "topics": ["ENTRYPOINT", "CMD", "Dockerfile"],
+  "tasks": [
+    {
+      "id": "image",
+      "title": "`greet-ep` is built with `ENTRYPOINT [\"node\"]` and `CMD [\"app.js\"]`",
+      "hint": "Replace the last line of the Dockerfile with two lines: `ENTRYPOINT [\"node\"]` and `CMD [\"app.js\"]`. Save, then `docker build -t greet-ep .`"
+    },
+    {
+      "id": "web",
+      "title": "`ep-web`, from `greet-ep` with no command, serves `http://localhost:3405`",
+      "hint": "`docker run -d --name ep-web -p 3405:3000 greet-ep`. No command: `node` + `app.js`."
+    },
+    {
+      "id": "say",
+      "title": "`ep-say`, from `greet-ep`, ran `say.js` and printed `Hello, Asha!`",
+      "hint": "The command replaces only `CMD`; `node` stays in front. So give just the file: `docker run --name ep-say -e NAME=Asha greet-ep say.js`. (With `node say.js` it would run `node node say.js`.)"
+    },
+    {
+      "id": "version",
+      "title": "`version.txt` holds the Node version inside `greet-ep`",
+      "hint": "`docker run --rm greet-ep --version` runs `node --version`. Copy what it prints (like `v24.11.0`) into `version.txt` and save."
+    }
+  ]
+}

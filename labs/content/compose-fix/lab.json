@@ -1,0 +1,36 @@
+{
+  "number": 28,
+  "track": "compose",
+  "title": "Fix a broken compose.yaml",
+  "summary": "Somebody's compose.yaml for the notes app won't even start. Find the three mistakes without touching the code.",
+  "level": "Medium",
+  "minutes": 25,
+  "topics": ["docker compose", "YAML", "debugging", "docker compose logs"],
+  "tasks": [
+    {
+      "id": "valid",
+      "title": "Compose can read `compose.yaml`",
+      "hint": "`docker compose config` names a line, but YAML errors are reported near the problem, not always on it. Look at the whole block it points at: is every line in a list lined up with the others? Count the spaces."
+    },
+    {
+      "id": "running",
+      "title": "`web`, `api` and `db` are all running",
+      "hint": "`docker compose up -d --build`, then `docker compose ps -a`."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3504` opens, with no red error",
+      "hint": "Nothing answers? `docker compose logs web` says which port the app listens on inside; the right side of `ports:` must be that. \"api can't reach the database: ENOTFOUND\"? `DB_HOST` must be a **service name** from this file."
+    },
+    {
+      "id": "note",
+      "title": "You saved a note, and it shows in the list",
+      "hint": "Open http://localhost:3504, write a note, press Save."
+    },
+    {
+      "id": "code",
+      "title": "The code is unchanged",
+      "hint": "All three mistakes are in `compose.yaml`. If you changed `web/server.js` or `api/server.js`, put them back (Reset gives you fresh files)."
+    }
+  ]
+}

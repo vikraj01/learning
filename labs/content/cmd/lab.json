@@ -1,0 +1,26 @@
+{
+  "number": 21,
+  "track": "image-options",
+  "title": "CMD: choose what a container runs",
+  "summary": "One image, two programs. Run say.js instead of the web app, change the default, then switch back from the command line.",
+  "level": "Medium",
+  "minutes": 20,
+  "topics": ["CMD", "docker run", "docker logs"],
+  "tasks": [
+    {
+      "id": "ravi",
+      "title": "A container `say-ravi`, from `greet-cmd`, ran `say.js` and printed `Hello, Ravi!`",
+      "hint": "Words after the image name replace its `CMD`: `docker run --name say-ravi -e NAME=Ravi greet-cmd node say.js`. It prints one line and stops; `docker logs say-ravi` shows it again."
+    },
+    {
+      "id": "sayer",
+      "title": "The image `sayer` runs `say.js` when you give it no command",
+      "hint": "Change the last line of the `Dockerfile` to `CMD [\"node\", \"say.js\"]`, save, then `docker build -t sayer .` Try it: `docker run --rm sayer`."
+    },
+    {
+      "id": "web",
+      "title": "`sayer-web`, from `sayer`, serves the web page on `http://localhost:3404`",
+      "hint": "Now go the other way: replace `sayer`'s `CMD` from the command line. `docker run -d --name sayer-web -p 3404:3000 sayer node app.js`."
+    }
+  ]
+}

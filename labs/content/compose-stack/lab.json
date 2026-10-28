@@ -1,0 +1,31 @@
+{
+  "number": 25,
+  "track": "compose",
+  "title": "Frontend, backend, database in one file",
+  "summary": "The notes app's web and api are here, with no way to start them. Write the compose.yaml for all three parts, database included.",
+  "level": "Medium",
+  "minutes": 30,
+  "topics": ["docker compose", "services", "environment", "volumes"],
+  "tasks": [
+    {
+      "id": "running",
+      "title": "`web`, `api` and `db` are all running, started by Compose from this folder",
+      "hint": "Three services under `services:`. `web` and `api` have `build: ./web` and `build: ./api`; `db` has `image: postgres:17-alpine`. Then `docker compose up -d --build`. `docker compose ps -a` shows which one stopped, `docker compose logs <service>` says why."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3501` opens with no red error",
+      "hint": "Read the red message. \"web can't reach the api\": check `API_URL` and that the service is called `api`. \"api can't reach the database\": `DB_HOST` must be the service name `db`, and the user, password and database name must match on both sides."
+    },
+    {
+      "id": "note",
+      "title": "You saved a note, and it shows in the list",
+      "hint": "Open http://localhost:3501, write a note, press Save."
+    },
+    {
+      "id": "volume",
+      "title": "`db` keeps its data in a named volume",
+      "hint": "Under `db`: `volumes:` `- data:/var/lib/postgresql/data`, and at the bottom of the file `volumes:` `data:`. Then `docker compose up -d`."
+    }
+  ]
+}

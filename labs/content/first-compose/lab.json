@@ -1,0 +1,31 @@
+{
+  "number": 24,
+  "track": "compose",
+  "title": "Your first compose.yaml",
+  "summary": "Write the docker run commands for greet into a compose.yaml, and start the web page and the say program with one command.",
+  "level": "Easy",
+  "minutes": 20,
+  "topics": ["docker compose", "compose.yaml", "services"],
+  "tasks": [
+    {
+      "id": "file",
+      "title": "`compose.yaml` exists and Compose can read it",
+      "hint": "Make a file called `compose.yaml`. Indentation matters: two spaces per level, never tabs. `docker compose config` shows what Compose understood, or the line it can't read."
+    },
+    {
+      "id": "web",
+      "title": "Service `web` is built from this folder and running",
+      "hint": "Under `services:`, a `web:` with `build: .`. Then `docker compose up -d`."
+    },
+    {
+      "id": "page",
+      "title": "`http://localhost:3500` greets you (not \"friend\") on a pink page",
+      "hint": "Give `web` `ports:` `- \"3500:3000\"` and `environment:` with `NAME: <your name>` and `COLOR: pink`. After changing the file, `docker compose up -d` again."
+    },
+    {
+      "id": "say",
+      "title": "Service `say` ran `say.js` and printed hello",
+      "hint": "A second service from the same folder: `say:` with `build: .` and `command: [\"node\", \"say.js\"]`. `docker compose logs say` shows what it printed."
+    }
+  ]
+}

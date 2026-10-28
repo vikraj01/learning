@@ -25,7 +25,9 @@ labs/
     src/                    pages and components: task panel, file tree, Monaco editor, xterm terminal
     server/                 API, file access, and the terminal (bash in a pty via pty-bridge.py)
   content/                  one folder per lab
-    _lib/check.sh           helpers for checkers: pass, fail, running, exists, page, networks_of …
+    _lib/check.sh           helpers for checkers: pass, fail, running, exists, page, networks_of, env_of,
+                            and for Compose labs svc, svc_running, compose_wipe (found by this lab's folder)
+    _lib/notes.sh           shared running/page/note checks for the Compose labs with the notes app
     01-run-a-website/
       lab.json              title, level, minutes, topics, and the tasks (id, title, hint)
       task.md               what she reads (Markdown)
@@ -75,5 +77,20 @@ Grouped into tracks (`content/tracks.json`); each lab's `lab.json` names its `tr
 | 13 | Networking | Every container has an address | IPs, gateway, reaching a container by number | – |
 | 14 | Networking | Make the notes app talk | default vs own network, names, `network connect` | 3300 |
 | 15 | Networking | Keep the database private | two networks, `connect`/`disconnect` | 3301 |
+| 16 | Images | Build big, ship small | multi-stage builds, `FROM scratch`, `COPY --from` | – |
+| 17 | Settings | Settings from outside | env vars, `-e` beats `ENV` | 3400 |
+| 18 | Settings | Settings in a file: --env-file | `--env-file`, settings read only when the container is made | 3401 |
+| 19 | Settings | Keep .env out of the image | `COPY . .` leaks `.env`, `.dockerignore` | 3402 |
+| 20 | Tags, CMD and ENTRYPOINT | Give your image versions | `name:tag`, `docker tag`, `latest`, rolling back | 3403 |
+| 21 | Tags, CMD and ENTRYPOINT | CMD: choose what a container runs | replacing `CMD` from `docker run`, changing the default | 3404 |
+| 22 | Tags, CMD and ENTRYPOINT | ENTRYPOINT: the part that stays | `ENTRYPOINT` + `CMD`, `--version` through node | 3405 |
+| 23 | Tags, CMD and ENTRYPOINT | Two Dockerfiles: build -f | `Dockerfile.dev`, `-f`, bind mount + `--watch` | 3406 |
+| 24 | Compose | Your first compose.yaml | `services`, `build`, `ports`, `environment`, `command` | 3500 |
+| 25 | Compose | Frontend, backend, database in one file | notes app web + api + postgres, named volume | 3501 |
+| 26 | Compose | Move the password into .env | `${DB_PASSWORD}`, `docker compose config`, `down -v` (password only read on first start) | 3502 |
+| 27 | Compose | Keep the database private, with Compose | two `networks:`, only api on both | 3503 |
+| 28 | Compose | Fix a broken compose.yaml | YAML indentation, wrong inside port, `DB_HOST` not a service name | 3504 |
 
 Labs 14 and 15 both use the notes app with containers named `web`, `api` and `db`, so opening one breaks the other's setup. Press **Reset** when you go back to one.
+
+The Compose labs (24–28) find their containers by the folder Compose was run from (the `com.docker.compose.project.working_dir` label), so any project name works, and they don't clash with each other or with the docs' examples.
