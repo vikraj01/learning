@@ -9,6 +9,9 @@ const port = process.env.PORT || 3000;
 const name = process.env.NAME || "friend";
 const color = process.env.COLOR || "white";
 
+console.log("print this");
+console.log("print this");
+
 const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "text/html");
   res.end(`<body style="background:${color}; font-family:sans-serif">

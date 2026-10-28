@@ -3,4 +3,4 @@ WORKDIR /app
 COPY app.js say.js ./
 ENV COLOR=lightblue
 EXPOSE 3000
-CMD ["node", "app.js"]
+CMD ["node", "say.js"]

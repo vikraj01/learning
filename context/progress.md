@@ -10,7 +10,7 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 - `14-compose-greet/` renamed to `14-compose/` (links in README, nav, 13-build-f fixed). Pages: 01 greet (added section roadmap, "before you start", `up` vs `run`), 02 Compose reads `.env` (`${VAR:-default}`, `docker compose config`, terminal > `.env` > default, the blank-string warning; diagram `env-two-jobs`), 03 notes app (section 8's web/api/db, now reading env vars; two networks `front`/`back` so web can't find db, password via `${DB_PASSWORD}`, `restart: unless-stopped`, the POSTGRES_PASSWORD-only-on-first-start catch; diagram `notes-networks`), 04 WordPress + MySQL + phpMyAdmin (images only, settings from Docker Hub pages), `commands.md` (every Compose command and key, with where it was taught). Finished folders: `greet/` (web port is now `${WEB_PORT:-3000}`), `notes-app/`, `wordpress/` (each with its `.env`).
 - New rule: every `docs/**/*.md` in `mkdocs.yml` nav and linked from `docs/README.md`, enforced by Stop hook `.claude/hooks/check-nav.sh`. `mkdocs build` is clean.
 - Checked: `docker compose config` on all three files, interpolation/precedence output, `wordpress:7-apache` tag exists. Not run: the stacks themselves (`up`, ping outputs, WordPress setup screens, phpMyAdmin login) are written from known behaviour, not played through.
-- Still unpushed and untouched: Vikash's `10-tags/greet/` experiments.
+- Vikash's `10-tags/greet/` experiments (`console.log` x2, `CMD` → `say.js`) committed and pushed at his request; the folder no longer matches the tags page.
 
 ## 2026-10-27: no learning work (answered a JMAN Azure question)
 
