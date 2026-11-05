@@ -4,6 +4,11 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-11-05: status check only
+
+- Vikash asked for the repo status. No learning work done.
+- Still uncommitted, waiting on Vikash: `BACKEND_PORT=5000` added to `docs/09-env/greet/.env` (`app.js` already reads it, but no env page mentions it), and a stray file `c` in the repo root that lists JMAN work file paths and looks misplaced. Asked him whether to commit or revert the line, and whether to delete `c` or move it.
+
 ## 2026-10-28: 13 new labs (16–28)
 
 - Vikash: "add more into labs, we have lot more topics". Labs covered docs sections 1–8 only. Added: 16 multi-stage (`small-cow`, Images track); Settings track 17 `-e` vs `ENV`, 18 `--env-file` (read once at create), 19 `.dockerignore` (steal the password from `leaky`, then fix); "Tags, CMD and ENTRYPOINT" track 20 tags/`latest`, 21 CMD, 22 ENTRYPOINT, 23 `build -f` + bind mount + `--watch`; Compose track 24 first compose.yaml (greet), 25 notes app web+api+postgres+volume, 26 password to `${DB_PASSWORD}` in `.env` incl. the first-start catch (`down -v`), 27 two networks, 28 broken compose.yaml (indent, port 80 vs 3000, `DB_HOST: database`).
