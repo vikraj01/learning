@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-11-07: plan for labs, videos and the Azure stack
+
+- Vikash asked for three things (see `decisions.md` 2026-11-07). Wrote him a plan in chat and found the videos: Liz Rice "Containers From Scratch", Petazzoni "Cgroups, namespaces and beyond", Nana's 3-hour course. Nothing built yet.
+- Found: the notes app already reads `API_URL` and `DB_*` from env, but ports 3000/4000 are hardcoded. Vikash's `docs/08-networks-demo/docker-compose.yml` mounts the shared `data` volume over `/app` in api and web, which hides the app code. That could become a lab.
+- Next: Vikash picks where to start, and says what "push to internet" means (registry, or open the web page to the world).
+
 ## 2026-11-07: greeting only
 
 - No learning work done. Stray file `c` is gone. Still waiting on Vikash: the `BACKEND_PORT=5000` line in `docs/09-env/greet/.env` (uncommitted), a new untracked `docs/08-networks-demo/docker-compose.yml`, and an untracked `tf/` folder at the root. Asked what each is for. All three are left alone.
