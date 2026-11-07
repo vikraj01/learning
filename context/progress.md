@@ -4,6 +4,10 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-11-07: greeting only
+
+- No learning work done. Stray file `c` is gone. Still waiting on Vikash: the `BACKEND_PORT=5000` line in `docs/09-env/greet/.env` (uncommitted), a new untracked `docs/08-networks-demo/docker-compose.yml`, and an untracked `tf/` folder at the root. Asked what each is for. All three are left alone.
+
 ## 2026-11-05: status check only
 
 - Vikash asked for the repo status. No learning work done.
