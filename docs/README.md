@@ -140,3 +140,17 @@ More Compose, one example per page: greet with everything from sections 9–13, 
 Quick reference: [Compose commands](14-compose/commands.md).
 
 Finished files: [`14-compose/greet/`](14-compose/greet/), [`14-compose/notes-app/`](14-compose/notes-app/), [`14-compose/wordpress/`](14-compose/wordpress/). Sections 9–13 each have their finished `greet/` folder too.
+
+## 15. Azure stack: Terraform, disks, Docker, backups
+
+The notes app on a real computer in Azure. Terraform makes the network, the VM, an extra data disk and a storage account. Then, on the VM: mount the disk at `/mnt/data`, make Docker keep everything there, run the app from Docker Hub images, and back the database volume up to the storage account and restore it.
+
+1. [What we're building](15-azure-stack/01-what-we-build.md)
+2. [Terraform builds it](15-azure-stack/02-terraform.md)
+3. [Mount the data disk](15-azure-stack/03-mount-the-disk.md)
+4. [Docker on the data disk](15-azure-stack/04-docker-on-the-data-disk.md)
+5. [Push the images](15-azure-stack/05-push-the-images.md)
+6. [Run the notes app on the VM](15-azure-stack/06-run-the-notes-app.md)
+7. [Back up and restore](15-azure-stack/07-backup-and-restore.md)
+
+Files: [`15-azure-stack/terraform/`](15-azure-stack/terraform/), [`15-azure-stack/notes-app/`](15-azure-stack/notes-app/), [`15-azure-stack/vm/`](15-azure-stack/vm/). Diagrams: `azure-stack.excalidraw`, `inside-the-vm.excalidraw`.

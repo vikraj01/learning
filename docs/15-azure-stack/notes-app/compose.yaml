@@ -1,0 +1,55 @@
+# The notes app on the VM. No build: here: the images come from Docker Hub (page 05).
+name: notes
+
+services:
+  web:
+    image: ${DOCKERHUB_USER}/notes-web:1.0
+    environment:
+      PORT: 3000                   # web listens here, inside its container
+      API_URL: http://api:4000
+    ports:
+      - "80:3000"                  # VM port 80 (open to the internet) -> web's 3000
+    networks:
+      - front
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  api:
+    image: ${DOCKERHUB_USER}/notes-api:1.0
+    environment:
+      PORT: 4000
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    networks:
+      - front
+      - back
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - data:/var/lib/postgresql/data   # the volume lives under Docker's data-root: /mnt/data/docker
+    networks:
+      - back
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}"]
+      interval: 2s
+      retries: 10
+    restart: unless-stopped
+
+networks:
+  front:
+  back:
+
+volumes:
+  data:                            # full name: notes_data

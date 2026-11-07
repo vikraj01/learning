@@ -4,6 +4,12 @@ Newest first. Each entry: date, what was done, where things stand, what's next. 
 
 <!-- entries below -->
 
+## 2026-11-07: section 15, the Azure stack
+
+- Built `docs/15-azure-stack/`: pages 01 what we build, 02 Terraform, 03 mount the data disk (Linux tree, lsblk, parted, mkfs.ext4, fstab by UUID + nofail), 04 Docker on the data disk (data-root + containerd root), 05 push images to Docker Hub (ports now from `PORT` env), 06 run the notes app on the VM (port 80, volume under `/mnt/data/docker`), 07 backup/restore to the storage account (managed identity). `terraform/` (azurerm ~>5.0, 14 resources), `notes-app/` (copy of section 14's, `PORT` env, compose with `image:`), `vm/backup.sh` + `restore.sh`. Two black-and-white diagrams: `azure-stack`, `inside-the-vm`. Wired into nav and README.
+- Checked: `terraform validate` + `fmt` clean, `bash -n` on the scripts, `mkdocs build --strict` clean, diagram previews. **Not run**: no `terraform apply`, nothing on a real VM, so the expected outputs (lsblk names, `docker info` driver, az output) are written from known behaviour.
+- Labs and videos: corrected plan given in chat (labs Docker/Compose only, bigger videos). Nothing built for them yet; waiting on Vikash's go.
+
 ## 2026-11-07: plan for labs, videos and the Azure stack
 
 - Vikash asked for three things (see `decisions.md` 2026-11-07). Wrote him a plan in chat and found the videos: Liz Rice "Containers From Scratch", Petazzoni "Cgroups, namespaces and beyond", Nana's 3-hour course. Nothing built yet.

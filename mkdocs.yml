@@ -96,3 +96,11 @@ nav:
       - 14-compose/03-notes-app.md
       - 14-compose/04-wordpress.md
       - 14-compose/commands.md
+  - "15. Azure stack: Terraform, disks, Docker, backups":
+      - 15-azure-stack/01-what-we-build.md
+      - 15-azure-stack/02-terraform.md
+      - 15-azure-stack/03-mount-the-disk.md
+      - 15-azure-stack/04-docker-on-the-data-disk.md
+      - 15-azure-stack/05-push-the-images.md
+      - 15-azure-stack/06-run-the-notes-app.md
+      - 15-azure-stack/07-backup-and-restore.md

@@ -42,6 +42,8 @@ use \\n for line breaks). Boxes grow to fit; `w`/`h` force a size. `size:
 (default), ellipse, diamond.
 
 Colours (nodes, areas, edges): white, blue, green, yellow, red, violet, gray.
+`"mono": true` at the top of the spec draws everything black on white (any
+colour names are ignored): use dashed lines and ✓/✗ in labels for meaning.
 Areas are tinted boxes behind the nodes they list, label top-left, `detail`
 under it. Areas nest: one that lists all of another's nodes wraps around it.
 
@@ -88,7 +90,13 @@ def _id():
     return "".join(_rng.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(12))
 
 
+MONO_MODE = False  # set by draw() from the spec's "mono"
+MONO_COLOR = ("#ffffff", "transparent", INK)
+
+
 def _color(name, where):
+    if MONO_MODE and name in PALETTE:
+        return MONO_COLOR
     if name not in PALETTE:
         sys.exit(f"{where}: unknown color {name!r}; use one of {', '.join(PALETTE)}")
     return PALETTE[name]
@@ -245,7 +253,7 @@ def _badge(number, cx, cy, stroke):
     """A small filled circle with a step number, so a reader can follow 1, 2, 3."""
     group = _id()
     r = 16
-    color = stroke if stroke != INK else "#1971c2"
+    color = stroke if stroke != INK or MONO_MODE else "#1971c2"
     dot = _base("ellipse", cx - r, cy - r, 2 * r, 2 * r, backgroundColor=color, strokeColor=color,
                 roundness={"type": 2}, groupIds=[group])
     num = _text(str(number), cx, cy, 18, color="#ffffff")
@@ -278,6 +286,8 @@ def _note(note):
     tw, th = _text_size(text, size, font)
     w, h = note.get("w") or tw + 2 * pad, th + 2 * pad
     fill, stroke = ("#f1f3f5", "#868e96") if code else ("#fff3bf", "#f08c00")
+    if MONO_MODE:
+        fill, stroke = "#ffffff", INK
     box = _base("rectangle", x, y, w, h, backgroundColor=fill, strokeColor=stroke,
                 roundness={"type": 3}, strokeWidth=1)
     label = _text(text, x + pad, y + pad, size, font, align="left", container=box["id"], anchor="topleft")
@@ -286,6 +296,10 @@ def _note(note):
 
 
 def draw(spec):
+    global MONO_MODE, SOFT
+    MONO_MODE = bool(spec.get("mono"))
+    if MONO_MODE:
+        SOFT = INK
     nodes = spec.get("nodes") or []
     if not nodes:
         sys.exit("spec needs at least one node")

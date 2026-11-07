@@ -1,0 +1,327 @@
+{
+ "mono": true,
+ "title": "The whole stack: Terraform makes it, only two doors are open",
+ "subtitle": "Everything in the resource group comes from terraform apply (14 resources). Images travel laptop → Docker Hub → VM. Backups leave the VM for the storage account.",
+ "nodes": [
+  {
+   "id": "laptop",
+   "label": "Your laptop",
+   "detail": "terraform apply / destroy\ndocker build + push\nssh -i ~/.ssh/azure_learning",
+   "pos": [
+    0,
+    430
+   ],
+   "w": 310,
+   "h": 140
+  },
+  {
+   "id": "user",
+   "label": "Anyone on the internet",
+   "detail": "browser or phone\nhttp://20.26.120.45",
+   "pos": [
+    0,
+    720
+   ],
+   "w": 310,
+   "h": 110
+  },
+  {
+   "id": "other",
+   "label": "Someone else",
+   "detail": "tries ssh on port 22",
+   "pos": [
+    0,
+    960
+   ],
+   "w": 310,
+   "h": 100
+  },
+  {
+   "id": "hub",
+   "label": "Docker Hub",
+   "detail": "tanvikanwar23/notes-web:1.0\ntanvikanwar23/notes-api:1.0\npublic images, no passwords inside",
+   "pos": [
+    1240,
+    -420
+   ],
+   "w": 520,
+   "h": 130
+  },
+  {
+   "id": "pip",
+   "label": "Public IP",
+   "detail": "pip-learning\n20.26.120.45 (static)\nthe VM's address\non the internet",
+   "pos": [
+    520,
+    460
+   ],
+   "w": 240,
+   "h": 200
+  },
+  {
+   "id": "nsg",
+   "label": "NSG (the door list)",
+   "detail": "nsg-learning, on the subnet\n22 from your IP only ✓\n80 from Internet ✓\neverything else ✗",
+   "pos": [
+    880,
+    460
+   ],
+   "w": 290,
+   "h": 200
+  },
+  {
+   "id": "web",
+   "label": "web",
+   "detail": "notes-web:1.0\nPORT=3000\ndoor: VM 80 → 3000",
+   "pos": [
+    1260,
+    420
+   ],
+   "w": 240,
+   "h": 130
+  },
+  {
+   "id": "api",
+   "label": "api",
+   "detail": "notes-api:1.0\nPORT=4000\nno door: private",
+   "pos": [
+    1560,
+    420
+   ],
+   "w": 240,
+   "h": 130
+  },
+  {
+   "id": "db",
+   "label": "db",
+   "detail": "postgres:17-alpine\n:5432\nno door: private",
+   "pos": [
+    1860,
+    420
+   ],
+   "w": 260,
+   "h": 130
+  },
+  {
+   "id": "linux",
+   "label": "vm-learning: Ubuntu 24.04",
+   "detail": "Standard_B2s_v2 · private IP 10.0.1.4\nsshd :22 · Docker · az CLI · VM identity\nruns web, api, db with docker compose up -d",
+   "pos": [
+    1260,
+    610
+   ],
+   "w": 540,
+   "h": 130
+  },
+  {
+   "id": "osdisk",
+   "label": "OS disk",
+   "detail": "disk-os-learning · 30 GB\n/dev/sda1 → /\nLinux itself",
+   "pos": [
+    1260,
+    980
+   ],
+   "w": 300,
+   "h": 130
+  },
+  {
+   "id": "datadisk",
+   "label": "Data disk",
+   "detail": "disk-data-learning · 32 GB · LUN 0\n/dev/sdb1 (ext4) → /mnt/data\nDocker data-root: /mnt/data/docker\nvolume notes_data lives here",
+   "pos": [
+    1860,
+    980
+   ],
+   "w": 380,
+   "h": 150
+  },
+  {
+   "id": "storage",
+   "label": "Storage account",
+   "detail": "stlearningk3x9qa\ncontainer: backups (private)\nnotes-data-<date>.tar.gz",
+   "pos": [
+    1560,
+    1220
+   ],
+   "w": 360,
+   "h": 130
+  }
+ ],
+ "edges": [
+  {
+   "from": "laptop",
+   "to": "hub",
+   "label": "docker push",
+   "step": 1,
+   "via": [
+    [
+     155,
+     -125
+    ]
+   ]
+  },
+  {
+   "from": "hub",
+   "to": "api",
+   "label": "docker compose pull",
+   "step": 2
+  },
+  {
+   "from": "laptop",
+   "to": "pip",
+   "label": "ssh :22 ✓",
+   "step": 3
+  },
+  {
+   "from": "user",
+   "to": "pip",
+   "label": ":80 ✓",
+   "step": 4
+  },
+  {
+   "from": "other",
+   "to": "pip",
+   "label": ":22 ✗ not your IP",
+   "dashed": true,
+   "via": [
+    [
+     430,
+     1010
+    ]
+   ]
+  },
+  {
+   "from": "pip",
+   "to": "nsg"
+  },
+  {
+   "from": "nsg",
+   "to": "web",
+   "label": "80 ✓"
+  },
+  {
+   "from": "nsg",
+   "to": "linux",
+   "label": "22 ✓"
+  },
+  {
+   "from": "web",
+   "to": "api",
+   "label": ":4000"
+  },
+  {
+   "from": "api",
+   "to": "db",
+   "label": ":5432"
+  },
+  {
+   "from": "linux",
+   "to": "osdisk",
+   "label": "/",
+   "via": [
+    [
+     1410,
+     900
+    ]
+   ]
+  },
+  {
+   "from": "db",
+   "to": "datadisk",
+   "label": "volume notes_data",
+   "via": [
+    [
+     2050,
+     900
+    ]
+   ]
+  },
+  {
+   "from": "linux",
+   "to": "storage",
+   "label": "backup.sh uploads\n(VM identity, no password)",
+   "step": 5,
+   "via": [
+    [
+     1680,
+     900
+    ]
+   ]
+  }
+ ],
+ "areas": [
+  {
+   "label": "VM vm-learning",
+   "nodes": [
+    "web",
+    "api",
+    "db",
+    "linux"
+   ]
+  },
+  {
+   "label": "Subnet snet-vm",
+   "detail": "10.0.1.0/24 · the NSG guards it",
+   "nodes": [
+    "nsg",
+    "web",
+    "api",
+    "db",
+    "linux"
+   ]
+  },
+  {
+   "label": "VNet vnet-learning",
+   "detail": "10.0.0.0/16 · our private network",
+   "nodes": [
+    "nsg",
+    "web",
+    "api",
+    "db",
+    "linux"
+   ]
+  },
+  {
+   "label": "Resource group rg-learning (uksouth)",
+   "detail": "everything here is made by terraform apply, and removed by terraform destroy",
+   "nodes": [
+    "pip",
+    "nsg",
+    "web",
+    "api",
+    "db",
+    "linux",
+    "osdisk",
+    "datadisk",
+    "storage"
+   ]
+  }
+ ],
+ "notes": [
+  {
+   "style": "callout",
+   "pos": [
+    0,
+    1460
+   ],
+   "w": 640,
+   "text": "Only two doors: port 80 for everyone (the web page) and port 22 for your laptop only. api and db have no door at all; only web talks to api, only api talks to db.\n\nThe notes live on the data disk, not on Linux's own disk. The backup goes outside the VM, so losing the VM or its disks doesn't lose the notes."
+  },
+  {
+   "style": "code",
+   "pos": [
+    760,
+    1460
+   ],
+   "text": "# laptop, in terraform/\nterraform init\nterraform plan      # 14 to add\nterraform apply\nterraform output\nterraform destroy   # end of session"
+  },
+  {
+   "style": "code",
+   "pos": [
+    1320,
+    1460
+   ],
+   "text": "# laptop\ndocker push $DOCKERHUB_USER/notes-web:1.0\n# VM, in ~/notes\ndocker compose pull && docker compose up -d\n./backup.sh stlearningk3x9qa"
+  }
+ ]
+}

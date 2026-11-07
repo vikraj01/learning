@@ -30,5 +30,6 @@ Draw with `/excalidraw`: a JSON spec → `.claude/skills/excalidraw/draw.py`. Ne
 
 ## Vikash's tweaks
 
+- 2026-11-07: **Black and white only, few colours, detailed; two diagrams if one is too much** (said for section 15). `draw.py` has `"mono": true` in the spec for this: everything black on white, meaning carried by ✓/✗ and dashed lines. Use it for new diagrams unless he says otherwise; the colour rules above are for older sections.
 - 2026-10-22: **Diagrams must explain properly** (see top). Minimal "calm" diagrams are disliked.
 - 2026-10-20: **Show the container as a box.** When a diagram is about what's inside vs outside a container (ports, volumes, networks), draw the container as its own green area inside a grey "Your laptop" area, so it reads as a separate little machine. Ports are small yellow "door" boxes, one on each side of the edge. Plain arrows between floating boxes were "weak" for this.
